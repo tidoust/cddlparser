@@ -14,10 +14,16 @@ __Note:__ This is __work in progress__ and the underlyling Node.js parser is __a
 
 ## How to install and use
 
+Clone the repository:
+
 ```bash
 git clone https//github.com/tidoust/cddlparser
-cd cddlparser
-python .
+```
+
+Then run `cddlparser.py`, passing in the path to a CDDL file as parameter
+
+```bash
+python cddlparser.py tests/__fixtures__/example.cddl
 ```
 
 Through your local copy, you may import
@@ -33,7 +39,7 @@ ast = parse('''
 pprint(ast)
 ```
 
-That should print a serialization of the [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) produced by the parser:
+That should print a serialization of the [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) produced by the parser. For example:
 
 ```
 [Group(name='person',
