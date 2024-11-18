@@ -4,9 +4,8 @@ import sys
 import re
 from pprint import pformat
 
-sys.path.append(os.path.abspath('..'))
-
-from cddlparse.src.parser import Parser
+sys.path.append('..')
+from src.parser import Parser
 
 basepath = os.path.dirname(os.path.realpath(__file__))
 

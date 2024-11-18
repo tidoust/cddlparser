@@ -391,11 +391,10 @@ class Parser:
         # }
         # back to:
         # bool
-        # TODO: this returns a str but function should return an Assignment
-        # if groupName is None and len(valuesOrProperties) == 1 and isinstance(valuesOrProperties[0], Property):
-        #     if valuesOrProperties[0].type in PREDEFINED_IDENTIFIER:
-        #         assert isinstance(valuesOrProperties[0].type, str)
-        #         return valuesOrProperties[0].type
+        if groupName is None and len(valuesOrProperties) == 1 and isinstance(valuesOrProperties[0], Property):
+            if valuesOrProperties[0].type in PREDEFINED_IDENTIFIER:
+                assert isinstance(valuesOrProperties[0].type, str)
+                return [valuesOrProperties[0].type]
 
         # otherwise a group
         return Group(

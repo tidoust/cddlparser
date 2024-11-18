@@ -65,7 +65,7 @@ That should print a serialization of the [Abstract Syntax Tree](https://en.wikip
 ## How to run tests
 
 ```bash
-python tests
+python tests.py
 ```
 
 Parser tests compare the AST produced by the parser with a serialized snapshot of the expected AST. If you make changes to the parser and need to refresh a snapshot, delete the corresponding `tests/__snapshots__/[test].snap` file and run tests again.

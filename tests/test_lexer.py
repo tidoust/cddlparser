@@ -1,11 +1,9 @@
 import unittest
-import os
 import sys
+sys.path.append('..')
 
-sys.path.append(os.path.abspath('..'))
-
-from cddlparse.src.tokens import Tokens
-from cddlparse.src.lexer import Lexer
+from src.tokens import Tokens
+from src.lexer import Lexer
 
 class TestLexer(unittest.TestCase):
     def test_should_allow_to_read_token(self):
