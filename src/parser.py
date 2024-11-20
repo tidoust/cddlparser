@@ -181,7 +181,7 @@ class Parser:
             occurrence = self._parseOccurrences()
 
             # check if variable name is unwrapped
-            if self.curToken.literal == Tokens.TILDE:
+            if self.curToken.type == Tokens.TILDE:
                 isUnwrapped = True
                 self._nextToken() # eat ~
 
@@ -199,9 +199,9 @@ class Parser:
             # script.MappingRemoteValue = [*[(script.RemoteValue / text), script.RemoteValue]];
             # ```
             if (
-                self.curToken.literal == Tokens.LBRACE or
-                self.curToken.literal == Tokens.LBRACK or
-                self.curToken.literal == Tokens.LPAREN
+                self.curToken.type == Tokens.LBRACE or
+                self.curToken.type == Tokens.LBRACK or
+                self.curToken.type == Tokens.LPAREN
             ):
                 innerGroup = self._parseAssignmentValue()
                 assert isinstance(innerGroup, PropertyType) or isinstance(innerGroup, list)
@@ -215,7 +215,7 @@ class Parser:
                 continue
 
             # check if we are in an array and a new item is indicated
-            if self.curToken.literal == Tokens.COMMA and closingTokens[0] == Tokens.RBRACK:
+            if self.curToken.type == Tokens.COMMA and closingTokens[0] == Tokens.RBRACK:
                 self._nextToken()
                 continue
 
@@ -252,8 +252,8 @@ class Parser:
                     comments=[comment] if comment is not None else []
                 ))
 
-                if self.curToken.literal == Tokens.COMMA or self.curToken.literal == closingTokens[0]:
-                    if self.curToken.literal == Tokens.COMMA:
+                if self.curToken.type == Tokens.COMMA or self.curToken.type == closingTokens[0]:
+                    if self.curToken.type == Tokens.COMMA:
                         self._nextToken()
                     continue
 
@@ -452,7 +452,7 @@ class Parser:
         isGroupedRange: bool = False
 
         # check if variable name is unwrapped
-        if self.curToken.literal == Tokens.TILDE:
+        if self.curToken.type == Tokens.TILDE:
             isUnwrapped = True
             self._nextToken() # eat ~
 
@@ -498,7 +498,7 @@ class Parser:
                         Tag(n, t),
                         isUnwrapped
                     )
-                elif self.curToken.literal == Tokens.LPAREN and self.peekToken.type == Tokens.NUMBER:
+                elif self.curToken.type == Tokens.LPAREN and self.peekToken.type == Tokens.NUMBER:
                     self._nextToken()
                     type = PropertyReference(
                         'literal',
@@ -544,7 +544,7 @@ class Parser:
 
     def _parseOperator(self) -> Operator:
         type = self.peekToken.literal
-        if self.curToken.literal != Tokens.DOT or type not in OPERATORS:
+        if self.curToken.type != Tokens.DOT or type not in OPERATORS:
             expectedValues = OPERATORS_EXPECTING_VALUES[type]
             if expectedValues is None:
                 raise Exception(f'Operator ".{type}" is unknown')
@@ -559,7 +559,7 @@ class Parser:
         return Operator(type, value)
 
     def _isOperator(self) -> bool:
-        return self.curToken.literal == Tokens.DOT and self.peekToken.literal in OPERATORS
+        return self.curToken.type == Tokens.DOT and self.peekToken.literal in OPERATORS
 
     def _parsePropertyTypes(self) -> list[PropertyType]:
         propertyTypes: list[PropertyType] = []
