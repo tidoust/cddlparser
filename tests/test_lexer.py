@@ -9,35 +9,35 @@ class TestLexer(unittest.TestCase):
     def test_should_allow_to_read_token(self):
         input = '=+(){},/'
         tests = [
-            [Tokens.ASSIGN, '='],
-            [Tokens.PLUS, '+'],
-            [Tokens.LPAREN, '('],
-            [Tokens.RPAREN, ')'],
-            [Tokens.LBRACE, '{'],
-            [Tokens.RBRACE, '}'],
-            [Tokens.COMMA, ','],
-            [Tokens.SLASH, '/']
+            Tokens.ASSIGN,
+            Tokens.PLUS,
+            Tokens.LPAREN,
+            Tokens.RPAREN,
+            Tokens.LBRACE,
+            Tokens.RBRACE,
+            Tokens.COMMA,
+            Tokens.SLASH
         ]
 
         lexer = Lexer(input)
-        for [type, literal] in tests:
+        for type in tests:
             token = lexer.nextToken()
             self.assertEqual(token.type, type)
-            self.assertEqual(token.literal, literal)
 
     def test_should_read_identifiers_and_comments(self):
-        input = '   headers,       ; Headers for the recipient'
+        input = '   headers,       \n   ; Headers for the recipient'
         tests = [
-            [Tokens.IDENT, 'headers'],
-            [Tokens.COMMA, ','],
-            [Tokens.COMMENT, '; Headers for the recipient']
+            [Tokens.IDENT, 'headers', '   '],
+            [Tokens.COMMA, '', ''],
+            [Tokens.COMMENT, '; Headers for the recipient', '       \n   ']
         ]
 
         lexer = Lexer(input)
-        for [type, literal] in tests:
+        for [type, literal, whitespace] in tests:
             token = lexer.nextToken()
             self.assertEqual(token.type, type)
             self.assertEqual(token.literal, literal)
+            self.assertEqual(token.whitespace, whitespace)
 
 if __name__ == '__main__':
     unittest.main()

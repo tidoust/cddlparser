@@ -53,57 +53,57 @@ class Lexer:
         return locationInfo
 
     def nextToken(self) -> Token:
-        token = Token(Tokens.ILLEGAL, '')
-        self._skipWhitespace()
+        whitespace = self._readWhitespace()
+        token = Token(Tokens.ILLEGAL, '', whitespace)
         literal = chr(self.ch)
         match literal:
             case '=':
-                token = Token(Tokens.ASSIGN, literal)
+                token = Token(Tokens.ASSIGN, '', whitespace)
             case '(':
-                token = Token(Tokens.LPAREN, literal)
+                token = Token(Tokens.LPAREN, '', whitespace)
             case ')':
-                token = Token(Tokens.RPAREN, literal)
+                token = Token(Tokens.RPAREN, '', whitespace)
             case '{':
-                token = Token(Tokens.LBRACE, literal)
+                token = Token(Tokens.LBRACE, '', whitespace)
             case '}':
-                token = Token(Tokens.RBRACE, literal)
+                token = Token(Tokens.RBRACE, '', whitespace)
             case '[':
-                token = Token(Tokens.LBRACK, literal)
+                token = Token(Tokens.LBRACK, '', whitespace)
             case ']':
-                token = Token(Tokens.RBRACK, literal)
+                token = Token(Tokens.RBRACK, '', whitespace)
             case '<':
-                token = Token(Tokens.LT, literal)
+                token = Token(Tokens.LT, '', whitespace)
             case '>':
-                token = Token(Tokens.GT, literal)
+                token = Token(Tokens.GT, '', whitespace)
             case '+':
-                token = Token(Tokens.PLUS, literal)
+                token = Token(Tokens.PLUS, '', whitespace)
             case ',':
-                token = Token(Tokens.COMMA, literal)
+                token = Token(Tokens.COMMA, '', whitespace)
             case '.':
-                token = Token(Tokens.DOT, literal)
+                token = Token(Tokens.DOT, '', whitespace)
             case ':':
-                token = Token(Tokens.COLON, literal)
+                token = Token(Tokens.COLON, '', whitespace)
             case '?':
-                token = Token(Tokens.QUEST, literal)
+                token = Token(Tokens.QUEST, '', whitespace)
             case '/':
-                token = Token(Tokens.SLASH, literal)
+                token = Token(Tokens.SLASH, '', whitespace)
             case '*':
-                token = Token(Tokens.ASTERISK, literal)
+                token = Token(Tokens.ASTERISK, '', whitespace)
             case '^':
-                token = Token(Tokens.CARET, literal)
+                token = Token(Tokens.CARET, '', whitespace)
             case '#':
-                token = Token(Tokens.HASH, literal)
+                token = Token(Tokens.HASH, '', whitespace)
             case '~':
-                token = Token(Tokens.TILDE, literal)
+                token = Token(Tokens.TILDE, '', whitespace)
             case '"':
-                token = Token(Tokens.STRING, self._readString())
+                token = Token(Tokens.STRING, self._readString(), whitespace)
             case ';':
-                token = Token(Tokens.COMMENT, self._readComment())
+                token = Token(Tokens.COMMENT, self._readComment(), whitespace)
             case _:
                 if self.ch == 0:
-                    token = Token(Tokens.EOF, '')
+                    token = Token(Tokens.EOF, '', whitespace)
                 elif isAlphabeticCharacter(literal):
-                    return Token(Tokens.IDENT, self._readIdentifier())
+                    return Token(Tokens.IDENT, self._readIdentifier(), whitespace)
                 elif (
                     # positive number
                     isDigit(literal) or
@@ -113,7 +113,8 @@ class Lexer:
                     numberOrFloat = self._readNumberOrFloat()
                     return Token(
                         Tokens.FLOAT if Tokens.DOT in numberOrFloat else Tokens.NUMBER,
-                        numberOrFloat
+                        numberOrFloat,
+                        whitespace
                     )
 
         self.readChar()
@@ -148,7 +149,7 @@ class Lexer:
         while (self.ch and chr(self.ch) != Tokens.NL):
             self.readChar()
 
-        return self._stripWhitespace(self.input[position:self.position])
+        return self.input[position:self.position]
 
     def _readString(self) -> str:
         position = self.position
@@ -157,7 +158,7 @@ class Lexer:
         while (self.ch and chr(self.ch) != Tokens.QUOT):
             self.readChar() # eat any character until "
 
-        return self._stripWhitespace(self.input[position + 1:self.position])
+        return self.input[position + 1:self.position]
 
     def _readNumberOrFloat(self) -> str:
         position = self.position
@@ -180,11 +181,12 @@ class Lexer:
             foundSpecialCharacter = hasSpecialNumberCharacter(self.ch)
             self.readChar() # eat any character until a non digit or a 2nd dot
 
-        return self._stripWhitespace(self.input[position:self.position])
+        return self.input[position:self.position]
 
-    def _skipWhitespace(self) -> None:
-        while (chr(self.ch) in WHITESPACE_CHARACTERS):
+    def _readWhitespace(self) -> str:
+        position = self.position
+
+        while chr(self.ch) in WHITESPACE_CHARACTERS:
             self.readChar()
 
-    def _stripWhitespace(self, str) -> str:
-        return str.strip(''.join(WHITESPACE_CHARACTERS))
+        return self.input[position:self.position]

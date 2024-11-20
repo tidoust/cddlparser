@@ -1,11 +1,6 @@
 from enum import StrEnum
 from dataclasses import dataclass
 
-@dataclass
-class Token:
-    type: str
-    literal: str
-
 class Tokens(StrEnum):
     ILLEGAL = 'ILLEGAL'
     EOF = 'EOF'
@@ -49,3 +44,8 @@ class Tokens(StrEnum):
     GT = '>'
     QUOT = '"'
 
+@dataclass
+class Token:
+    type: Tokens
+    literal: str
+    whitespace: str = ''
