@@ -1,9 +1,10 @@
 import sys
 from pprint import pprint
 from src.parser import Parser
+from src.ast import CDDLTree
 
-def parse(str):
-    parser = Parser(str)
+def parse(string) -> CDDLTree:
+    parser = Parser(string)
     return parser.parse()
 
 if __name__ == '__main__':
@@ -17,3 +18,4 @@ if __name__ == '__main__':
         f.close()
         ast = parse(cddl)
         pprint(ast)
+        print(ast.str())

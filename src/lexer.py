@@ -1,3 +1,4 @@
+from pprint import pprint
 from dataclasses import dataclass
 from .tokens import Token, Tokens
 from .constants import WHITESPACE_CHARACTERS
@@ -25,6 +26,12 @@ class Lexer:
             self.ch = ord(self.input[self.readPosition])
         self.position = self.readPosition
         self.readPosition += 1
+
+    def _peekAtNextChar(self) -> int:
+        if self.readPosition >= len(self.input):
+            return 0
+        else:
+            return ord(self.input[self.readPosition])
 
     def getLocation(self) -> Location:
         position = self.position - 2
@@ -56,6 +63,7 @@ class Lexer:
         whitespace = self._readWhitespace()
         token = Token(Tokens.ILLEGAL, '', whitespace)
         literal = chr(self.ch)
+        tokenRead = False
         match literal:
             case '=':
                 token = Token(Tokens.ASSIGN, '', whitespace)
@@ -80,7 +88,14 @@ class Lexer:
             case ',':
                 token = Token(Tokens.COMMA, '', whitespace)
             case '.':
-                token = Token(Tokens.DOT, '', whitespace)
+                if chr(self._peekAtNextChar()) == Tokens.DOT:
+                    self.readChar()
+                    token = Token(Tokens.INCLRANGE, '', whitespace)
+                    if chr(self._peekAtNextChar()) == Tokens.DOT:
+                        self.readChar()
+                        token = Token(Tokens.EXCLRANGE, '', whitespace)
+                else:
+                    token = Token(Tokens.DOT, '', whitespace)
             case ':':
                 token = Token(Tokens.COLON, '', whitespace)
             case '?':
@@ -99,11 +114,13 @@ class Lexer:
                 token = Token(Tokens.STRING, self._readString(), whitespace)
             case ';':
                 token = Token(Tokens.COMMENT, self._readComment(), whitespace)
+                tokenRead = True
             case _:
                 if self.ch == 0:
                     token = Token(Tokens.EOF, '', whitespace)
                 elif isAlphabeticCharacter(literal):
-                    return Token(Tokens.IDENT, self._readIdentifier(), whitespace)
+                    token = Token(Tokens.IDENT, self._readIdentifier(), whitespace)
+                    tokenRead = True
                 elif (
                     # positive number
                     isDigit(literal) or
@@ -111,13 +128,15 @@ class Lexer:
                     ((literal == Tokens.MINUS) and isDigit(self.input[self.readPosition]))
                 ):
                     numberOrFloat = self._readNumberOrFloat()
-                    return Token(
+                    token = Token(
                         Tokens.FLOAT if Tokens.DOT in numberOrFloat else Tokens.NUMBER,
                         numberOrFloat,
                         whitespace
                     )
+                    tokenRead = True
 
-        self.readChar()
+        if not tokenRead:
+            self.readChar()
         return token
 
     def _readIdentifier(self) -> str:

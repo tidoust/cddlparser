@@ -29,6 +29,10 @@ class Tokens(StrEnum):
     QUEST = '?'
     ASTERISK = '*'
 
+    # Ranges,
+    INCLRANGE = '..',
+    EXCLRANGE = '...',
+
     # Delimiters,
     COMMA = ','
     DOT = '.'
@@ -49,3 +53,24 @@ class Token:
     type: Tokens
     literal: str
     whitespace: str = ''
+
+    def str(self) -> str:
+        output = self.whitespace
+        match self.type:
+            case Tokens.IDENT:
+                output += self.literal
+            case Tokens.INT:
+                output += self.literal
+            case Tokens.COMMENT:
+                output += self.literal
+            case Tokens.STRING:
+                output += Tokens.QUOT + self.literal + Tokens.QUOT
+            case Tokens.NUMBER:
+                output += self.literal
+            case Tokens.FLOAT:
+                output += self.literal
+            case Tokens.EOF:
+                pass
+            case _:
+                output += str(self.type)
+        return output
