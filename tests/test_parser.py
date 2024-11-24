@@ -54,10 +54,11 @@ class TestParser(unittest.TestCase):
             # Compare with snapshot if it exists
             fsnap = open(snapfile, 'r')
             snap = fsnap.read()
+            fsnap.close()
             self.assertEqual(pformat(ast, width=100), snap)
         else:
             # Create the snapshot if it does not exist yet (in other words, to
             # refresh a snapshot, delete it and run tests again)
             fsnap = open(snapfile, 'w')
             fsnap.write(pformat(ast, width=100))
-        fsnap.close()
+            fsnap.close()
