@@ -1,10 +1,10 @@
 from __future__ import annotations
 from enum import StrEnum
-from typing import Literal, Optional
+from typing import Literal
 from dataclasses import dataclass
 from .tokens import Token
 
-class Type(StrEnum):
+class Types(StrEnum):
     # any types
     ANY = 'any'
 
@@ -67,9 +67,19 @@ class ParentNode:
 AstNode = ParentNode | Token
 
 @dataclass
-class Group(ParentNode):
+class CDDLTree(ParentNode):
     '''
-    a group definition
+    Represents a set of CDDL rules
+    '''
+    rules: list[Rule]
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Rule(ParentNode):
+    '''
+    A group definition
     ```
     person = {
         age: int,
@@ -80,10 +90,40 @@ class Group(ParentNode):
     '''
     name: str
     isChoiceAddition: bool
-    properties: list[Property|list[Property]]
-    comments: list[Comment]
-    operator: Optional[Operator] = None
-    type: Literal['group'] = 'group'
+    type: Type | GroupEntry
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class GroupEntry(ParentNode):
+    '''
+    A group entry
+    '''
+    occurrence: Occurrence
+    key: Memberkey | None
+    type: Type | Group
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Group(ParentNode):
+    '''
+    A group, meaning a list of group choices
+    '''
+    groupChoices: list[GroupChoice]
+    isMap: bool
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class GroupChoice(ParentNode):
+    '''
+    A group choice
+    '''
+    groupEntries: list[GroupEntry]
 
     def __post_init__(self):
         super().__init__()
@@ -91,49 +131,27 @@ class Group(ParentNode):
 @dataclass
 class Array(ParentNode):
     '''
-    an array definition
+    An array
     ```
-    Geography = [
-        city: tstr
-    ]
+    [ city: tstr ]
     ```
     '''
-    name: str
-    values: list[Property|list[Property]]
-    comments: list[Comment]
-    type: Literal['array'] = 'array'
+    groupChoices: list[GroupChoice]
 
     def __post_init__(self):
         super().__init__()
+
 
 @dataclass
 class Tag(ParentNode):
     '''
-    a tag definition
+    A tag definition
     ```
     #6.32(tstr)
     ```
     '''
-    numericPart: float | int
-    typePart: str
-
-    def __post_init__(self):
-        super().__init__()
-
-@dataclass
-class Variable(ParentNode):
-    '''
-    a variable assignment
-    ```
-    device-address = byte
-    ```
-    '''
-    name: str
-    isChoiceAddition: bool
-    propertyType: PropertyType | PropertyTypes
-    comments: list[Comment]
-    operator: Optional[Operator] = None
-    type: Literal['variable'] = 'variable'
+    numericPart: float | int | None = None
+    typePart: Type | None = None
 
     def __post_init__(self):
         super().__init__()
@@ -148,7 +166,6 @@ class Comment(ParentNode):
     '''
     content: str
     leading: bool
-    type: Literal['comment'] = 'comment'
 
     def __post_init__(self):
         super().__init__()
@@ -162,95 +179,93 @@ class Occurrence(ParentNode):
         super().__init__()
 
 @dataclass
-class Property(ParentNode):
-    hasCut: bool
-    occurrence: Occurrence
-    name: str
-    type: PropertyType | PropertyTypes
-    comments: list[Comment]
-    operator: Optional[Operator] = None
+class Value(ParentNode):
+    '''
+    A value (number, text or bytes)
+    '''
+    value: str | int | float
 
     def __post_init__(self):
         super().__init__()
 
-'''
-can be a number, e.g. "foo = 0..10"
-```
-{
-  Type: "int",
-  Value: 6
-}
-```
-or a literal, e.g. "foo = 0..max-byte"
-```
-{
-  Type: "literal",
-  Value: "max-byte"
-}
-```
-'''
-RangePropertyReference = float | int | str
+@dataclass
+class Typename(ParentNode):
+    '''
+    A typename (or groupname)
+    '''
+    name: str
+    unwrapped: bool
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Reference(ParentNode):
+    '''
+    A reference to another production
+    '''
+    target: Group | Typename
+
+    def __post_init__(self):
+        super().__init__()
+
+# A type2 production is one of a few possibilities
+Type2 = Value | Typename | Group | Array | Reference | Tag
 
 @dataclass
 class Range(ParentNode):
-    min: RangePropertyReference
-    max: RangePropertyReference
+    '''
+    A Range is a specific kind of Type1.
+
+    The grammar allows a range boundary to be a Type2. In practice, it can only
+    be an integer, a float, or a reference to a value that holds an integer or
+    a float.
+    '''
+    min: Value | Typename
+    max: Value | Typename
     inclusive: bool
 
     def __post_init__(self):
         super().__init__()
 
-OperatorType = Literal['default', 'size', 'regexp', 'bits', 'and', 'within', 'eq', 'ne', 'lt', 'le', 'gt', 'ge']
+'''
+Known control operators
+'''
+OperatorName = Literal[
+    'default', 'size', 'regexp', 'bits', 'and', 'within',
+    'eq', 'ne', 'lt', 'le', 'gt', 'ge'
+]
 
 @dataclass
 class Operator(ParentNode):
-    type: OperatorType
-    value: PropertyType
+    '''
+    An operator is a specific type of Type1
+    '''
+    type: Type2
+    name: OperatorName
+    controller: Type2
 
     def __post_init__(self):
         super().__init__()
 
-PropertyReferenceType = Literal['literal', 'group', 'group_array', 'array', 'range', 'tag']
+# A Type1 production is either a Type2, a Range or an Operator
+Type1 = Type2 | Range | Operator
+
 
 @dataclass
-class PropertyReference(ParentNode):
-    type: PropertyReferenceType
-    value: str | float | int | bool | Group | Array | Range | Tag
-    unwrapped: bool
-    operator: Optional[Operator] = None
+class Memberkey(ParentNode):
+    type: Type1
+    hasCut: bool
 
     def __post_init__(self):
         super().__init__()
 
 @dataclass
-class StrPropertyType(ParentNode):
-    value: str
-
-@dataclass
-class NativeTypeWithOperator(ParentNode):
-    type: StrPropertyType | PropertyReference
-    operator: Optional[Operator] = None
-
-    def __init__(self, type: StrPropertyType | PropertyReference, operator: Optional[Operator] = None):
-        self.type = type
-        self.operator = operator
-        self.children = [type]
-        if operator is not None:
-            self.children.append(operator)
-
-Assignment = Group | Array | Variable
-PropertyType = Assignment | PropertyReference | StrPropertyType | NativeTypeWithOperator
-
-@dataclass
-class PropertyTypes(ParentNode):
-    types: list[PropertyType]
-
-@dataclass
-class CDDLTree:
+class Type(ParentNode):
     '''
-    Represents a set of CDDL assignments
+    A Type is a list of Type1, each representing a possible choice.
     '''
-    assignments: list[Assignment]
+    types: list[Type1]
 
-    def str(self) -> str:
-        return ''.join([child.str() for child in self.assignments])
+    def __post_init__(self):
+        super().__init__()

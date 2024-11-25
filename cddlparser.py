@@ -17,5 +17,11 @@ if __name__ == '__main__':
         cddl = f.read()
         f.close()
         ast = parse(cddl)
+        print('Abstract syntax tree (AST)')
+        print('--------------------')
         pprint(ast)
+
+        print()
+        print('AST re-serialization')
+        print('--------------------')
         print(ast.str())

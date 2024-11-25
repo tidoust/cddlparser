@@ -27,11 +27,11 @@ class Lexer:
         self.position = self.readPosition
         self.readPosition += 1
 
-    def _peekAtNextChar(self) -> int:
+    def _peekAtNextChar(self) -> str:
         if self.readPosition >= len(self.input):
-            return 0
+            return ''
         else:
-            return ord(self.input[self.readPosition])
+            return self.input[self.readPosition]
 
     def getLocation(self) -> Location:
         position = self.position - 2
@@ -66,7 +66,11 @@ class Lexer:
         tokenRead = False
         match literal:
             case '=':
-                token = Token(Tokens.ASSIGN, '', whitespace)
+                if self._peekAtNextChar() == '>':
+                    self.readChar()
+                    token = Token(Tokens.ARROWMAP, '', whitespace)
+                else:
+                    token = Token(Tokens.ASSIGN, '', whitespace)
             case '(':
                 token = Token(Tokens.LPAREN, '', whitespace)
             case ')':
@@ -88,20 +92,32 @@ class Lexer:
             case ',':
                 token = Token(Tokens.COMMA, '', whitespace)
             case '.':
-                if chr(self._peekAtNextChar()) == Tokens.DOT:
+                if self._peekAtNextChar() == '.':
                     self.readChar()
                     token = Token(Tokens.INCLRANGE, '', whitespace)
-                    if chr(self._peekAtNextChar()) == Tokens.DOT:
+                    if self._peekAtNextChar() == '.':
                         self.readChar()
                         token = Token(Tokens.EXCLRANGE, '', whitespace)
-                else:
-                    token = Token(Tokens.DOT, '', whitespace)
+                elif isAlphabeticCharacter(self._peekAtNextChar()):
+                    self.readChar()
+                    token = Token(Tokens.CTLOP, self._readIdentifier(), whitespace)
+                    tokenRead = True
             case ':':
                 token = Token(Tokens.COLON, '', whitespace)
             case '?':
                 token = Token(Tokens.QUEST, '', whitespace)
             case '/':
-                token = Token(Tokens.SLASH, '', whitespace)
+                if self._peekAtNextChar() == '/':
+                    self.readChar()
+                    token = Token(Tokens.GCHOICE, '', whitespace)
+                    if self._peekAtNextChar() == '=':
+                        self.readChar()
+                        token = Token(Tokens.GCHOICEALT, '', whitespace)
+                elif self._peekAtNextChar() == '=':
+                    self.readChar()
+                    token = Token(Tokens.TCHOICEALT, '', whitespace)
+                else:
+                    token = Token(Tokens.TCHOICE, '', whitespace)
             case '*':
                 token = Token(Tokens.ASTERISK, '', whitespace)
             case '^':
@@ -129,7 +145,7 @@ class Lexer:
                 ):
                     numberOrFloat = self._readNumberOrFloat()
                     token = Token(
-                        Tokens.FLOAT if Tokens.DOT in numberOrFloat else Tokens.NUMBER,
+                        Tokens.FLOAT if '.' in numberOrFloat else Tokens.NUMBER,
                         numberOrFloat,
                         whitespace
                     )
@@ -150,13 +166,7 @@ class Lexer:
             # a digit (0-9)
             isDigit(chr(self.ch)) or
             # and special characters (-, _, @, ., $)
-            self.ch in [
-                ord(Tokens.MINUS),
-                ord(Tokens.UNDERSCORE),
-                ord(Tokens.ATSIGN),
-                ord(Tokens.DOT),
-                ord(Tokens.DOLLAR)
-            ]
+            self.ch in [ord(c) for c in '-_@.$']
         ):
             self.readChar()
 

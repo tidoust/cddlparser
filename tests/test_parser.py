@@ -87,12 +87,12 @@ class TestParser(unittest.TestCase):
             fsnap = open(snapfile, 'r')
             snap = fsnap.read()
             fsnap.close()
-            self.assertEqual(pformat(ast.assignments, width=100), snap)
+            self.assertEqual(pformat(ast.rules), snap)
         else:
             # Create the snapshot if it does not exist yet (in other words, to
             # refresh a snapshot, delete it and run tests again)
             fsnap = open(snapfile, 'w')
-            fsnap.write(pformat(ast.assignments, width=100))
+            fsnap.write(pformat(ast.rules))
             fsnap.close()
 
     def _test_serialize_file(self, file):

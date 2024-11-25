@@ -12,20 +12,25 @@ class Tokens(StrEnum):
     CARET = '^'
     HASH = '#'
     TILDE = '~'
+    AMPERSAND = '&'
 
     # Identifiers + literals,
     IDENT = 'IDENT'
-    INT = 'INT'
     COMMENT = 'COMMENT'
     STRING = 'STRING'
     NUMBER = 'NUMBER'
     FLOAT = 'FLOAT'
+    CTLOP = 'CTLOP'
 
     # Operators,
     ASSIGN = '='
+    ARROWMAP = '=>'
+    TCHOICE = '/'
+    GCHOICE = '//'
+    TCHOICEALT = '/='
+    GCHOICEALT = '//='
     PLUS = '+'
     MINUS = '-'
-    SLASH = '/'
     QUEST = '?'
     ASTERISK = '*'
 
@@ -59,16 +64,16 @@ class Token:
         match self.type:
             case Tokens.IDENT:
                 output += self.literal
-            case Tokens.INT:
-                output += self.literal
             case Tokens.COMMENT:
                 output += self.literal
             case Tokens.STRING:
-                output += Tokens.QUOT + self.literal + Tokens.QUOT
+                output += '"' + self.literal + '"'
             case Tokens.NUMBER:
                 output += self.literal
             case Tokens.FLOAT:
                 output += self.literal
+            case Tokens.CTLOP:
+                output += '.' + self.literal
             case Tokens.EOF:
                 pass
             case _:
