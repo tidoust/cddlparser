@@ -12,22 +12,31 @@ class Tokens(StrEnum):
     CARET = '^'
     HASH = '#'
     TILDE = '~'
+    AMPERSAND = '&'
 
     # Identifiers + literals,
     IDENT = 'IDENT'
-    INT = 'INT'
     COMMENT = 'COMMENT'
     STRING = 'STRING'
     NUMBER = 'NUMBER'
     FLOAT = 'FLOAT'
+    CTLOP = 'CTLOP'
 
     # Operators,
     ASSIGN = '='
+    ARROWMAP = '=>'
+    TCHOICE = '/'
+    GCHOICE = '//'
+    TCHOICEALT = '/='
+    GCHOICEALT = '//='
     PLUS = '+'
     MINUS = '-'
-    SLASH = '/'
     QUEST = '?'
     ASTERISK = '*'
+
+    # Ranges,
+    INCLRANGE = '..',
+    EXCLRANGE = '...',
 
     # Delimiters,
     COMMA = ','
@@ -49,3 +58,24 @@ class Token:
     type: Tokens
     literal: str
     whitespace: str = ''
+
+    def str(self) -> str:
+        output = self.whitespace
+        match self.type:
+            case Tokens.IDENT:
+                output += self.literal
+            case Tokens.COMMENT:
+                output += self.literal
+            case Tokens.STRING:
+                output += '"' + self.literal + '"'
+            case Tokens.NUMBER:
+                output += self.literal
+            case Tokens.FLOAT:
+                output += self.literal
+            case Tokens.CTLOP:
+                output += '.' + self.literal
+            case Tokens.EOF:
+                pass
+            case _:
+                output += str(self.type)
+        return output

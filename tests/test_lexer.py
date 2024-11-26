@@ -16,7 +16,7 @@ class TestLexer(unittest.TestCase):
             Tokens.LBRACE,
             Tokens.RBRACE,
             Tokens.COMMA,
-            Tokens.SLASH
+            Tokens.TCHOICE
         ]
 
         lexer = Lexer(input)

@@ -1,100 +1,13 @@
 from __future__ import annotations
 from enum import StrEnum
-from typing import Literal, Optional
+from typing import Literal
 from dataclasses import dataclass
+from .tokens import Token
 
-@dataclass
-class Group:
-    '''
-    a group definition
-    ```
-    person = {
-        age: int,
-        name: tstr,
-        employer: tstr,
-    }
-    ```
-    '''
-    name: str
-    isChoiceAddition: bool
-    properties: list[Property|list[Property]]
-    comments: list[Comment]
-    type: Literal['group'] = 'group'
-
-@dataclass
-class Array:
-    '''
-    an array definition
-    ```
-    Geography = [
-        city: tstr
-    ]
-    ```
-    '''
-    name: str
-    values: list[Property|list[Property]]
-    comments: list[Comment]
-    type: Literal['array'] = 'array'
-
-@dataclass
-class Tag:
-    '''
-    a tag definition
-    ```
-    #6.32(tstr)
-    ```
-    '''
-    numericPart: float | int
-    typePart: str
-
-@dataclass
-class Variable:
-    '''
-    a variable assignment
-    ```
-    device-address = byte
-    ```
-    '''
-    name: str
-    isChoiceAddition: bool
-    propertyType: PropertyType | list[PropertyType]
-    comments: list[Comment]
-    operator: Optional[Operator] = None
-    type: Literal['variable'] = 'variable'
-
-@dataclass
-class Comment:
-    '''
-    a comment statement
-    ```
-    ; This is a comment
-    ```
-    '''
-    content: str
-    leading: bool
-    type: Literal['comment'] = 'comment'
-
-@dataclass
-class Occurrence:
-    n: int
-    m: int
-    def __init__(self, n, m):
-        self.n = n
-        self.m = m
-
-@dataclass
-class Property:
-    hasCut: bool
-    occurrence: Occurrence
-    name: PropertyName
-    type: PropertyType | list[PropertyType]
-    comments: list[Comment]
-    operator: Optional[Operator] = None
-
-class Type(StrEnum):
+class Types(StrEnum):
     # any types
     ANY = 'any'
-    
+
     # boolean types
     # Boolean value (major type 7, additional information 20 or 21).
     BOOL = 'bool'
@@ -129,51 +42,230 @@ class Type(StrEnum):
     NIL = 'nil'
     NULL = 'null'
 
-'''
-can be a number, e.g. "foo = 0..10"
-```
-{
-  Type: "int",
-  Value: 6
-}
-```
-or a literal, e.g. "foo = 0..max-byte"
-```
-{
-  Type: "literal",
-  Value: "max-byte"
-}
-```
-'''
-RangePropertyReference = float | int | str
+class ParentNode:
+    '''
+    To allow re-serialization of the abstract syntax tree in a way that
+    preserves whitespaces, the parser needs to record the list of tokens that
+    were used to compile each node.
+
+    In practice, this is done by linking nodes through an actual tree
+    structure, using Token as the leaf class.
+
+    To ease more semantic uses of the tree, nodes also contain more concrete
+    and directly useful properties. For example, a Group "name" will be the
+    IDENT token child of the node, but it's also recorded in the "name"
+    property.
+    '''
+    children: list[AstNode] = []
+
+    def __init__(self) -> None:
+        self.children = []
+
+    def str(self) -> str:
+        return ''.join([child.str() for child in self.children])
+
+AstNode = ParentNode | Token
 
 @dataclass
-class Range:
-    min: RangePropertyReference
-    max: RangePropertyReference
+class CDDLTree(ParentNode):
+    '''
+    Represents a set of CDDL rules
+    '''
+    rules: list[Rule]
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Rule(ParentNode):
+    '''
+    A group definition
+    ```
+    person = {
+        age: int,
+        name: tstr,
+        employer: tstr,
+    }
+    ```
+    '''
+    name: str
+    isChoiceAddition: bool
+    type: Type | GroupEntry
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class GroupEntry(ParentNode):
+    '''
+    A group entry
+    '''
+    occurrence: Occurrence
+    key: Memberkey | None
+    type: Type | Group
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Group(ParentNode):
+    '''
+    A group, meaning a list of group choices
+    '''
+    groupChoices: list[GroupChoice]
+    isMap: bool
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class GroupChoice(ParentNode):
+    '''
+    A group choice
+    '''
+    groupEntries: list[GroupEntry]
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Array(ParentNode):
+    '''
+    An array
+    ```
+    [ city: tstr ]
+    ```
+    '''
+    groupChoices: list[GroupChoice]
+
+    def __post_init__(self):
+        super().__init__()
+
+
+@dataclass
+class Tag(ParentNode):
+    '''
+    A tag definition
+    ```
+    #6.32(tstr)
+    ```
+    '''
+    numericPart: float | int | None = None
+    typePart: Type | None = None
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Comment(ParentNode):
+    '''
+    a comment statement
+    ```
+    ; This is a comment
+    ```
+    '''
+    content: str
+    leading: bool
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Occurrence(ParentNode):
+    n: int | float
+    m: int | float
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Value(ParentNode):
+    '''
+    A value (number, text or bytes)
+    '''
+    value: str | int | float
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Typename(ParentNode):
+    '''
+    A typename (or groupname)
+    '''
+    name: str
+    unwrapped: bool
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class Reference(ParentNode):
+    '''
+    A reference to another production
+    '''
+    target: Group | Typename
+
+    def __post_init__(self):
+        super().__init__()
+
+# A type2 production is one of a few possibilities
+Type2 = Value | Typename | Group | Array | Reference | Tag
+
+@dataclass
+class Range(ParentNode):
+    '''
+    A Range is a specific kind of Type1.
+
+    The grammar allows a range boundary to be a Type2. In practice, it can only
+    be an integer, a float, or a reference to a value that holds an integer or
+    a float.
+    '''
+    min: Value | Typename
+    max: Value | Typename
     inclusive: bool
 
-OperatorType = Literal['default', 'size', 'regexp', 'bits', 'and', 'within', 'eq', 'ne', 'lt', 'le', 'gt', 'ge']
+    def __post_init__(self):
+        super().__init__()
+
+'''
+Known control operators
+'''
+OperatorName = Literal[
+    'default', 'size', 'regexp', 'bits', 'and', 'within',
+    'eq', 'ne', 'lt', 'le', 'gt', 'ge'
+]
 
 @dataclass
-class Operator:
-    type: OperatorType
-    value: PropertyType
+class Operator(ParentNode):
+    '''
+    An operator is a specific type of Type1
+    '''
+    type: Type2
+    name: OperatorName
+    controller: Type2
 
-PropertyReferenceType = Literal['literal', 'group', 'group_array', 'array', 'range', 'tag']
+    def __post_init__(self):
+        super().__init__()
+
+# A Type1 production is either a Type2, a Range or an Operator
+Type1 = Type2 | Range | Operator
+
 
 @dataclass
-class PropertyReference:
-    type: PropertyReferenceType
-    value: str | float | int | bool | Group | Array | Range | Tag
-    unwrapped: bool
-    operator: Optional[Operator] = None
+class Memberkey(ParentNode):
+    type: Type1
+    hasCut: bool
+
+    def __post_init__(self):
+        super().__init__()
 
 @dataclass
-class NativeTypeWithOperator:
-    type: str | PropertyReference
-    operator: Optional[Operator] = None
+class Type(ParentNode):
+    '''
+    A Type is a list of Type1, each representing a possible choice.
+    '''
+    types: list[Type1]
 
-Assignment = Group | Array | Variable
-PropertyType = Assignment | Array | PropertyReference | str | NativeTypeWithOperator
-PropertyName = str
+    def __post_init__(self):
+        super().__init__()
