@@ -4,7 +4,7 @@ from typing import Literal
 from dataclasses import dataclass
 from .tokens import Token
 
-class ParentNode:
+class AstNode:
     '''
     To allow re-serialization of the abstract syntax tree in a way that
     preserves whitespaces, the parser needs to record the list of tokens that
@@ -18,7 +18,7 @@ class ParentNode:
     IDENT token child of the node, but it's also recorded in the "name"
     property.
     '''
-    children: list[AstNode] = []
+    children: list[CDDLNode] = []
 
     def __init__(self) -> None:
         self.children = []
@@ -26,10 +26,10 @@ class ParentNode:
     def str(self) -> str:
         return ''.join([child.str() for child in self.children])
 
-AstNode = ParentNode | Token
+CDDLNode = AstNode | Token
 
 @dataclass
-class CDDLTree(ParentNode):
+class CDDLTree(AstNode):
     '''
     Represents a set of CDDL rules
     '''
@@ -39,7 +39,7 @@ class CDDLTree(ParentNode):
         super().__init__()
 
 @dataclass
-class Rule(ParentNode):
+class Rule(AstNode):
     '''
     A group definition
     ```
@@ -58,7 +58,7 @@ class Rule(ParentNode):
         super().__init__()
 
 @dataclass
-class GroupEntry(ParentNode):
+class GroupEntry(AstNode):
     '''
     A group entry
     '''
@@ -70,7 +70,7 @@ class GroupEntry(ParentNode):
         super().__init__()
 
 @dataclass
-class Group(ParentNode):
+class Group(AstNode):
     '''
     A group, meaning a list of group choices
     '''
@@ -81,7 +81,7 @@ class Group(ParentNode):
         super().__init__()
 
 @dataclass
-class GroupChoice(ParentNode):
+class GroupChoice(AstNode):
     '''
     A group choice
     '''
@@ -91,7 +91,7 @@ class GroupChoice(ParentNode):
         super().__init__()
 
 @dataclass
-class Array(ParentNode):
+class Array(AstNode):
     '''
     An array
     ```
@@ -105,7 +105,7 @@ class Array(ParentNode):
 
 
 @dataclass
-class Tag(ParentNode):
+class Tag(AstNode):
     '''
     A tag definition
     ```
@@ -119,7 +119,7 @@ class Tag(ParentNode):
         super().__init__()
 
 @dataclass
-class Comment(ParentNode):
+class Comment(AstNode):
     '''
     a comment statement
     ```
@@ -133,7 +133,7 @@ class Comment(ParentNode):
         super().__init__()
 
 @dataclass
-class Occurrence(ParentNode):
+class Occurrence(AstNode):
     n: int | float
     m: int | float
 
@@ -141,7 +141,7 @@ class Occurrence(ParentNode):
         super().__init__()
 
 @dataclass
-class Value(ParentNode):
+class Value(AstNode):
     '''
     A value (number, text or bytes)
     '''
@@ -152,7 +152,7 @@ class Value(ParentNode):
         super().__init__()
 
 @dataclass
-class Typename(ParentNode):
+class Typename(AstNode):
     '''
     A typename (or groupname)
     '''
@@ -164,7 +164,7 @@ class Typename(ParentNode):
         super().__init__()
 
 @dataclass
-class Reference(ParentNode):
+class Reference(AstNode):
     '''
     A reference to another production
     '''
@@ -177,7 +177,7 @@ class Reference(ParentNode):
 Type2 = Value | Typename | Group | Array | Reference | Tag
 
 @dataclass
-class Range(ParentNode):
+class Range(AstNode):
     '''
     A Range is a specific kind of Type1.
 
@@ -210,7 +210,7 @@ OperatorName = Literal[
 ]
 
 @dataclass
-class Operator(ParentNode):
+class Operator(AstNode):
     '''
     An operator is a specific type of Type1
     '''
@@ -226,7 +226,7 @@ Type1 = Type2 | Range | Operator
 
 
 @dataclass
-class Memberkey(ParentNode):
+class Memberkey(AstNode):
     type: Type1
     hasCut: bool
 
@@ -234,7 +234,7 @@ class Memberkey(ParentNode):
         super().__init__()
 
 @dataclass
-class Type(ParentNode):
+class Type(AstNode):
     '''
     A Type is a list of Type1, each representing a possible choice.
     '''
@@ -244,7 +244,7 @@ class Type(ParentNode):
         super().__init__()
 
 @dataclass
-class GenericParameters(ParentNode):
+class GenericParameters(AstNode):
     '''
     A set of generic parameters
     '''
@@ -254,7 +254,7 @@ class GenericParameters(ParentNode):
         super().__init__()
 
 @dataclass
-class GenericArguments(ParentNode):
+class GenericArguments(AstNode):
     '''
     A set of generic arguments
     '''

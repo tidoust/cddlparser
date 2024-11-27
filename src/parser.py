@@ -7,7 +7,7 @@ from .lexer import Lexer
 from .tokens import Token, Tokens
 from .constants import PREDEFINED_IDENTIFIER, BOOLEAN_LITERALS
 from .utils import parseNumberValue
-from .ast import AstNode, CDDLTree, Rule, GroupEntry, Group, GroupChoice, \
+from .ast import CDDLNode, CDDLTree, Rule, GroupEntry, Group, GroupChoice, \
     Array, Type, Type1, Type2, Typename, Value, Operator, Tag, Range, \
     Memberkey, Reference, Occurrence, Comment, OperatorName, \
     GenericParameters, GenericArguments
@@ -32,7 +32,7 @@ class Parser:
 
         # cddl = S 1*(rule S)
         # Parse potential comments in the initial S
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
         children.extend(self._parseComments())
 
         while (self.curToken.type != Tokens.EOF):
@@ -57,7 +57,7 @@ class Parser:
         distinguish in the end (without validating that the construct is
         correct)
         '''
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
 
         # First thing we expect in a rule is a typename or a groupname
         typename = self._parseTypename(definition=True, unwrapped=False)
@@ -91,7 +91,7 @@ class Parser:
 
         The function can also be used to parse a type
         '''
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
 
         occurrence = self._parseOccurrence()
         if occurrence is None:
@@ -128,7 +128,7 @@ class Parser:
                   / value S ":"
         wrapped = "(" S group S ")"
         '''
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
 
         altTypes: list[Type1] = []
         type1 = self._parseType1(loose)
@@ -180,7 +180,7 @@ class Parser:
 
         From an AST perspective, Type1 = Type2 | Range | Operator
         '''
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
         type2 = self._parseType2(loose)
         children.append(type2)
         comments = self._parseComments()
@@ -231,7 +231,7 @@ class Parser:
         used in grpent:
               / "(" S group S ")"
         '''
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
         node: Type2
         match self.curToken.type:
             case Tokens.LPAREN:
@@ -368,7 +368,7 @@ class Parser:
         A group construct may be empty, but since it can only appear enclosed
         in parentheses, braces or brackets, it's easy to know when to stop.
         '''
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
 
         groupChoices: list[GroupChoice] = []
         groupEntries: list[GroupEntry] = []
@@ -402,7 +402,7 @@ class Parser:
         return node
 
     def _parseOccurrence(self) -> Occurrence | None:
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
         occurrence: Occurrence | None = None
 
         # check for non-numbered occurrence indicator, e.g.
@@ -460,7 +460,7 @@ class Parser:
         if self.curToken.type != Tokens.COMMENT:
             return None
         comment = re.sub(r'^;(\s*)', '', self.curToken.literal)
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
         children.append(self._nextToken())
 
         node = Comment(comment, isLeading)
@@ -501,7 +501,7 @@ class Parser:
         '''
         if self.curToken.type != Tokens.LT:
             return None
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
         children.append(self._nextToken())
         children.extend(self._parseComments())
 
@@ -534,7 +534,7 @@ class Parser:
         '''
         if self.curToken.type != Tokens.LT:
             return None
-        children: list[AstNode] = []
+        children: list[CDDLNode] = []
         children.append(self._nextToken())
         children.extend(self._parseComments())
 
