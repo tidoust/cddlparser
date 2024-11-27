@@ -5,8 +5,6 @@ from typing import cast, get_args
 
 from .lexer import Lexer
 from .tokens import Token, Tokens
-from .constants import PREDEFINED_IDENTIFIER, BOOLEAN_LITERALS
-from .utils import parseNumberValue
 from .ast import CDDLNode, CDDLTree, Rule, GroupEntry, Group, GroupChoice, \
     Array, Type, Type1, Type2, Typename, Value, Operator, Tag, Range, \
     Memberkey, Reference, Occurrence, Comment, OperatorName, \

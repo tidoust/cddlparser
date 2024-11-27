@@ -16,13 +16,3 @@ def hasSpecialNumberCharacter(ch: int) -> bool:
         ch == ord('x') or
         ch == ord('b')
     )
-
-def parseNumberValue(token: Token) -> str | float | int:
-    if token.type == Tokens.FLOAT:
-        return float(token.literal)
-
-    if 'x' in token.literal or 'b' in token.literal:
-        return token.literal
-
-    return int(token.literal)
-
