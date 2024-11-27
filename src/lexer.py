@@ -131,6 +131,8 @@ class Lexer:
             case ';':
                 token = Token(Tokens.COMMENT, self._readComment(), whitespace)
                 tokenRead = True
+            case '&':
+                token = Token(Tokens.AMPERSAND, '', whitespace)
             case _:
                 if self.ch == 0:
                     token = Token(Tokens.EOF, '', whitespace)
