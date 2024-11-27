@@ -119,20 +119,6 @@ class Tag(AstNode):
         super().__init__()
 
 @dataclass
-class Comment(AstNode):
-    '''
-    a comment statement
-    ```
-    ; This is a comment
-    ```
-    '''
-    content: str
-    leading: bool
-
-    def __post_init__(self):
-        super().__init__()
-
-@dataclass
 class Occurrence(AstNode):
     n: int | float
     m: int | float

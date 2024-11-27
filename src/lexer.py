@@ -60,101 +60,105 @@ class Lexer:
         return locationInfo
 
     def nextToken(self) -> Token:
-        whitespace = self._readWhitespace()
-        token = Token(Tokens.ILLEGAL, '', whitespace)
+        comments = self._readComments()
+        whitespace = ''
+        if len(comments) > 0 and comments[-1].literal == '':
+            whitespace = comments[-1].whitespace
+            comments.pop()
+        token = Token(Tokens.ILLEGAL, '')
         literal = chr(self.ch)
         tokenRead = False
         match literal:
             case '=':
                 if self._peekAtNextChar() == '>':
                     self.readChar()
-                    token = Token(Tokens.ARROWMAP, '', whitespace)
+                    token = Token(Tokens.ARROWMAP, '', comments, whitespace)
                 else:
-                    token = Token(Tokens.ASSIGN, '', whitespace)
+                    token = Token(Tokens.ASSIGN, '', comments, whitespace)
             case '(':
-                token = Token(Tokens.LPAREN, '', whitespace)
+                token = Token(Tokens.LPAREN, '', comments, whitespace)
             case ')':
-                token = Token(Tokens.RPAREN, '', whitespace)
+                token = Token(Tokens.RPAREN, '', comments, whitespace)
             case '{':
-                token = Token(Tokens.LBRACE, '', whitespace)
+                token = Token(Tokens.LBRACE, '', comments, whitespace)
             case '}':
-                token = Token(Tokens.RBRACE, '', whitespace)
+                token = Token(Tokens.RBRACE, '', comments, whitespace)
             case '[':
-                token = Token(Tokens.LBRACK, '', whitespace)
+                token = Token(Tokens.LBRACK, '', comments, whitespace)
             case ']':
-                token = Token(Tokens.RBRACK, '', whitespace)
+                token = Token(Tokens.RBRACK, '', comments, whitespace)
             case '<':
-                token = Token(Tokens.LT, '', whitespace)
+                token = Token(Tokens.LT, '', comments, whitespace)
             case '>':
-                token = Token(Tokens.GT, '', whitespace)
+                token = Token(Tokens.GT, '', comments, whitespace)
             case '+':
-                token = Token(Tokens.PLUS, '', whitespace)
+                token = Token(Tokens.PLUS, '', comments, whitespace)
             case ',':
-                token = Token(Tokens.COMMA, '', whitespace)
+                token = Token(Tokens.COMMA, '', comments, whitespace)
             case '.':
                 if self._peekAtNextChar() == '.':
                     self.readChar()
-                    token = Token(Tokens.INCLRANGE, '', whitespace)
+                    token = Token(Tokens.INCLRANGE, '', comments, whitespace)
                     if self._peekAtNextChar() == '.':
                         self.readChar()
-                        token = Token(Tokens.EXCLRANGE, '', whitespace)
+                        token = Token(Tokens.EXCLRANGE, '', comments, whitespace)
                 elif isAlphabeticCharacter(self._peekAtNextChar()):
                     self.readChar()
-                    token = Token(Tokens.CTLOP, self._readIdentifier(), whitespace)
+                    token = Token(Tokens.CTLOP, self._readIdentifier(), comments, whitespace)
                     tokenRead = True
             case ':':
-                token = Token(Tokens.COLON, '', whitespace)
+                token = Token(Tokens.COLON, '', comments, whitespace)
             case '?':
-                token = Token(Tokens.QUEST, '', whitespace)
+                token = Token(Tokens.QUEST, '', comments, whitespace)
             case '/':
                 if self._peekAtNextChar() == '/':
                     self.readChar()
-                    token = Token(Tokens.GCHOICE, '', whitespace)
+                    token = Token(Tokens.GCHOICE, '', comments, whitespace)
                     if self._peekAtNextChar() == '=':
                         self.readChar()
-                        token = Token(Tokens.GCHOICEALT, '', whitespace)
+                        token = Token(Tokens.GCHOICEALT, '', comments, whitespace)
                 elif self._peekAtNextChar() == '=':
                     self.readChar()
-                    token = Token(Tokens.TCHOICEALT, '', whitespace)
+                    token = Token(Tokens.TCHOICEALT, '', comments, whitespace)
                 else:
-                    token = Token(Tokens.TCHOICE, '', whitespace)
+                    token = Token(Tokens.TCHOICE, '', comments, whitespace)
             case '*':
-                token = Token(Tokens.ASTERISK, '', whitespace)
+                token = Token(Tokens.ASTERISK, '', comments, whitespace)
             case '^':
-                token = Token(Tokens.CARET, '', whitespace)
+                token = Token(Tokens.CARET, '', comments, whitespace)
             case '#':
-                token = Token(Tokens.HASH, '', whitespace)
+                token = Token(Tokens.HASH, '', comments, whitespace)
             case '~':
-                token = Token(Tokens.TILDE, '', whitespace)
+                token = Token(Tokens.TILDE, '', comments, whitespace)
             case '"':
-                token = Token(Tokens.STRING, self._readString(), whitespace)
+                token = Token(Tokens.STRING, self._readString(), comments, whitespace)
             case '\'':
-                token = Token(Tokens.BYTES, self._readBytesString(), whitespace)
+                token = Token(Tokens.BYTES, self._readBytesString(), comments, whitespace)
             case ';':
-                token = Token(Tokens.COMMENT, self._readComment(), whitespace)
+                token = Token(Tokens.COMMENT, self._readComment(), comments, whitespace)
                 tokenRead = True
             case '&':
-                token = Token(Tokens.AMPERSAND, '', whitespace)
+                token = Token(Tokens.AMPERSAND, '', comments, whitespace)
             case _:
                 if self.ch == 0:
-                    token = Token(Tokens.EOF, '', whitespace)
+                    token = Token(Tokens.EOF, '', comments, whitespace)
                 elif isAlphabeticCharacter(literal):
                     if literal == 'b' and self._peekAtNextChar() == '6':
                         self.readChar()
                         self.readChar()
                         if chr(self.ch) == '4' and self._peekAtNextChar() == '\'':
                             self.readChar()
-                            token = Token(Tokens.BASE64, self._readBytesString(), whitespace)
+                            token = Token(Tokens.BASE64, self._readBytesString(), comments, whitespace)
                         else:
                             # Looked like a b64 byte string, but that's just a regular
                             # identifier in the end
-                            token = Token(Tokens.IDENT, 'b6' + self._readIdentifier(), whitespace)
+                            token = Token(Tokens.IDENT, 'b6' + self._readIdentifier(), comments, whitespace)
                             tokenRead = True
                     elif literal == 'h' and self._peekAtNextChar() == '\'':
                         self.readChar()
-                        token = Token(Tokens.HEX, self._readBytesString(), whitespace)
+                        token = Token(Tokens.HEX, self._readBytesString(), comments, whitespace)
                     else:
-                        token = Token(Tokens.IDENT, self._readIdentifier(), whitespace)
+                        token = Token(Tokens.IDENT, self._readIdentifier(), comments, whitespace)
                         tokenRead = True
                 elif (
                     # positive number
@@ -166,6 +170,7 @@ class Lexer:
                     token = Token(
                         Tokens.FLOAT if '.' in numberOrFloat else Tokens.NUMBER,
                         numberOrFloat,
+                        comments,
                         whitespace
                     )
                     tokenRead = True
@@ -247,3 +252,17 @@ class Lexer:
             self.readChar()
 
         return self.input[position:self.position]
+
+    def _readComments(self) -> list[Token]:
+        comments: list[Token] = []
+        while True:
+            whitespace = self._readWhitespace()
+            if chr(self.ch) != ';':
+                # Record final whitespaces as an empty comment
+                if whitespace != '':
+                    token = Token(Tokens.COMMENT, '', [], whitespace)
+                    comments.append(token)
+                break
+            token = Token(Tokens.COMMENT, self._readComment(), [], whitespace)
+            comments.append(token)
+        return comments

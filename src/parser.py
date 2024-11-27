@@ -7,7 +7,7 @@ from .lexer import Lexer
 from .tokens import Token, Tokens
 from .ast import CDDLNode, CDDLTree, Rule, GroupEntry, Group, GroupChoice, \
     Array, Type, Type1, Type2, Typename, Value, Operator, Tag, Range, \
-    Memberkey, Reference, Occurrence, Comment, OperatorName, \
+    Memberkey, Reference, Occurrence, OperatorName, \
     GenericParameters, GenericArguments
 
 from math import inf
@@ -29,15 +29,12 @@ class Parser:
         rules: list[Rule] = []
 
         # cddl = S 1*(rule S)
-        # Parse potential comments in the initial S
         children: list[CDDLNode] = []
-        children.extend(self._parseComments())
 
         while (self.curToken.type != Tokens.EOF):
             rule = self._parseRule()
             rules.append(rule)
             children.append(rule)
-            children.extend(self._parseComments())
 
         # Add EOF token to the end of the tree so that serialization preserve
         # final whitespaces
@@ -60,7 +57,6 @@ class Parser:
         # First thing we expect in a rule is a typename or a groupname
         typename = self._parseTypename(definition=True, unwrapped=False)
         children.append(typename)
-        children.extend(self._parseComments())
 
         # Not much difference between "/=" and "//=", we'll treat them as
         # signaling choice additions
@@ -73,7 +69,6 @@ class Parser:
                 self.curToken.type == Tokens.GCHOICEALT):
             raise self._parserError(f'assignment expected, received "{self.curToken.str()}"')
         children.append(self._nextToken())
-        children.extend(self._parseComments())
 
         groupEntry = self._parseGroupEntry()
         children.append(groupEntry)
@@ -96,7 +91,6 @@ class Parser:
             occurrence = DEFAULT_OCCURRENCE
         else:
             children.append(occurrence)
-            children.extend(self._parseComments())
 
         # memberkey is essentially a type followed by some specific tokens
         # (such as "=>" or ":"). We'll parse next tokens as a "loose" type,
@@ -105,7 +99,6 @@ class Parser:
         looseType = self._parseType(loose=True)
         children.append(looseType)
         if isinstance(looseType, Memberkey):
-            children.extend(self._parseComments())
             type = self._parseType(loose=False)
             assert isinstance(type, Type)
             children.append(type)
@@ -135,7 +128,6 @@ class Parser:
 
         if loose and self.curToken.type == Tokens.CARET:
             children.append(self._nextToken())
-            children.extend(self._parseComments())
             if self.curToken.type != Tokens.ARROWMAP:
                 raise self._parserError(f'expected arrow map, received "{self.curToken.str()}{self.peekToken.str()}"')
             children.append(self._nextToken())
@@ -153,14 +145,8 @@ class Parser:
             key.children = children
             return key
 
-        # We may incorrectly affect comments to the returned node even if
-        # we need to stop parsing because the current position no longer
-        # matches the construct. That's really no big deal in practice,
-        # what matters for serialization is that comments be preserved.
-        children.extend(self._parseComments())
         while self.curToken.type == Tokens.TCHOICE:
             children.append(self._nextToken())
-            children.extend(self._parseComments())
             altType = self._parseType1()
             altTypes.append(altType)
             children.append(altType)
@@ -181,14 +167,11 @@ class Parser:
         children: list[CDDLNode] = []
         type2 = self._parseType2(loose)
         children.append(type2)
-        comments = self._parseComments()
-        children.extend(self._parseComments())
         node: Type1
         if (self.curToken.type == Tokens.INCLRANGE or
                 self.curToken.type == Tokens.EXCLRANGE):
             children.append(self._nextToken())
             inclusive = self.curToken.type == Tokens.INCLRANGE
-            children.extend(self._parseComments())
             maxType = self._parseType2()
             children.append(maxType)
             # TODO: raise an error instead
@@ -200,14 +183,12 @@ class Parser:
             assert self.curToken.literal in get_args(OperatorName)
             operatorName = cast(OperatorName, self.curToken.literal)
             children.append(self._nextToken())
-            children.extend(self._parseComments())
             controlType = self._parseType2()
             children.append(controlType)
             node = Operator(type2, operatorName, controlType)
             node.children = children
         else:
             node = type2
-            node.children.extend(comments)
 
         return node
 
@@ -234,7 +215,6 @@ class Parser:
         match self.curToken.type:
             case Tokens.LPAREN:
                 children.append(self._nextToken())
-                children.extend(self._parseComments())
                 if loose:
                     node = self._parseGroup(isMap=False)
                     # TODO: convert group back to a type if possible
@@ -247,48 +227,39 @@ class Parser:
                     groupEntry = GroupEntry(DEFAULT_OCCURRENCE, None, type)
                     groupChoice = GroupChoice([groupEntry])
                     node = Group([groupChoice], isMap=False)
-                children.extend(self._parseComments())
                 if self.curToken.type != Tokens.RPAREN:
                     raise self._parserError(f'expected right parenthesis, received "{self.curToken.str()}"')
                 children.append(self._nextToken())
 
             case Tokens.LBRACE:
                 children.append(self._nextToken())
-                children.extend(self._parseComments())
                 node = self._parseGroup(isMap=True)
                 children.extend(node.children)
-                children.extend(self._parseComments())
                 if self.curToken.type != Tokens.RBRACE:
                     raise self._parserError(f'expected right brace, received "{self.curToken.str()}"')
                 children.append(self._nextToken())
 
             case Tokens.LBRACK:
                 children.append(self._nextToken())
-                children.extend(self._parseComments())
                 group = self._parseGroup(isMap=False)
                 children.extend(group.children)
                 node = Array(group.groupChoices)
-                children.extend(self._parseComments())
                 if self.curToken.type != Tokens.RBRACK:
                     raise self._parserError(f'expected right bracket, received "{self.curToken.str()}"')
                 children.append(self._nextToken())
 
             case Tokens.TILDE:
                 children.append(self._nextToken())
-                children.extend(self._parseComments())
                 node = self._parseTypename(definition=False, unwrapped=True)
                 children.extend(node.children)
 
             case Tokens.AMPERSAND:
                 children.append(self._nextToken())
-                children.extend(self._parseComments())
                 if self.curToken.type == Tokens.LPAREN:
                     children.append(self._nextToken())
-                    children.extend(self._parseComments())
                     group = self._parseGroup(isMap=False)
                     node = Reference(group)
                     children.append(group)
-                    children.extend(self._parseComments())
                     if self.curToken.type != Tokens.RPAREN:
                         raise self._parserError(f'expected right parenthesis, received "{self.curToken.str()}"')
                     children.append(self._nextToken())
@@ -304,10 +275,8 @@ class Parser:
                     children.append(number)
                     if number.literal[0] == '6' and self.curToken.type == Tokens.LPAREN:
                         children.append(self._nextToken())
-                        children.extend(self._parseComments())
                         type = self._parseType()
                         children.append(type)
-                        children.extend(self._parseComments())
                         if self.curToken.type != Tokens.RPAREN:
                             raise self._parserError(f'expected right parenthesis, received "{self.curToken.str()}"')
                         children.append(self._nextToken())
@@ -379,10 +348,8 @@ class Parser:
                 groupEntry = self._parseGroupEntry()
                 groupEntries.append(groupEntry)
                 children.append(groupEntry)
-                children.extend(self._parseComments())
                 if self.curToken.type == Tokens.COMMA:
                     children.append(self._nextToken())
-                    children.extend(self._parseComments())
                 if (self.curToken.type == Tokens.RPAREN or
                     self.curToken.type == Tokens.RBRACE or
                     self.curToken.type == Tokens.RBRACK):
@@ -393,7 +360,6 @@ class Parser:
                 self.curToken.type == Tokens.RBRACK):
                 break
             children.append(self._nextToken())
-            children.extend(self._parseComments())
 
         node = Group(groupChoices, isMap)
         node.children = children
@@ -454,25 +420,6 @@ class Parser:
             occurrence.children = children
         return occurrence
 
-    def _parseComment(self, isLeading: bool = False) -> Comment | None:
-        if self.curToken.type != Tokens.COMMENT:
-            return None
-        comment = re.sub(r'^;(\s*)', '', self.curToken.literal)
-        children: list[CDDLNode] = []
-        children.append(self._nextToken())
-
-        node = Comment(comment, isLeading)
-        node.children = children
-        return node
-
-    def _parseComments(self) -> list[Comment]:
-        comments: list[Comment] = []
-        while (self.curToken.type == Tokens.COMMENT):
-            comment = self._parseComment()
-            assert comment is not None
-            comments.append(comment)
-        return comments
-
     def _parseIdentifier(self) -> Token:
         if self.curToken.type != Tokens.IDENT:
             raise self._parserError(f'group identifier expected, received "{self.curToken.str()}"')
@@ -501,20 +448,16 @@ class Parser:
             return None
         children: list[CDDLNode] = []
         children.append(self._nextToken())
-        children.extend(self._parseComments())
 
         parameters: list[str] = []
         name = self._parseIdentifier()
         parameters.append(name.literal)
         children.append(name)
-        children.extend(self._parseComments())
         while self.curToken.type == Tokens.COMMA:
             children.append(self._nextToken())
-            children.extend(self._parseComments())
             name = self._parseIdentifier()
             parameters.append(name.literal)
             children.append(name)
-            children.extend(self._parseComments())
         if self.curToken.type != Tokens.GT:
             raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.str()}"')
         children.append(self._nextToken())
@@ -534,20 +477,16 @@ class Parser:
             return None
         children: list[CDDLNode] = []
         children.append(self._nextToken())
-        children.extend(self._parseComments())
 
         parameters: list[Type1] = []
         type1 = self._parseType1()
         parameters.append(type1)
         children.append(type1)
-        children.extend(self._parseComments())
         while self.curToken.type == Tokens.COMMA:
             children.append(self._nextToken())
-            children.extend(self._parseComments())
             type1 = self._parseType1()
             parameters.append(type1)
             children.append(type1)
-            children.extend(self._parseComments())
         if self.curToken.type != Tokens.GT:
             raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.str()}"')
         children.append(self._nextToken())

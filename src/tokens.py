@@ -1,5 +1,5 @@
 from enum import StrEnum
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 class Tokens(StrEnum):
     ILLEGAL = 'ILLEGAL'
@@ -60,10 +60,14 @@ class Tokens(StrEnum):
 class Token:
     type: Tokens
     literal: str
+    comments: list['Token'] = field(default_factory=list)
     whitespace: str = ''
 
     def str(self) -> str:
-        output = self.whitespace
+        output = ''
+        for comment in self.comments:
+            output += comment.str()
+        output += self.whitespace
         match self.type:
             case Tokens.IDENT:
                 output += self.literal

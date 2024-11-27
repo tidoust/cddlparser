@@ -161,6 +161,7 @@
                                                                                                               hasCut=True),
                                                                                                 type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
                                                                                                                                        literal='6.32',
+                                                                                                                                       comments=[],
                                                                                                                                        whitespace=''),
                                                                                                                      typePart=Type(types=[Typename(name='tstr',
                                                                                                                                                    unwrapped=False,
