@@ -6,8 +6,6 @@ CDDL expresses Concise Binary Object Representation (CBOR) data structures ([RFC
 
 This Python implementation provides a CDDL parser suitable for producing marked up serializations of the CDDL. It is intended to be used in spec authoring tools to add cross-referencing logic within CDDL blocks that the specs may define.
 
-This implementation started a direct port of the [CDDL parser in Node.js](https://github.com/christian-bromann/cddl) written by @christian-bromann, released under an MIT license. The lexer remains mainly equivalent to its Node.js counterpart, with a few additions to handle `=>`, `//`, `/=`, `//=`, and control operators directly. To keep flexibility and make it easier to re-serialize the abstract syntax tree into a string that preserves initial whitespaces and comments, the parser has a different logic and follows the CDDL grammar more closely. This makes it closer to the [cddl-rs](https://github.com/anweiss/cddl) implementation in Rust by @anweiss, but note this implementation does not validate CDDL blocks in any way (and will happily accept blocks that are not valid).
-
 __Note:__ This is __work in progress__. Feel free to have a look at the code and report problems, but you may not want to rely on the code in a production setting.
 
 ## How to install and use
@@ -49,6 +47,10 @@ Parser tests compare the AST produced by the parser with a serialized snapshot o
 
 Parser tests also compare the result of serializing the AST with the initial input.
 
+The test files are a combination of the test files used in the other CDDL parser projects mentioned:
+- [Test files from cddl-rs](https://github.com/anweiss/cddl/tree/main/tests/fixtures/cddl). Tests that include [generics](https://datatracker.ietf.org/doc/html/rfc8610#section-3.10) were removed (not yet supported)
+- [Test files from cddl](https://github.com/christian-bromann/cddl/tree/main/tests/__fixtures__), with a couple of fixes.
+
 The code uses static types. To validate types, [install `mypy`](https://mypy.readthedocs.io/en/stable/getting_started.html#installing-and-running-mypy) if not already done and run:
 
 ```bash
@@ -61,4 +63,13 @@ mypy src
 - The right hand side of a type rule is represented as a group entry. In other words, it uses the same structure as the right hand side of a group rule.
 - A type wrapped into parentheses is represented as a group.
 - AST nodes have properties that encode their semantics, as well as a list of children that they contain. The list of children includes all tokens that were consumed, including comments, and is used to serialize the node. The other semantics make processing more friendly. Updating semantics does not update the list of children. And updating the list of children does not update semantics.
+- Parsing of strings probably isn't fully correct. See also [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) for CDDL grammar updates.
 - Overall, the AST is verbose and could be simplified.
+
+## Acknowledgments
+
+This implementation started as a direct port of the [CDDL parser in Node.js](https://github.com/christian-bromann/cddl) written by @christian-bromann (released under an MIT license), and the lexer remains largely equivalent to the Node.js one. The parser had to be re-written though: the Node.js parser does not support all productions allowed by the CDDL grammar and the goal here is to allow serializing the abstract syntax tree back into a string, while preserving the original formatting (including whitespaces and comments).
+
+The parser now follows the CDDL grammar more closely. This makes it closer to the [cddl-rs](https://github.com/anweiss/cddl) implementation in Rust by @anweiss (also released under an MIT license). As opposed to cddl-rs, this implementation does not validate CDDL blocks per se. It will only raise an error when a production cannot be parsed according to the grammar.
+
+This implementation uses test files from these projects to validate the parser.

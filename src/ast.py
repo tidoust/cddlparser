@@ -230,10 +230,19 @@ class Range(ParentNode):
 
 '''
 Known control operators
+
+Note: We may want to relax the check, control operators provide an extension
+point for specs that define CDDL and they may define their own operators.
 '''
 OperatorName = Literal[
-    'default', 'size', 'regexp', 'bits', 'and', 'within',
-    'eq', 'ne', 'lt', 'le', 'gt', 'ge'
+    # Control operators defined in the main CDDL spec
+    'and', 'bits', 'cbor', 'cborseq', 'default',
+    'eq', 'ge', 'gt', 'le', 'lt', 'ne',
+    'regexp', 'size', 'within',
+
+    # Not a default control operator but proposed in:
+    # https://datatracker.ietf.org/doc/html/draft-bormann-cbor-cddl-freezer-14#name-control-operator-pcre
+    'pcre'
 ]
 
 @dataclass
