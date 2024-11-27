@@ -1,0 +1,4 @@
+helloworld = 'hello world'
+hellohex = h'68656c6c6f20776f726c64'
+foobar = b64'Zm9vYmFy'
+blah = b64blah

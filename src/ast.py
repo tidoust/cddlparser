@@ -184,7 +184,7 @@ class Value(ParentNode):
     A value (number, text or bytes)
     '''
     value: str
-    type: Literal['number', 'text', 'bytes']
+    type: Literal['number', 'text', 'bytes', 'hex', 'base64']
 
     def __post_init__(self):
         super().__init__()

@@ -139,8 +139,23 @@ class Lexer:
                 if self.ch == 0:
                     token = Token(Tokens.EOF, '', whitespace)
                 elif isAlphabeticCharacter(literal):
-                    token = Token(Tokens.IDENT, self._readIdentifier(), whitespace)
-                    tokenRead = True
+                    if literal == 'b' and self._peekAtNextChar() == '6':
+                        self.readChar()
+                        self.readChar()
+                        if chr(self.ch) == '4' and self._peekAtNextChar() == '\'':
+                            self.readChar()
+                            token = Token(Tokens.BASE64, self._readBytesString(), whitespace)
+                        else:
+                            # Looked like a b64 byte string, but that's just a regular
+                            # identifier in the end
+                            token = Token(Tokens.IDENT, 'b6' + self._readIdentifier(), whitespace)
+                            tokenRead = True
+                    elif literal == 'h' and self._peekAtNextChar() == '\'':
+                        self.readChar()
+                        token = Token(Tokens.HEX, self._readBytesString(), whitespace)
+                    else:
+                        token = Token(Tokens.IDENT, self._readIdentifier(), whitespace)
+                        tokenRead = True
                 elif (
                     # positive number
                     isDigit(literal) or

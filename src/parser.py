@@ -333,6 +333,16 @@ class Parser:
                 children.append(value)
                 node = Value(value.literal, 'bytes')
 
+            case Tokens.HEX:
+                value = self._nextToken()
+                children.append(value)
+                node = Value(value.literal, 'hex')
+
+            case Tokens.BASE64:
+                value = self._nextToken()
+                children.append(value)
+                node = Value(value.literal, 'base64')
+
             case Tokens.NUMBER:
                 value = self._nextToken()
                 children.append(value)
