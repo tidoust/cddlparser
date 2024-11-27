@@ -128,6 +128,8 @@ class Lexer:
                 token = Token(Tokens.TILDE, '', whitespace)
             case '"':
                 token = Token(Tokens.STRING, self._readString(), whitespace)
+            case '\'':
+                token = Token(Tokens.BYTES, self._readBytesString(), whitespace)
             case ';':
                 token = Token(Tokens.COMMENT, self._readComment(), whitespace)
                 tokenRead = True
@@ -187,6 +189,15 @@ class Lexer:
 
         self.readChar() # eat "
         while (self.ch and chr(self.ch) != Tokens.QUOT):
+            self.readChar() # eat any character until "
+
+        return self.input[position + 1:self.position]
+
+    def _readBytesString(self) -> str:
+        position = self.position
+
+        self.readChar() # eat '
+        while (self.ch and chr(self.ch) != '\''):
             self.readChar() # eat any character until "
 
         return self.input[position + 1:self.position]

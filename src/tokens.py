@@ -21,6 +21,7 @@ class Tokens(StrEnum):
     NUMBER = 'NUMBER'
     FLOAT = 'FLOAT'
     CTLOP = 'CTLOP'
+    BYTES = 'BYTES'
 
     # Operators,
     ASSIGN = '='
@@ -74,6 +75,8 @@ class Token:
                 output += self.literal
             case Tokens.CTLOP:
                 output += '.' + self.literal
+            case Tokens.BYTES:
+                output += '\'' + self.literal + '\''
             case Tokens.EOF:
                 pass
             case _:

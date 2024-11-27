@@ -183,7 +183,8 @@ class Value(ParentNode):
     '''
     A value (number, text or bytes)
     '''
-    value: str | int | float
+    value: str
+    type: Literal['number', 'text', 'bytes']
 
     def __post_init__(self):
         super().__init__()

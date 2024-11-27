@@ -326,17 +326,22 @@ class Parser:
             case Tokens.STRING:
                 value = self._nextToken()
                 children.append(value)
-                node = Value(value.literal)
+                node = Value(value.literal, 'text')
+
+            case Tokens.BYTES:
+                value = self._nextToken()
+                children.append(value)
+                node = Value(value.literal, 'bytes')
 
             case Tokens.NUMBER:
                 value = self._nextToken()
                 children.append(value)
-                node = Value(value.literal)
+                node = Value(value.literal, 'number')
 
             case Tokens.FLOAT:
                 value = self._nextToken()
                 children.append(value)
-                node = Value(value.literal)
+                node = Value(value.literal, 'number')
 
             case _:
                 raise self._parserError(f'invalid type2 production, received "{self.curToken.str()}"')
