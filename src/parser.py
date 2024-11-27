@@ -407,7 +407,11 @@ class Parser:
             m = inf
 
             # check if there is a max definition
-            if self.peekToken.type == Tokens.NUMBER:
+            # (that max definition MUST be right after the asterisk, if there's a space
+            # the number is an identifier, not a max definition!)
+            if (self.curToken.type == Tokens.ASTERISK and
+                self.peekToken.type == Tokens.NUMBER and
+                self.peekToken.whitespace == ''):
                 m = int(self.peekToken.literal)
                 children.append(self._nextToken())
 
