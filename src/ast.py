@@ -88,7 +88,7 @@ class Rule(ParentNode):
     }
     ```
     '''
-    name: str
+    name: Typename
     isChoiceAddition: bool
     type: Type | GroupEntry
 
@@ -196,6 +196,7 @@ class Typename(ParentNode):
     '''
     name: str
     unwrapped: bool
+    parameters: GenericParameters | GenericArguments | None = None
 
     def __post_init__(self):
         super().__init__()
@@ -276,6 +277,26 @@ class Type(ParentNode):
     A Type is a list of Type1, each representing a possible choice.
     '''
     types: list[Type1]
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class GenericParameters(ParentNode):
+    '''
+    A set of generic parameters
+    '''
+    parameters: list[str]
+
+    def __post_init__(self):
+        super().__init__()
+
+@dataclass
+class GenericArguments(ParentNode):
+    '''
+    A set of generic arguments
+    '''
+    parameters: list[Type1]
 
     def __post_init__(self):
         super().__init__()

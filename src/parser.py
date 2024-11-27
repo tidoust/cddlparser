@@ -7,7 +7,10 @@ from .lexer import Lexer
 from .tokens import Token, Tokens
 from .constants import PREDEFINED_IDENTIFIER, BOOLEAN_LITERALS
 from .utils import parseNumberValue
-from .ast import AstNode, CDDLTree, Rule, GroupEntry, Group, GroupChoice, Array, Type, Type1, Type2, Typename, Value, Operator, Tag, Range, Memberkey, Reference, Occurrence, Comment, OperatorName
+from .ast import AstNode, CDDLTree, Rule, GroupEntry, Group, GroupChoice, \
+    Array, Type, Type1, Type2, Typename, Value, Operator, Tag, Range, \
+    Memberkey, Reference, Occurrence, Comment, OperatorName, \
+    GenericParameters, GenericArguments
 
 from math import inf
 
@@ -56,10 +59,9 @@ class Parser:
         '''
         children: list[AstNode] = []
 
-        # First thing we expect in a rule is a typename or a groupname,
-        # in other words an identifier
-        groupName = self._parseIdentifier()
-        children.append(groupName)
+        # First thing we expect in a rule is a typename or a groupname
+        typename = self._parseTypename(definition=True, unwrapped=False)
+        children.append(typename)
         children.extend(self._parseComments())
 
         # Not much difference between "/=" and "//=", we'll treat them as
@@ -77,7 +79,7 @@ class Parser:
 
         groupEntry = self._parseGroupEntry()
         children.append(groupEntry)
-        node = Rule(groupName.literal, isChoiceAddition, groupEntry)
+        node = Rule(typename, isChoiceAddition, groupEntry)
         node.children = children
         return node
 
@@ -276,9 +278,8 @@ class Parser:
             case Tokens.TILDE:
                 children.append(self._nextToken())
                 children.extend(self._parseComments())
-                typeName = self._parseIdentifier()
-                children.append(typeName)
-                node = Typename(typeName.literal, unwrapped=True)
+                node = self._parseTypename(definition=False, unwrapped=True)
+                children.extend(node.children)
 
             case Tokens.AMPERSAND:
                 children.append(self._nextToken())
@@ -294,9 +295,9 @@ class Parser:
                         raise self._parserError(f'expected right parenthesis, received "{self.curToken.str()}"')
                     children.append(self._nextToken())
                 else:
-                    groupName = self._parseIdentifier()
-                    children.append(groupName)
-                    node = Reference(Typename(groupName.literal, unwrapped=False))
+                    typename = self._parseTypename(definition=False, unwrapped=False)
+                    children.append(typename)
+                    node = Reference(typename)
 
             case Tokens.HASH:
                 children.append(self._nextToken())
@@ -319,9 +320,8 @@ class Parser:
                     node = Tag()
 
             case Tokens.IDENT:
-                typeName = self._parseIdentifier()
-                children.append(typeName)
-                node = Typename(typeName.literal, unwrapped=False)
+                node = self._parseTypename(definition=False, unwrapped=False)
+                children = node.children
 
             case Tokens.STRING:
                 value = self._nextToken()
@@ -481,6 +481,82 @@ class Parser:
         name = self.curToken
         self._nextToken()
         return name
+
+    def _parseTypename(self, definition: bool = False, unwrapped: bool = False) -> Typename:
+        ident = self._parseIdentifier()
+        parameters: GenericParameters | GenericArguments | None
+        if definition:
+            parameters = self._parseGenericParameters()
+        else:
+            parameters = self._parseGenericArguments()
+        typename = Typename(ident.literal, unwrapped, parameters)
+        typename.children.append(ident)
+        if parameters is not None:
+            typename.children.append(parameters)
+        return typename
+
+    def _parseGenericParameters(self) -> GenericParameters | None:
+        '''
+        genericparm = "<" S id S *("," S id S ) ">"
+        '''
+        if self.curToken.type != Tokens.LT:
+            return None
+        children: list[AstNode] = []
+        children.append(self._nextToken())
+        children.extend(self._parseComments())
+
+        parameters: list[str] = []
+        name = self._parseIdentifier()
+        parameters.append(name.literal)
+        children.append(name)
+        children.extend(self._parseComments())
+        while self.curToken.type == Tokens.COMMA:
+            children.append(self._nextToken())
+            children.extend(self._parseComments())
+            name = self._parseIdentifier()
+            parameters.append(name.literal)
+            children.append(name)
+            children.extend(self._parseComments())
+        if self.curToken.type != Tokens.GT:
+            raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.str()}"')
+        children.append(self._nextToken())
+
+        node = GenericParameters(parameters)
+        node.children = children
+        return node
+
+    def _parseGenericArguments(self) -> GenericArguments | None:
+        '''
+        genericarg = "<" S type1 S *("," S type1 S ) ">"
+
+        The function is very similar to the _parseGenericParameters function
+        expect that type1 replaces id
+        '''
+        if self.curToken.type != Tokens.LT:
+            return None
+        children: list[AstNode] = []
+        children.append(self._nextToken())
+        children.extend(self._parseComments())
+
+        parameters: list[Type1] = []
+        type1 = self._parseType1()
+        parameters.append(type1)
+        children.append(type1)
+        children.extend(self._parseComments())
+        while self.curToken.type == Tokens.COMMA:
+            children.append(self._nextToken())
+            children.extend(self._parseComments())
+            type1 = self._parseType1()
+            parameters.append(type1)
+            children.append(type1)
+            children.extend(self._parseComments())
+        if self.curToken.type != Tokens.GT:
+            raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.str()}"')
+        children.append(self._nextToken())
+
+        node = GenericArguments(parameters)
+        node.children = children
+        return node
 
     def _nextToken(self) -> Token:
         curToken = self.curToken
