@@ -72,7 +72,8 @@ class GroupEntry(AstNode):
 @dataclass
 class Group(AstNode):
     '''
-    A group, meaning a list of group choices
+    A group, meaning a list of group choices wrapped in parentheses or curly
+    braces
     '''
     groupChoices: list[GroupChoice]
     isMap: bool
@@ -113,7 +114,11 @@ class Tag(AstNode):
     ```
     '''
     numericPart: float | int | None = None
-    typePart: Type | None = None
+    # TODO: Consider getting back to a Type, storing spaces and comments before
+    # closing ")" separately, because a Group is fairly verbose
+    # (use of a group means one can only access the type through:
+    # typePart.groupChoices[0].groupEntries[0].type)
+    typePart: Group | None = None
 
     def __post_init__(self):
         super().__init__()

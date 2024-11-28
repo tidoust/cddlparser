@@ -274,13 +274,15 @@ class Parser:
                     number = self._nextToken()
                     children.append(number)
                     if number.literal[0] == '6' and self.curToken.type == Tokens.LPAREN:
-                        children.append(self._nextToken())
-                        type = self._parseType()
-                        children.append(type)
-                        if self.curToken.type != Tokens.RPAREN:
-                            raise self._parserError(f'expected right parenthesis, received "{self.curToken.str()}"')
-                        children.append(self._nextToken())
-                        node = Tag(number, type)
+                        # TODO: assert that there is no space between number and "("
+                        type2 = self._parseType2()
+                        # TODO: raise an error instead
+                        assert isinstance(type2, Group)
+                        assert len(type2.groupChoices) == 1
+                        assert len(type2.groupChoices[0].groupEntries) == 1
+                        assert isinstance(type2.groupChoices[0].groupEntries[0].type, Type)
+                        children.append(type2)
+                        node = Tag(number, type2)
                     else:
                         node = Tag(number)
                 else:
@@ -404,6 +406,7 @@ class Parser:
             self.curToken.type == Tokens.NUMBER and
             self.peekToken.type == Tokens.ASTERISK
         ):
+            # TODO: assert no space between min number and ASTERISK
             n = int(self.curToken.literal)
             m = inf
             children.append(self._nextToken()) # eat "n"
@@ -411,6 +414,7 @@ class Parser:
 
             # check if there is a max definition
             if self.curToken.type == Tokens.NUMBER:
+                # TODO: assert no space between ASTERISK and max number
                 m = int(self.curToken.literal)
                 children.append(self._nextToken())
 
