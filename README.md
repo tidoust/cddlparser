@@ -61,8 +61,7 @@ mypy src
 
 - The right hand side of a type rule is represented as a group entry. In other words, it uses the same structure as the right hand side of a group rule.
 - A type wrapped into parentheses is represented as a group.
-- AST nodes have properties that encode their semantics, as well as a list of children that they contain. The list of children includes all tokens that were consumed, including comments, and is used to serialize the node. The other semantics make processing more friendly. Updating semantics does not update the list of children. And updating the list of children does not update semantics.
-- Parsing of strings and byte strings may not be fully correct. See also [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) for CDDL grammar updates.
+- Parsing of strings and byte strings may not be fully correct. Hex float are not supported. See also [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) for CDDL grammar updates.
 - Overall, the AST is verbose and could be simplified.
 
 ## Acknowledgments
@@ -71,4 +70,4 @@ This implementation started as a direct port of the [CDDL parser in Node.js](htt
 
 This implementation follows the CDDL grammar more closely, making it closer to the [cddl-rs](https://github.com/anweiss/cddl) implementation in Rust by @anweiss (also released under an MIT license). As opposed to cddl-rs, this implementation does not validate CDDL blocks per se. It will only raise an error when a production cannot be parsed according to the grammar.
 
-This implementation uses test files from these projects to validate the parser.
+This implementation uses test files from these projects to validate the parser. It also tests parsing and serialization of [CDDL content extracted from IETF RFCs](https://github.com/cabo/cddlc/tree/master/data) by @cabo.

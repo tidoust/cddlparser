@@ -18,6 +18,9 @@ class TestParser(unittest.TestCase):
         fixturesPath = os.path.join(basepath, '__fixtures__')
         self.files = [f for f in os.listdir(fixturesPath) if os.path.isfile(os.path.join(fixturesPath, f))]
 
+        rfcPath = os.path.join(fixturesPath, 'rfc')
+        self.rfcs = [f for f in os.listdir(rfcPath) if os.path.isfile(os.path.join(rfcPath, f))]
+
     def test_parse_CDDL(self):
         for file in self.files:
             with self.subTest(file):
@@ -26,7 +29,12 @@ class TestParser(unittest.TestCase):
     def test_serialize_CDDL(self):
         for file in self.files:
             with self.subTest(file):
-                self._test_serialize_file(file)
+                self._test_serialize_file('', file)
+
+    def test_serialize_RFC(self):
+        for file in self.rfcs:
+            with self.subTest(file):
+                self._test_serialize_file('rfc', file)
 
     def _test_parse_file(self, file):
         f = open(os.path.join(basepath, '__fixtures__', file), 'r')
@@ -49,8 +57,8 @@ class TestParser(unittest.TestCase):
             fsnap.write(pformat(ast.rules))
             fsnap.close()
 
-    def _test_serialize_file(self, file):
-        f = open(os.path.join(basepath, '__fixtures__', file), 'r')
+    def _test_serialize_file(self, path, file):
+        f = open(os.path.join(basepath, '__fixtures__', path, file), 'r')
         cddl = f.read()
         f.close()
         parser = Parser(cddl)
