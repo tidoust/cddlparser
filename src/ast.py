@@ -234,7 +234,7 @@ class GenericParameters(AstNode):
     '''
     A set of generic parameters
     '''
-    parameters: list[str]
+    parameters: list[Typename]
 
     def __post_init__(self):
         super().__init__()

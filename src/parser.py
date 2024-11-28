@@ -450,13 +450,13 @@ class Parser:
         children.append(self._nextToken())
 
         parameters: list[str] = []
-        name = self._parseIdentifier()
-        parameters.append(name.literal)
+        name = self._parseTypename()
+        parameters.append(name)
         children.append(name)
         while self.curToken.type == Tokens.COMMA:
             children.append(self._nextToken())
-            name = self._parseIdentifier()
-            parameters.append(name.literal)
+            name = self._parseTypename()
+            parameters.append(name)
             children.append(name)
         if self.curToken.type != Tokens.GT:
             raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.str()}"')
