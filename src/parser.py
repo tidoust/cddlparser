@@ -59,7 +59,9 @@ class Parser:
         children.append(typename)
 
         # Not much difference between "/=" and "//=", we'll treat them as
-        # signaling choice additions
+        # signaling choice additions and record "/=" as forcing a "type"
+        # definition
+        isTypeDefinition = self.curToken.type == Tokens.TCHOICEALT
         isChoiceAddition = (
             self.curToken.type == Tokens.TCHOICEALT or
             self.curToken.type == Tokens.GCHOICEALT
@@ -70,9 +72,11 @@ class Parser:
             raise self._parserError(f'assignment expected, received "{self.curToken.str()}"')
         children.append(self._nextToken())
 
+        # TODO: convert GroupEntry back to a Type if possible or if
+        # isTypeDefinition is set. And set isTypeDefinition in such cases
         groupEntry = self._parseGroupEntry()
         children.append(groupEntry)
-        node = Rule(typename, isChoiceAddition, groupEntry)
+        node = Rule(typename, isChoiceAddition, isTypeDefinition, groupEntry)
         node.children = children
         return node
 

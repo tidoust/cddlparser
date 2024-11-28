@@ -52,6 +52,11 @@ class Rule(AstNode):
     '''
     name: Typename
     isChoiceAddition: bool
+    # Note: The isTypeDefinition flag is set when the definition uses "/="
+    # (isChoiceAddition is also set in that case) to distinguish with "//=".
+    # The parser does not yet distinguish between a type and a group definition
+    # otherwise, so don't rely on this flag for semantic reasons!
+    isTypeDefinition: bool
     type: Type | GroupEntry
 
     def __post_init__(self):

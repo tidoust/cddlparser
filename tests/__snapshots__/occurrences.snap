@@ -1,5 +1,6 @@
 [Rule(name=Typename(name='someGroup', unwrapped=False, parameters=None),
       isChoiceAddition=False,
+      isTypeDefinition=False,
       type=GroupEntry(occurrence=Occurrence(n=1, m=1),
                       key=None,
                       type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
