@@ -63,6 +63,6 @@ class TestParser(unittest.TestCase):
         f.close()
         parser = Parser(cddl)
         ast = parser.parse()
-        serialization = ast.str()
+        serialization = ast.serialize()
         self.assertEqual(serialization, cddl)
 

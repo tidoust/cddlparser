@@ -2,20 +2,55 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import Literal
 from dataclasses import dataclass, field
-from .tokens import Token
+from .tokens import Token, Tokens
+
+'''
+Possible value types
+'''
+ValueType = Literal[
+    'number', 'text', 'bytes', 'hex', 'base64'
+]
+
+'''
+Known control operators
+
+Note: We may want to relax the check, control operators provide an extension
+point for specs that define CDDL and they may define their own operators.
+'''
+OperatorName = Literal[
+    # Control operators defined in the main CDDL spec
+    'and', 'bits', 'cbor', 'cborseq', 'default',
+    'eq', 'ge', 'gt', 'le', 'lt', 'ne',
+    'regexp', 'size', 'within',
+
+    # Control operators defined in RFC9165:
+    # https://datatracker.ietf.org/doc/html/rfc9165
+    'plus', 'cat', 'det', 'abnf', 'abnfb', 'feature',
+
+    # proposed in the freezer:
+    # https://datatracker.ietf.org/doc/html/draft-bormann-cbor-cddl-freezer-14#name-control-operator-pcre
+    'pcre'
+]
 
 class CDDLNode:
     '''
     Abstract base class for all nodes in the abstract syntax tree.
     '''
-    def _str(self) -> str:
+    def serialize(self, marker: Marker | None = None) -> str:
+        return self._serialize(marker)
+
+    def _serialize(self, marker: Marker | None = None) -> str:
         '''
         Function must be implemented in all subclasses
         '''
-        raise Exception('_str method must be implemented in subclass')
+        raise Exception('_serialize method must be implemented in subclass')
 
-    def str(self) -> str:
-        return self._str()
+    def _serializeToken(self, token: Token | None, marker: Marker | None = None) -> str:
+        if token is None:
+            return ''
+        if marker is None:
+            return token.serialize()
+        return marker.markToken(token, self)
 
 class WrappedNode(CDDLNode):
     '''
@@ -24,11 +59,10 @@ class WrappedNode(CDDLNode):
     openToken: Token | None = None
     closeToken: Token | None = None
 
-    def str(self) -> str:
-        output = ''
-        output += self.openToken.str() if self.openToken is not None else ''
-        output += self._str()
-        output += self.closeToken.str() if self.closeToken is not None else ''
+    def serialize(self, marker: Marker | None = None) -> str:
+        output: str = self._serializeToken(self.openToken, marker)
+        output += self._serialize(marker)
+        output += self._serializeToken(self.closeToken, marker)
         return output
 
 class TokenNode(WrappedNode):
@@ -56,7 +90,7 @@ class TokenNode(WrappedNode):
         self.whitespace = ''
         self.separator = None
 
-    def _prestr(self) -> str:
+    def _prestr(self, marker: Marker | None = None) -> str:
         '''
         Function may be useful in subclasses to output something
         before the comments and whitespace associated with the
@@ -64,14 +98,13 @@ class TokenNode(WrappedNode):
         '''
         return ''
 
-    def str(self) -> str:
-        output = self._prestr()
+    def serialize(self, marker: Marker | None = None) -> str:
+        output = self._prestr(marker)
         for comment in self.comments:
-            output += comment.str()
+            output += self._serializeToken(comment, marker)
         output += self.whitespace
-        output += super().str()
-        if self.separator is not None:
-            output += self.separator.str()
+        output += super().serialize(marker)
+        output += self._serializeToken(self.separator, marker)
         return output
 
     def setComments(self, token: Token) -> None:
@@ -88,8 +121,8 @@ class CDDLTree(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.rules])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([item.serialize(marker) for item in self.rules])
 
 @dataclass
 class Rule(CDDLNode):
@@ -112,8 +145,11 @@ class Rule(CDDLNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return self.name.str() + self.assign.str() + self.type.str()
+    def _serialize(self, marker: Marker | None = None) -> str:
+        output = self.name.serialize(marker)
+        output += self._serializeToken(self.assign, marker)
+        output += self.type.serialize(marker)
+        return output
 
 @dataclass
 class GroupEntry(TokenNode):
@@ -127,13 +163,13 @@ class GroupEntry(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self):
+    def _serialize(self, marker: Marker | None = None) -> str:
         output = ''
         if self.occurrence is not None:
-            output += self.occurrence.str()
+            output += self.occurrence.serialize(marker)
         if self.key is not None:
-            output += self.key.str()
-        output += self.type.str()
+            output += self.key.serialize(marker)
+        output += self.type.serialize(marker)
         return output
 
 @dataclass
@@ -148,8 +184,8 @@ class Group(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.groupChoices])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([item.serialize(marker) for item in self.groupChoices])
 
 @dataclass
 class GroupChoice(TokenNode):
@@ -161,8 +197,8 @@ class GroupChoice(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.groupEntries])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([item.serialize(marker) for item in self.groupEntries])
 
 @dataclass
 class Array(TokenNode):
@@ -177,8 +213,8 @@ class Array(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.groupChoices])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([item.serialize(marker) for item in self.groupChoices])
 
 
 @dataclass
@@ -201,10 +237,10 @@ class Tag(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        output = '#'
-        output += self.numericPart.str() if self.numericPart is not None else ''
-        output += self.typePart.str() if self.typePart is not None else ''
+    def _serialize(self, marker: Marker | None = None) -> str:
+        output: str = self._serializeToken(Token(Tokens.HASH, ''), marker)
+        output += self._serializeToken(self.numericPart, marker)
+        output += self.typePart.serialize(marker) if self.typePart is not None else ''
         return output
 
 @dataclass
@@ -219,8 +255,9 @@ class Occurrence(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.tokens])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([self._serializeToken(item, marker) for item in self.tokens])
+
 
 @dataclass
 class Value(TokenNode):
@@ -228,22 +265,30 @@ class Value(TokenNode):
     A value (number, text or bytes)
     '''
     value: str
-    type: Literal['number', 'text', 'bytes', 'hex', 'base64']
+    type: ValueType
 
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        if self.type == 'number':
-            return self.value
-        elif self.type == 'text':
-            return '"' + self.value + '"'
+    def _serialize(self, marker: Marker | None = None) -> str:
+        prefix: str = ''
+        suffix: str = ''
+        if self.type == 'text':
+            prefix = '"'
+            suffix = '"'
         elif self.type == 'bytes':
-            return '\'' + self.value + '\''
+            prefix = '\''
+            suffix = '\''
         elif self.type == 'hex':
-            return 'h\'' + self.value + '\''
+            prefix = 'h\''
+            suffix = '\''
+        elif self.type == 'base64':
+            prefix = 'b64\''
+            suffix = '\''
+        if marker is None:
+            return prefix + self.value + suffix
         else:
-            return 'b64\'' + self.value + '\''
+            return marker.markValue(prefix, self.value, suffix, self.type)
 
 @dataclass
 class Typename(TokenNode):
@@ -257,13 +302,17 @@ class Typename(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _prestr(self) -> str:
-        return self.unwrapped.str() if self.unwrapped is not None else ''
+    def _prestr(self, marker: Marker | None = None) -> str:
+        return self._serializeToken(self.unwrapped, marker)
 
-    def _str(self) -> str:
-        output = self.name
+    def _serialize(self, marker: Marker | None = None) -> str:
+        output = ''
+        if marker is None:
+            output = self.name
+        else:
+            output += marker.markTypename(self.name, self)
         if self.parameters is not None:
-            output += self.parameters.str()
+            output += self.parameters.serialize(marker)
         return output
 
 @dataclass
@@ -276,8 +325,10 @@ class Reference(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return '&' + self.target.str()
+    def _serialize(self, marker: Marker | None = None) -> str:
+        output: str = self._serializeToken(Token(Tokens.AMPERSAND, ''), marker)
+        output += self.target.serialize(marker)
+        return output
 
 # A type2 production is one of a few possibilities
 Type2 = Value | Typename | Group | Array | Reference | Tag
@@ -300,29 +351,11 @@ class Range(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return self.min.str() + self.rangeop.str() + self.max.str()
-
-'''
-Known control operators
-
-Note: We may want to relax the check, control operators provide an extension
-point for specs that define CDDL and they may define their own operators.
-'''
-OperatorName = Literal[
-    # Control operators defined in the main CDDL spec
-    'and', 'bits', 'cbor', 'cborseq', 'default',
-    'eq', 'ge', 'gt', 'le', 'lt', 'ne',
-    'regexp', 'size', 'within',
-
-    # Control operators defined in RFC9165:
-    # https://datatracker.ietf.org/doc/html/rfc9165
-    'plus', 'cat', 'det', 'abnf', 'abnfb', 'feature',
-
-    # proposed in the freezer:
-    # https://datatracker.ietf.org/doc/html/draft-bormann-cbor-cddl-freezer-14#name-control-operator-pcre
-    'pcre'
-]
+    def _serialize(self, marker: Marker | None = None) -> str:
+        output = self.min.serialize(marker)
+        output += self._serializeToken(self.rangeop, marker)
+        output += self.max.serialize(marker)
+        return output
 
 @dataclass
 class Operator(TokenNode):
@@ -338,8 +371,11 @@ class Operator(TokenNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self):
-        return self.type.str() + self.name.str() + self.controller.str()
+    def _serialize(self, marker: Marker | None = None) -> str:
+        output = self.type.serialize(marker)
+        output += self._serializeToken(self.name, marker)
+        output += self.controller.serialize(marker)
+        return output
 
 # A Type1 production is either a Type2, a Range or an Operator
 Type1 = Type2 | Range | Operator
@@ -357,8 +393,10 @@ class Memberkey(CDDLNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return self.type.str() + ''.join([item.str() for item in self.tokens])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        output = self.type.serialize(marker)
+        output += ''.join([self._serializeToken(token, marker) for token in self.tokens])
+        return output
 
 @dataclass
 class Type(CDDLNode):
@@ -370,8 +408,8 @@ class Type(CDDLNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.types])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([item.serialize(marker) for item in self.types])
 
 @dataclass
 class GenericParameters(WrappedNode):
@@ -383,8 +421,8 @@ class GenericParameters(WrappedNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.parameters])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([item.serialize(marker) for item in self.parameters])
 
 @dataclass
 class GenericArguments(WrappedNode):
@@ -396,5 +434,31 @@ class GenericArguments(WrappedNode):
     def __post_init__(self):
         super().__init__()
 
-    def _str(self) -> str:
-        return ''.join([item.str() for item in self.parameters])
+    def _serialize(self, marker: Marker | None = None) -> str:
+        return ''.join([item.serialize(marker) for item in self.parameters])
+
+class Marker():
+    '''
+    Base class to markup nodes during serialization.
+    '''
+
+    def markToken(self, token: Token, node: CDDLNode) -> str:
+        '''
+        Mark a Token.
+
+        The function must handle whitespaces and comments that the Token
+        contains.
+        '''
+        return token.serialize()
+
+    def markValue(self, prefix: str, value: str, suffix: str, type: str) -> str:
+        '''
+        Mark a Value.
+        '''
+        return prefix + value + suffix
+
+    def markTypename(self, name: str, node: CDDLNode) -> str:
+        '''
+        Mark a typename or a groupname
+        '''
+        return name

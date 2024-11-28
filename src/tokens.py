@@ -63,10 +63,10 @@ class Token:
     comments: list['Token'] = field(default_factory=list)
     whitespace: str = ''
 
-    def str(self) -> str:
+    def serialize(self) -> str:
         output = ''
         for comment in self.comments:
-            output += comment.str()
+            output += comment.serialize()
         output += self.whitespace
         match self.type:
             case Tokens.IDENT:

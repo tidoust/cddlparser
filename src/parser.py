@@ -57,7 +57,7 @@ class Parser:
         if not (assign.type == Tokens.ASSIGN or
                 assign.type == Tokens.TCHOICEALT or
                 assign.type == Tokens.GCHOICEALT):
-            raise self._parserError(f'assignment expected, received "{assign.str()}"')
+            raise self._parserError(f'assignment expected, received "{assign.serialize()}"')
 
         # TODO: convert GroupEntry back to a Type if possible or needed
         # because "//=" was used
@@ -107,7 +107,7 @@ class Parser:
             caretTokens: list[Token] = []
             caretTokens.append(self._nextToken())
             if self.curToken.type != Tokens.ARROWMAP:
-                raise self._parserError(f'expected arrow map, received "{self.curToken.str()}{self.peekToken.str()}"')
+                raise self._parserError(f'expected arrow map, received "{self.curToken.serialize()}{self.peekToken.serialize()}"')
             caretTokens.append(self._nextToken())
             key = Memberkey(type1, hasCut=True, tokens=caretTokens)
             return key
@@ -190,7 +190,7 @@ class Parser:
                     node = Group([groupChoice], isMap=False)
                     node.openToken = openToken
                 if self.curToken.type != Tokens.RPAREN:
-                    raise self._parserError(f'expected right parenthesis, received "{self.curToken.str()}"')
+                    raise self._parserError(f'expected right parenthesis, received "{self.curToken.serialize()}"')
                 node.closeToken = self._nextToken()
 
             case Tokens.LBRACE:
@@ -198,7 +198,7 @@ class Parser:
                 node = self._parseGroup(isMap=True)
                 node.openToken = openToken
                 if self.curToken.type != Tokens.RBRACE:
-                    raise self._parserError(f'expected right brace, received "{self.curToken.str()}"')
+                    raise self._parserError(f'expected right brace, received "{self.curToken.serialize()}"')
                 node.closeToken = self._nextToken()
 
             case Tokens.LBRACK:
@@ -207,7 +207,7 @@ class Parser:
                 node = Array(group.groupChoices)
                 node.openToken = openToken
                 if self.curToken.type != Tokens.RBRACK:
-                    raise self._parserError(f'expected right bracket, received "{self.curToken.str()}"')
+                    raise self._parserError(f'expected right bracket, received "{self.curToken.serialize()}"')
                 node.closeToken = self._nextToken()
 
             case Tokens.TILDE:
@@ -221,7 +221,7 @@ class Parser:
                     group = self._parseGroup(isMap=False)
                     group.openToken = openToken
                     if self.curToken.type != Tokens.RPAREN:
-                        raise self._parserError(f'expected right parenthesis, received "{self.curToken.str()}"')
+                        raise self._parserError(f'expected right parenthesis, received "{self.curToken.serialize()}"')
                     group.closeToken = self._nextToken()
                     node = Reference(group)
                 else:
@@ -282,7 +282,7 @@ class Parser:
                 node.setComments(value)
 
             case _:
-                raise self._parserError(f'invalid type2 production, received "{self.curToken.str()}"')
+                raise self._parserError(f'invalid type2 production, received "{self.curToken.serialize()}"')
 
         return node
 
@@ -379,7 +379,7 @@ class Parser:
 
     def _parseTypename(self, definition: bool = False, unwrapped: Token | None = None) -> Typename:
         if self.curToken.type != Tokens.IDENT:
-            raise self._parserError(f'group identifier expected, received "{self.curToken.str()}"')
+            raise self._parserError(f'group identifier expected, received "{self.curToken.serialize()}"')
         ident = self._nextToken()
         parameters: GenericParameters | GenericArguments | None
         if definition:
@@ -410,7 +410,7 @@ class Parser:
         node = GenericParameters(parameters)
         node.openToken = openToken
         if self.curToken.type != Tokens.GT:
-            raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.str()}"')
+            raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.serialize()}"')
         node.closeToken = self._nextToken()
         return node
 
@@ -437,7 +437,7 @@ class Parser:
         node = GenericArguments(parameters)
         node.openToken = openToken
         if self.curToken.type != Tokens.GT:
-            raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.str()}"')
+            raise self._parserError(f'">" character expected to end generic production, received "{self.curToken.serialize()}"')
         node.closeToken = self._nextToken()
         return node
 

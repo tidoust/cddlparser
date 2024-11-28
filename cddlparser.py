@@ -24,4 +24,4 @@ if __name__ == '__main__':
         print()
         print('AST re-serialization')
         print('--------------------')
-        print(ast.str())
+        print(ast.serialize())
