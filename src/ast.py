@@ -1,6 +1,6 @@
 from __future__ import annotations
 from enum import StrEnum
-from typing import Literal
+from typing import Literal, Sequence
 from dataclasses import dataclass, field
 from .tokens import Token, Tokens
 
@@ -36,12 +36,39 @@ class CDDLNode:
     '''
     Abstract base class for all nodes in the abstract syntax tree.
     '''
+    parentNode: CDDLNode | None = None
+
     def serialize(self, marker: Marker | None = None) -> str:
-        return self._serialize(marker)
+        # Make sure that parentNode relationships are properly set
+        self.setChildrenParent()
+        if marker is not None:
+            markup = marker.markupFor(self)
+            output = markup[0] if markup[0] is not None else ''
+            output += self._serialize(marker)
+            output += markup[1] if markup[1] is not None else ''
+            return output
+        else:
+            return self._serialize()
+
+    def setChildrenParent(self) -> None:
+        '''
+        Initialize the parentNode links from children nodes to this node
+        so that marker can access and adapt its behavior based on the
+        current context.
+        '''
+        for child in self.getChildren():
+            child.parentNode = self
+            child.setChildrenParent()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        '''
+        Return the list of children nodes attached to this node
+        '''
+        return []
 
     def _serialize(self, marker: Marker | None = None) -> str:
         '''
-        Function must be implemented in all subclasses
+        Function must be implemented in all subclasses.
         '''
         raise Exception('_serialize method must be implemented in subclass')
 
@@ -50,7 +77,7 @@ class CDDLNode:
             return ''
         if marker is None:
             return token.serialize()
-        return marker.markToken(token, self)
+        return marker.serializeToken(token, self)
 
 class WrappedNode(CDDLNode):
     '''
@@ -121,6 +148,9 @@ class CDDLTree(TokenNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return self.rules
+
     def _serialize(self, marker: Marker | None = None) -> str:
         return ''.join([item.serialize(marker) for item in self.rules])
 
@@ -145,6 +175,9 @@ class Rule(CDDLNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return [self.name, self.type]
+
     def _serialize(self, marker: Marker | None = None) -> str:
         output = self.name.serialize(marker)
         output += self._serializeToken(self.assign, marker)
@@ -162,6 +195,15 @@ class GroupEntry(TokenNode):
 
     def __post_init__(self):
         super().__init__()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        children: list[CDDLNode] = []
+        if self.occurrence is not None:
+            children.append(self.occurrence)
+        if self.key is not None:
+            children.append(self.key)
+        children.append(self.type)
+        return children
 
     def _serialize(self, marker: Marker | None = None) -> str:
         output = ''
@@ -184,6 +226,9 @@ class Group(TokenNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return self.groupChoices
+
     def _serialize(self, marker: Marker | None = None) -> str:
         return ''.join([item.serialize(marker) for item in self.groupChoices])
 
@@ -196,6 +241,9 @@ class GroupChoice(TokenNode):
 
     def __post_init__(self):
         super().__init__()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return self.groupEntries
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return ''.join([item.serialize(marker) for item in self.groupEntries])
@@ -212,6 +260,9 @@ class Array(TokenNode):
 
     def __post_init__(self):
         super().__init__()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return self.groupChoices
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return ''.join([item.serialize(marker) for item in self.groupChoices])
@@ -236,6 +287,9 @@ class Tag(TokenNode):
 
     def __post_init__(self):
         super().__init__()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return [self.typePart] if self.typePart is not None else []
 
     def _serialize(self, marker: Marker | None = None) -> str:
         output: str = self._serializeToken(Token(Tokens.HASH, ''), marker)
@@ -288,7 +342,7 @@ class Value(TokenNode):
         if marker is None:
             return prefix + self.value + suffix
         else:
-            return marker.markValue(prefix, self.value, suffix, self.type)
+            return marker.serializeValue(prefix, self.value, suffix, self)
 
 @dataclass
 class Typename(TokenNode):
@@ -302,6 +356,9 @@ class Typename(TokenNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return [self.parameters] if self.parameters is not None else []
+
     def _prestr(self, marker: Marker | None = None) -> str:
         return self._serializeToken(self.unwrapped, marker)
 
@@ -310,7 +367,7 @@ class Typename(TokenNode):
         if marker is None:
             output = self.name
         else:
-            output += marker.markTypename(self.name, self)
+            output += marker.serializeName(self.name, self)
         if self.parameters is not None:
             output += self.parameters.serialize(marker)
         return output
@@ -324,6 +381,9 @@ class Reference(TokenNode):
 
     def __post_init__(self):
         super().__init__()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return [self.target]
 
     def _serialize(self, marker: Marker | None = None) -> str:
         output: str = self._serializeToken(Token(Tokens.AMPERSAND, ''), marker)
@@ -351,6 +411,9 @@ class Range(TokenNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return [self.min, self.max]
+
     def _serialize(self, marker: Marker | None = None) -> str:
         output = self.min.serialize(marker)
         output += self._serializeToken(self.rangeop, marker)
@@ -370,6 +433,9 @@ class Operator(TokenNode):
 
     def __post_init__(self):
         super().__init__()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return [self.type, self.controller]
 
     def _serialize(self, marker: Marker | None = None) -> str:
         output = self.type.serialize(marker)
@@ -393,6 +459,9 @@ class Memberkey(CDDLNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return [self.type]
+
     def _serialize(self, marker: Marker | None = None) -> str:
         output = self.type.serialize(marker)
         output += ''.join([self._serializeToken(token, marker) for token in self.tokens])
@@ -408,6 +477,9 @@ class Type(CDDLNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return self.types
+
     def _serialize(self, marker: Marker | None = None) -> str:
         return ''.join([item.serialize(marker) for item in self.types])
 
@@ -420,6 +492,9 @@ class GenericParameters(WrappedNode):
 
     def __post_init__(self):
         super().__init__()
+
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return self.parameters
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return ''.join([item.serialize(marker) for item in self.parameters])
@@ -434,31 +509,42 @@ class GenericArguments(WrappedNode):
     def __post_init__(self):
         super().__init__()
 
+    def getChildren(self) -> Sequence[CDDLNode]:
+        return self.parameters
+
     def _serialize(self, marker: Marker | None = None) -> str:
         return ''.join([item.serialize(marker) for item in self.parameters])
+
+Markup = tuple[str | None, str | None]
 
 class Marker():
     '''
     Base class to markup nodes during serialization.
     '''
 
-    def markToken(self, token: Token, node: CDDLNode) -> str:
+    def serializeToken(self, token: Token, node: CDDLNode) -> str:
         '''
-        Mark a Token.
+        Serialize a Token.
 
         The function must handle whitespaces and comments that the Token
         contains.
         '''
         return token.serialize()
 
-    def markValue(self, prefix: str, value: str, suffix: str, type: str) -> str:
+    def serializeValue(self, prefix: str, value: str, suffix: str, node: CDDLNode) -> str:
         '''
-        Mark a Value.
+        Serialize a Value.
         '''
         return prefix + value + suffix
 
-    def markTypename(self, name: str, node: CDDLNode) -> str:
+    def serializeName(self, name: str, node: CDDLNode) -> str:
         '''
-        Mark a typename or a groupname
+        Serialize a typename or a groupname
         '''
         return name
+
+    def markupFor(self, node: CDDLNode) -> Markup:
+        '''
+        Wrapping markup for a node as a whole if needed
+        '''
+        return (None, None)
