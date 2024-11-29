@@ -4,11 +4,13 @@
 
 CDDL expresses Concise Binary Object Representation (CBOR) data structures ([RFC 7049](https://datatracker.ietf.org/doc/html/rfc7049)). Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON.
 
-This Python implementation provides a CDDL parser suitable for producing marked up serializations of the CDDL. It is intended to be used in spec authoring tools to add cross-referencing logic within CDDL blocks that the specs may define.
+This Python implementation provides a CDDL parser suitable for producing marked up serializations of the CDDL. It is intended to be used in spec authoring tools to add cross-referencing logic within CDDL blocks.
 
 __Note:__ This is __work in progress__. Feel free to have a look at the code and report problems, but you may not want to rely on the code in a production setting.
 
-## How to install and use
+## Usage
+
+### How to install
 
 Clone the repository:
 
@@ -16,13 +18,22 @@ Clone the repository:
 git clone https//github.com/tidoust/cddlparser
 ```
 
-Then run `cddlparser.py`, passing in the path to a CDDL file as parameter
+### Command-line interface
+
+Run `cddlparser.py`, passing in the path to a CDDL file as parameter
 
 ```bash
 python cddlparser.py tests/__fixtures__/example.cddl
 ```
 
-Through your local copy, you may import
+That should print a serialization of the [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) produced by the parser, followed by a re-serialization of the AST, which should match the original file.
+
+### As a Python module
+
+> [!NOTE]
+> Need to figure out to release the code as a Python package
+
+From your local copy, you should be able to write code such as:
 
 ```python
 from cddlparser import parse
@@ -32,10 +43,47 @@ ast = parse('''
       identity,                         ; an identity
       employer: tstr,                   ; some employer
   }''')
+
+print('The Abstract syntax tree:')
 pprint(ast)
+
+print()
+print('Re-serialization:')
+print(ast.serialize())
 ```
 
-That should print a serialization of the [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) produced by the parser, followed by a re-serialization of the AST, which should match the original file.
+To create markup during serialization, you need to pass an object that subclasses the `Marker` class (see inline notes for a bit of documentation).
+
+```python
+from cddlparser import parse
+from src.ast import CDDLNode, Marker, Markup, Rule
+
+class StrongNameMarker(Marker):
+    def serializeName(self, name: str, node: CDDLNode) -> str:
+        return '<b>' + name + '</b>'
+
+    def markupFor(self, node: CDDLNode) -> Markup:
+        if isinstance(node, Rule):
+            return ('<div class="rule">', '</div>')
+        else:
+            return super().markupFor(node)
+
+ast = parse('''person = {
+  identity,
+  employer: tstr,
+}''')
+
+print(ast.serialize(StrongNameMarker()))
+```
+
+This should produce:
+
+```html
+<div class="rule"><b>person</b> = {
+  <b>identity</b>,
+  <b>employer</b>: <b>tstr</b>,
+}</div>
+```
 
 ## How to run tests
 
@@ -59,15 +107,17 @@ mypy src
 
 ## Known limitations
 
-- The right hand side of a type rule is represented as a group entry. In other words, it uses the same structure as the right hand side of a group rule.
-- A type wrapped into parentheses is represented as a group.
+- The parser is semi-lax and may accept CDDL blocks that are invalid per the CDDL grammar. In other words, no attempt is being made at validating the provided CDDL string.
+- The only logic that exists in the AST for now is the serialization logic. There are no facilities to import CDDL modules, resolve references, inline groups, validate CBOR, etc.
+- The right hand side of a type rule is always represented as a group entry in the AST. In other words, it uses the same structure as the right hand side of a group rule.
+- A type wrapped into parentheses is represented as a group as well.
 - Parsing of strings and byte strings may not be fully correct. Hex float are not supported. See also [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) for CDDL grammar updates.
 - Overall, the AST is verbose and could be simplified.
 
 ## Acknowledgments
 
-This implementation started as a direct port of the [CDDL parser in Node.js](https://github.com/christian-bromann/cddl) written by @christian-bromann (released under an MIT license), and the lexer remains largely equivalent to the Node.js one (but also supports additional productions such as byte strings). The parser is no longer a direct port: the Node.js parser does not support all productions allowed by the CDDL grammar and the goal here is to allow serializing the abstract syntax tree back into a string while preserving the original formatting (including whitespaces and comments).
+This `cddlparser` Python module merely came into existence because I needed a CDDL parser in Python that I could leverage to add CDDL support in [Bikeshed](https://github.com/speced/bikeshed) (not done yet!) and could not find any. I took inspiration from existing CDDL parsers written in other languages:
 
-This implementation follows the CDDL grammar more closely, making it closer to the [cddl-rs](https://github.com/anweiss/cddl) implementation in Rust by @anweiss (also released under an MIT license). As opposed to cddl-rs, this implementation does not validate CDDL blocks per se. It will only raise an error when a production cannot be parsed according to the grammar.
-
-This implementation uses test files from these projects to validate the parser. It also tests parsing and serialization of [CDDL content extracted from IETF RFCs](https://github.com/cabo/cddlc/tree/master/data) by @cabo.
+- [`cddl`](https://github.com/christian-bromann/cddl): a JavaScript implementation of a CDDL parser for Node.js, released under an MIT license, written by @christian-bromann. `cddlparser` started as a direct port of the JavaScript code, and the lexer remains similar to the JavaScript one. Testing structures and main test files also come from `cddl`. The parser in `cddlparser` is completely different though, given the need to preserve the original formatting (including whitespaces and comments) to re-serialize the AST back into a string.
+- [`cddl-rs`](https://github.com/anweiss/cddl): a Rust implementation of a CDDL parser, released under an MIT license, written by @anweiss, that features a CDDL validator. The parser in `cddlparser` follows a similar "close to the CDDL grammar" logic. The `cddlparser` test suite also contains test files from the `cddl-rs` project.
+- [`cddlc`](https://github.com/cabo/cddlc): A set of CDDL utilities written in Ruby by @cabo, along with CDDL extracts from IETF RFCs. The `cddlparser` test suite makes sure that CDDL extracts in the `cddlc` repository can be parsed and serialized again.
