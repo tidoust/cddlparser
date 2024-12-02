@@ -478,6 +478,7 @@ Type1 = Type2 | Range | Operator
 class Memberkey(CDDLNode):
     type: Type1
     hasCut: bool
+    hasColon: bool
     # TODO: ideally, we wouldn't have the parser store tokens on top of
     # the type and hasCut, that's just a quick and dirty way to get the
     # different combinations of cut tokens right (with spaces and comments)

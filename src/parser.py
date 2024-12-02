@@ -109,13 +109,13 @@ class Parser:
             if self.curToken.type != Tokens.ARROWMAP:
                 raise self._parserError(f'expected arrow map, received "{self.curToken.serialize()}{self.peekToken.serialize()}"')
             caretTokens.append(self._nextToken())
-            key = Memberkey(type1, hasCut=True, tokens=caretTokens)
+            key = Memberkey(type1, hasCut=True, hasColon=False, tokens=caretTokens)
             return key
         elif loose and self.curToken.type == Tokens.ARROWMAP:
-            key = Memberkey(type1, hasCut=False, tokens=[self._nextToken()])
+            key = Memberkey(type1, hasCut=False, hasColon=False, tokens=[self._nextToken()])
             return key
         elif loose and self.curToken.type == Tokens.COLON:
-            key = Memberkey(type1, hasCut=True, tokens=[self._nextToken()])
+            key = Memberkey(type1, hasCut=True, hasColon=True, tokens=[self._nextToken()])
             return key
 
         while self.curToken.type == Tokens.TCHOICE:

@@ -10,6 +10,7 @@
                                                                                                                             unwrapped=None,
                                                                                                                             parameters=None),
                                                                                                               hasCut=True,
+                                                                                                              hasColon=True,
                                                                                                               tokens=[Token(type=<Tokens.COLON: ':'>,
                                                                                                                             literal='',
                                                                                                                             comments=[],
