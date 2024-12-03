@@ -450,4 +450,4 @@ class Parser:
     def _parserError(self, message: str) -> Exception:
         location = self.l.getLocation()
         locInfo = self.l.getLocationInfo()
-        return Exception(f'{location.line + 1}:{location.position} - error: {message}\n\n{locInfo}')
+        return Exception(f'CDDL SYNTAX ERROR - line {location.line + 1}, col {location.position}: {message}\n\n{locInfo}')
