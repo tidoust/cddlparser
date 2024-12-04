@@ -1,0 +1,19 @@
+uint-simple = 10045
+uint-hex = 0x0A54
+uint-bin = 0b01110
+uint-zero = 0
+uint-fraction = 0.96
+
+int-neg = -42
+int-hexneg = -0xFF
+int-binneg = -0b1110
+
+number-1 = 78.12
+number-2 = 9993e2024
+number-3 = -375.023e14
+number-4 = -375.023e-14
+number-5 = -375.023e+14
+
+hexfloat-int = 0x09AB53p1
+hexfloat-negative = -0x10p-20
+heffloat-float = 0xF.2Ap+2

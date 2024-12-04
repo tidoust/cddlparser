@@ -160,12 +160,8 @@ class Lexer:
                     else:
                         token = Token(Tokens.IDENT, self._readIdentifier(), comments, whitespace)
                         tokenRead = True
-                elif (
-                    # positive number
-                    isDigit(literal) or
-                    # negative number
-                    ((literal == Tokens.MINUS) and isDigit(self.input[self.readPosition]))
-                ):
+                elif literal.isdigit() or literal == '-':
+                    # Numbers start with a digit or a minus
                     numberOrFloat = self._readNumberOrFloat()
                     token = Token(
                         Tokens.FLOAT if '.' in numberOrFloat else Tokens.NUMBER,
@@ -182,15 +178,11 @@ class Lexer:
     def _readIdentifier(self) -> str:
         position = self.position
 
-        # an identifier can contain
         # see https://tools.ietf.org/html/draft-ietf-cbor-cddl-08#section-3.1
         while (
-            # a letter (a-z, A-Z)
             isLetter(chr(self.ch)) or
-            # a digit (0-9)
-            isDigit(chr(self.ch)) or
-            # and special characters (-, _, @, ., $)
-            self.ch in [ord(c) for c in '-_@.$']
+            chr(self.ch).isdigit() or
+            chr(self.ch) in '-_@.$'
         ):
             self.readChar()
 
@@ -226,22 +218,83 @@ class Lexer:
         position = self.position
         foundSpecialCharacter = False
 
-        # a number of float can contain
-        while (
-            # a number
-            isDigit(chr(self.ch)) or
-            # a special character, e.g. ".", "x" and "b"
-            hasSpecialNumberCharacter(self.ch)
-        ):
-            # ensure we respect ranges, e.g. 0..10
-            # so break after the second dot and adjust read position
-            if hasSpecialNumberCharacter(self.ch) and foundSpecialCharacter:
-                self.position -= 1
-                self.readPosition -= 1
-                break
+        # Negative numbers start with a minus prefix
+        if chr(self.ch) == '-':
+            self.readChar()
 
-            foundSpecialCharacter = hasSpecialNumberCharacter(self.ch)
-            self.readChar() # eat any character until a non digit or a 2nd dot
+        if chr(self.ch) == '0':
+            # Numbers that start with zero can either be hex numbers, binary
+            # numbers, the number zero or a float lower than 1
+            self.readChar()
+            if chr(self.ch) == 'x':
+                # Hex number
+                self.readChar()
+                # TODO: assert there's at least one hex digit
+                while chr(self.ch) in '0123456789ABCDEF':
+                    self.readChar()
+                if chr(self.ch) == '.':
+                    if self._peekAtNextChar() == '.':
+                        # Two continuous dots is a range operator,
+                        # number stops before the first dot.
+                        return self.input[position:self.position]
+                    self.readChar()
+                    while chr(self.ch) in '0123456789ABCDEF':
+                        self.readChar()
+                # TODO: assert that, if there was a ".", then there is a "p"
+                if chr(self.ch) == 'p':
+                    # Number contains an exponent
+                    self.readChar()
+                    if chr(self.ch) in '+-':
+                        self.readChar()
+                    # TODO: assert that exponent contains at least one digit
+                    while chr(self.ch).isdigit():
+                        self.readChar()
+            elif chr(self.ch) == 'b':
+                # Binary number
+                self.readChar()
+                # TODO: assert there's at least one binary digit
+                while chr(self.ch) in '01':
+                    self.readChar()
+            elif chr(self.ch) == '.':
+                if self._peekAtNextChar() == '.':
+                    # Two continuous dots is a range operator,
+                    # number stops before the first dot.
+                    return self.input[position:self.position]
+                self.readChar()
+                # TODO: assert that fraction contains at least one digit
+                while chr(self.ch).isdigit():
+                    self.readChar()
+                if chr(self.ch) == 'e':
+                    # Number contains an exponent
+                    self.readChar()
+                    if chr(self.ch) in '+-':
+                        self.readChar()
+                    # TODO: assert that exponent contains at least one digit
+                    while chr(self.ch).isdigit():
+                        self.readChar()
+            else:
+                # Number is zero, next character is for another production
+                pass
+        else:
+            while chr(self.ch).isdigit():
+                self.readChar()
+            if chr(self.ch) == '.':
+                if self._peekAtNextChar() == '.':
+                    # Two continuous dots is a range operator,
+                    # number stops before the first dot.
+                    return self.input[position:self.position]
+                self.readChar()
+                # TODO: assert that fraction contains at least one digit
+                while chr(self.ch).isdigit():
+                    self.readChar()
+            if chr(self.ch) == 'e':
+                # Number contains an exponent
+                self.readChar()
+                if chr(self.ch) in '+-':
+                    self.readChar()
+                # TODO: assert that exponent contains at least one digit
+                while chr(self.ch).isdigit():
+                    self.readChar()
 
         return self.input[position:self.position]
 

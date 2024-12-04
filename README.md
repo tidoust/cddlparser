@@ -107,11 +107,11 @@ mypy src
 
 ## Known limitations
 
-- The parser is semi-lax and may accept CDDL blocks that are invalid per the CDDL grammar. In other words, no attempt is being made at validating the provided CDDL string.
+- The parser is semi-lax and may accept CDDL blocks that are invalid per the CDDL grammar. In other words, while the parsing logic remains close to the grammar, no attempt is being made at validating the provided CDDL string.
 - The only logic that exists in the AST for now is the serialization logic. There are no facilities to import CDDL modules, resolve references, inline groups, validate CBOR, etc.
 - The right hand side of a type rule is always represented as a group entry in the AST. In other words, it uses the same structure as the right hand side of a group rule.
-- A type wrapped into parentheses is represented as a group as well.
-- Parsing of strings and byte strings may not be fully correct. Hex float are not supported. See also [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) for CDDL grammar updates.
+- A type wrapped into parentheses may be represented as a group as well.
+- Parsing of strings and byte strings may not be fully correct. CDDL grammar updates in [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) are not supported.
 - Overall, the AST is verbose and could be simplified.
 
 ## Acknowledgments

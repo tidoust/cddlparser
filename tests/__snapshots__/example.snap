@@ -223,7 +223,7 @@
                                                                                                                             literal='',
                                                                                                                             comments=[],
                                                                                                                             whitespace='')]),
-                                                                                                type=Type(types=[Value(value='0b123',
+                                                                                                type=Type(types=[Value(value='0b101',
                                                                                                                        type='number')])),
                                                                                      GroupEntry(occurrence=None,
                                                                                                 key=None,
