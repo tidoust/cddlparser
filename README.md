@@ -6,8 +6,6 @@ CDDL expresses Concise Binary Object Representation (CBOR) data structures ([RFC
 
 This Python implementation provides a CDDL parser suitable for producing marked up serializations of the CDDL. It is intended to be used in spec authoring tools to add cross-referencing logic within CDDL blocks.
 
-__Note:__ This is __work in progress__. Feel free to have a look at the code and report problems, but you may not want to rely on the code in a production setting.
-
 ## Usage
 
 ### How to install
@@ -107,7 +105,7 @@ mypy src
 
 ## Known limitations
 
-- The parser is semi-lax and may accept CDDL blocks that are invalid per the CDDL grammar. In other words, while the parsing logic remains close to the grammar, no attempt is being made at validating the provided CDDL string.
+- No attempt is made at validating the CDDL while parsing. The parser should choke on fairly invalid CDDL blocks but may accept blocks that do not respect the CDDL grammar.
 - The only logic that exists in the AST for now is the serialization logic. There are no facilities to import CDDL modules, resolve references, inline groups, validate CBOR, etc.
 - The right hand side of a type rule is always represented as a group entry in the AST. In other words, it uses the same structure as the right hand side of a group rule.
 - A type wrapped into parentheses may be represented as a group as well.
