@@ -1,70 +1,74 @@
+# pylint: disable=missing-module-docstring, missing-class-docstring, missing-function-docstring
+
 from enum import StrEnum
 from dataclasses import dataclass, field
 
+
 class Tokens(StrEnum):
-    ILLEGAL = 'ILLEGAL'
-    EOF = 'EOF'
-    NL = '\n'
-    SPACE = ' '
-    UNDERSCORE = '_'
-    DOLLAR = '$'
-    ATSIGN = '@'
-    CARET = '^'
-    HASH = '#'
-    TILDE = '~'
-    AMPERSAND = '&'
+    ILLEGAL = "ILLEGAL"
+    EOF = "EOF"
+    NL = "\n"
+    SPACE = " "
+    UNDERSCORE = "_"
+    DOLLAR = "$"
+    ATSIGN = "@"
+    CARET = "^"
+    HASH = "#"
+    TILDE = "~"
+    AMPERSAND = "&"
 
     # Identifiers + literals,
-    IDENT = 'IDENT'
-    COMMENT = 'COMMENT'
-    STRING = 'STRING'
-    NUMBER = 'NUMBER'
-    FLOAT = 'FLOAT'
-    CTLOP = 'CTLOP'
-    BYTES = 'BYTES'
-    HEX = 'HEX'
-    BASE64 = 'BASE64'
+    IDENT = "IDENT"
+    COMMENT = "COMMENT"
+    STRING = "STRING"
+    NUMBER = "NUMBER"
+    FLOAT = "FLOAT"
+    CTLOP = "CTLOP"
+    BYTES = "BYTES"
+    HEX = "HEX"
+    BASE64 = "BASE64"
 
     # Operators,
-    ASSIGN = '='
-    ARROWMAP = '=>'
-    TCHOICE = '/'
-    GCHOICE = '//'
-    TCHOICEALT = '/='
-    GCHOICEALT = '//='
-    PLUS = '+'
-    MINUS = '-'
-    QUEST = '?'
-    ASTERISK = '*'
+    ASSIGN = "="
+    ARROWMAP = "=>"
+    TCHOICE = "/"
+    GCHOICE = "//"
+    TCHOICEALT = "/="
+    GCHOICEALT = "//="
+    PLUS = "+"
+    MINUS = "-"
+    QUEST = "?"
+    ASTERISK = "*"
 
     # Ranges,
-    INCLRANGE = '..',
-    EXCLRANGE = '...',
+    INCLRANGE = ("..",)
+    EXCLRANGE = ("...",)
 
     # Delimiters,
-    COMMA = ','
-    DOT = '.'
-    COLON = ':'
-    SEMICOLON = ';'
-    LPAREN = '('
-    RPAREN = ')'
-    LBRACE = '{'
-    RBRACE = '}'
-    LBRACK = '['
-    RBRACK = ']'
-    LT = '<'
-    GT = '>'
+    COMMA = ","
+    DOT = "."
+    COLON = ":"
+    SEMICOLON = ";"
+    LPAREN = "("
+    RPAREN = ")"
+    LBRACE = "{"
+    RBRACE = "}"
+    LBRACK = "["
+    RBRACK = "]"
+    LT = "<"
+    GT = ">"
     QUOT = '"'
+
 
 @dataclass
 class Token:
     type: Tokens
     literal: str
-    comments: list['Token'] = field(default_factory=list)
-    whitespace: str = ''
+    comments: list["Token"] = field(default_factory=list)
+    whitespace: str = ""
 
     def serialize(self) -> str:
-        output = ''
+        output = ""
         for comment in self.comments:
             output += comment.serialize()
         output += self.whitespace
@@ -80,13 +84,13 @@ class Token:
             case Tokens.FLOAT:
                 output += self.literal
             case Tokens.CTLOP:
-                output += '.' + self.literal
+                output += "." + self.literal
             case Tokens.BYTES:
-                output += '\'' + self.literal + '\''
+                output += "'" + self.literal + "'"
             case Tokens.HEX:
-                output += 'h\'' + self.literal + '\''
+                output += "h'" + self.literal + "'"
             case Tokens.BASE64:
-                output += 'b64\'' + self.literal + '\''
+                output += "b64'" + self.literal + "'"
             case Tokens.EOF:
                 pass
             case _:

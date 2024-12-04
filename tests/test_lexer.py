@@ -1,13 +1,15 @@
 import unittest
 import sys
-sys.path.append('..')
+
+sys.path.append("..")
 
 from src.tokens import Tokens, Token
 from src.lexer import Lexer
 
+
 class TestLexer(unittest.TestCase):
     def test_should_allow_to_read_token(self):
-        input = '=+(){},/'
+        input = "=+(){},/"
         tests = [
             Tokens.ASSIGN,
             Tokens.PLUS,
@@ -16,7 +18,7 @@ class TestLexer(unittest.TestCase):
             Tokens.LBRACE,
             Tokens.RBRACE,
             Tokens.COMMA,
-            Tokens.TCHOICE
+            Tokens.TCHOICE,
         ]
 
         lexer = Lexer(input)
@@ -25,12 +27,14 @@ class TestLexer(unittest.TestCase):
             self.assertEqual(token.type, type)
 
     def test_should_read_identifiers_and_comments(self):
-        input = '   headers,       \n   ; Headers for the recipient'
-        comment = Token(Tokens.COMMENT, '; Headers for the recipient', [], '       \n   ')
+        input = "   headers,       \n   ; Headers for the recipient"
+        comment = Token(
+            Tokens.COMMENT, "; Headers for the recipient", [], "       \n   "
+        )
         tests = [
-            [Tokens.IDENT, 'headers', '   ', None],
-            [Tokens.COMMA, '', '', None],
-            [Tokens.EOF, '', '', comment]
+            [Tokens.IDENT, "headers", "   ", None],
+            [Tokens.COMMA, "", "", None],
+            [Tokens.EOF, "", "", comment],
         ]
 
         lexer = Lexer(input)
@@ -47,5 +51,6 @@ class TestLexer(unittest.TestCase):
                 self.assertEqual(token.comments[0].literal, comment.literal)
                 self.assertEqual(token.comments[0].whitespace, comment.whitespace)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

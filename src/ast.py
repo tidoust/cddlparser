@@ -1,68 +1,97 @@
+# pylint: disable=invalid-name, fixme, missing-module-docstring, missing-function-docstring, missing-class-docstring
+
 from __future__ import annotations
-from enum import StrEnum
 from typing import Literal, Sequence
 from dataclasses import dataclass, field
 from .tokens import Token, Tokens
 
-'''
-Possible value types
-'''
-ValueType = Literal[
-    'number', 'text', 'bytes', 'hex', 'base64'
-]
+# Possible value types
+ValueType = Literal["number", "text", "bytes", "hex", "base64"]
 
-'''
-Known control operators
-
-Note: We may want to relax the check, control operators provide an extension
-point for specs that define CDDL and they may define their own operators.
-'''
+# Known control operators
+#
+# Note: We may want to relax the check, control operators provide an extension
+# point for specs that define CDDL and they may define their own operators.
 OperatorName = Literal[
     # Control operators defined in the main CDDL spec
-    'and', 'bits', 'cbor', 'cborseq', 'default',
-    'eq', 'ge', 'gt', 'le', 'lt', 'ne',
-    'regexp', 'size', 'within',
-
+    "and",
+    "bits",
+    "cbor",
+    "cborseq",
+    "default",
+    "eq",
+    "ge",
+    "gt",
+    "le",
+    "lt",
+    "ne",
+    "regexp",
+    "size",
+    "within",
     # Control operators defined in RFC9165:
     # https://datatracker.ietf.org/doc/html/rfc9165
-    'plus', 'cat', 'det', 'abnf', 'abnfb', 'feature',
-
+    "plus",
+    "cat",
+    "det",
+    "abnf",
+    "abnfb",
+    "feature",
     # proposed in the freezer:
     # https://datatracker.ietf.org/doc/html/draft-bormann-cbor-cddl-freezer-14#name-control-operator-pcre
-    'pcre'
+    "pcre",
 ]
 
-
-'''
-Prelude types defined in RFC810:
-https://datatracker.ietf.org/doc/html/rfc8610#appendix-D
-'''
+# Prelude types defined in RFC810:
+# https://datatracker.ietf.org/doc/html/rfc8610#appendix-D
 PreludeType = Literal[
-    'any', 'uint', 'nint', 'int',
-    'bstr', 'bytes', 'tstr', 'text',
-
-    'tdate', 'time', 'number',
-    'biguint', 'bignint', 'bigint',
-    'integer', 'unsigned',
-    'decfrac', 'bigfloat',
-    'eb64url', 'eb64legacy', 'eb16',
-    'encoded-cbor',
-    'uri', 'b64url', 'b64legacy',
-    'regexp', 'mime-message',
-    'cbor-any',
-
-    'float16', 'float32', 'float64',
-    'float16-32', 'float32-64',
-    'float',
-
-    'false', 'true', 'bool',
-    'nil', 'null', 'undefined'
+    "any",
+    "uint",
+    "nint",
+    "int",
+    "bstr",
+    "bytes",
+    "tstr",
+    "text",
+    "tdate",
+    "time",
+    "number",
+    "biguint",
+    "bignint",
+    "bigint",
+    "integer",
+    "unsigned",
+    "decfrac",
+    "bigfloat",
+    "eb64url",
+    "eb64legacy",
+    "eb16",
+    "encoded-cbor",
+    "uri",
+    "b64url",
+    "b64legacy",
+    "regexp",
+    "mime-message",
+    "cbor-any",
+    "float16",
+    "float32",
+    "float64",
+    "float16-32",
+    "float32-64",
+    "float",
+    "false",
+    "true",
+    "bool",
+    "nil",
+    "null",
+    "undefined",
 ]
+
 
 class CDDLNode:
-    '''
+    """
     Abstract base class for all nodes in the abstract syntax tree.
-    '''
+    """
+
     parentNode: CDDLNode | None = None
 
     def serialize(self, marker: Marker | None = None) -> str:
@@ -70,46 +99,47 @@ class CDDLNode:
         self.setChildrenParent()
         if marker is not None:
             markup = marker.markupFor(self)
-            output = markup[0] if markup[0] is not None else ''
+            output = markup[0] if markup[0] is not None else ""
             output += self._serialize(marker)
-            output += markup[1] if markup[1] is not None else ''
+            output += markup[1] if markup[1] is not None else ""
             return output
-        else:
-            return self._serialize()
+        return self._serialize()
 
     def setChildrenParent(self) -> None:
-        '''
+        """
         Initialize the parentNode links from children nodes to this node
         so that marker can access and adapt its behavior based on the
         current context.
-        '''
+        """
         for child in self.getChildren():
             child.parentNode = self
             child.setChildrenParent()
 
     def getChildren(self) -> Sequence[CDDLNode]:
-        '''
+        """
         Return the list of children nodes attached to this node
-        '''
+        """
         return []
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        '''
+        """
         Function must be implemented in all subclasses.
-        '''
-        raise Exception('_serialize method must be implemented in subclass')
+        """
+        raise NotImplementedError("_serialize method must be implemented in subclass")
 
     def _serializeToken(self, token: Token | None, marker: Marker | None = None) -> str:
         if token is None:
-            return ''
+            return ""
         if marker is None:
             return token.serialize()
         return marker.serializeToken(token, self)
 
+
 class WrappedNode(CDDLNode):
-    '''
+    """
     A wrapped node is a node optionally enclosed in an open and close token.
-    '''
+    """
+
     openToken: Token | None = None
     closeToken: Token | None = None
 
@@ -119,8 +149,15 @@ class WrappedNode(CDDLNode):
         output += self._serializeToken(self.closeToken, marker)
         return output
 
+    def _serialize(self, marker: Marker | None = None) -> str:
+        """
+        Function must be implemented in all subclasses.
+        """
+        raise NotImplementedError("_serialize method must be implemented in subclass")
+
+
 class TokenNode(WrappedNode):
-    '''
+    """
     A token node is a node that essentially represents a concrete token and/or
     that may be part of a list.
 
@@ -133,24 +170,32 @@ class TokenNode(WrappedNode):
 
     A token node is a wrapped node if its openToken and closeToken properties
     are set.
-    '''
+    """
+
     # Comments and whitespace *before* the node
     comments: list[Token] = []
-    whitespace: str = ''
+    whitespace: str = ""
     separator: Token | None = None
 
     def __init__(self) -> None:
         self.comments = []
-        self.whitespace = ''
+        self.whitespace = ""
         self.separator = None
 
+    # pylint: disable=unused-argument
     def _prestr(self, marker: Marker | None = None) -> str:
-        '''
+        """
         Function may be useful in subclasses to output something
         before the comments and whitespace associated with the
         main token
-        '''
-        return ''
+        """
+        return ""
+
+    def _serialize(self, marker: Marker | None = None) -> str:
+        """
+        Function must be implemented in all subclasses.
+        """
+        raise NotImplementedError("_serialize method must be implemented in subclass")
 
     def serialize(self, marker: Marker | None = None) -> str:
         output = self._prestr(marker)
@@ -165,11 +210,13 @@ class TokenNode(WrappedNode):
         self.comments = token.comments
         self.whitespace = token.whitespace
 
+
 @dataclass
 class CDDLTree(TokenNode):
-    '''
+    """
     Represents a set of CDDL rules
-    '''
+    """
+
     rules: list[Rule]
 
     def __post_init__(self):
@@ -179,11 +226,12 @@ class CDDLTree(TokenNode):
         return self.rules
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([item.serialize(marker) for item in self.rules])
+        return "".join([item.serialize(marker) for item in self.rules])
+
 
 @dataclass
 class Rule(CDDLNode):
-    '''
+    """
     A group definition
     ```
     person = {
@@ -192,7 +240,8 @@ class Rule(CDDLNode):
         employer: tstr,
     }
     ```
-    '''
+    """
+
     name: Typename
     # Note: Consider storing as more directly useful booleans instead of as an
     # ASSIGN, TCHOICEALT or GCHOICEALT token (needed for spaces and comments)
@@ -211,11 +260,13 @@ class Rule(CDDLNode):
         output += self.type.serialize(marker)
         return output
 
+
 @dataclass
 class GroupEntry(TokenNode):
-    '''
+    """
     A group entry
-    '''
+    """
+
     occurrence: Occurrence | None
     key: Memberkey | None
     type: Type | Group
@@ -233,7 +284,7 @@ class GroupEntry(TokenNode):
         return children
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        output = ''
+        output = ""
         if self.occurrence is not None:
             output += self.occurrence.serialize(marker)
         if self.key is not None:
@@ -241,12 +292,14 @@ class GroupEntry(TokenNode):
         output += self.type.serialize(marker)
         return output
 
+
 @dataclass
 class Group(TokenNode):
-    '''
+    """
     A group, meaning a list of group choices wrapped in parentheses or curly
     braces
-    '''
+    """
+
     groupChoices: list[GroupChoice]
     isMap: bool
 
@@ -257,13 +310,15 @@ class Group(TokenNode):
         return self.groupChoices
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([item.serialize(marker) for item in self.groupChoices])
+        return "".join([item.serialize(marker) for item in self.groupChoices])
+
 
 @dataclass
 class GroupChoice(TokenNode):
-    '''
+    """
     A group choice
-    '''
+    """
+
     groupEntries: list[GroupEntry]
 
     def __post_init__(self):
@@ -273,16 +328,18 @@ class GroupChoice(TokenNode):
         return self.groupEntries
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([item.serialize(marker) for item in self.groupEntries])
+        return "".join([item.serialize(marker) for item in self.groupEntries])
+
 
 @dataclass
 class Array(TokenNode):
-    '''
+    """
     An array
     ```
     [ city: tstr ]
     ```
-    '''
+    """
+
     groupChoices: list[GroupChoice]
 
     def __post_init__(self):
@@ -292,17 +349,18 @@ class Array(TokenNode):
         return self.groupChoices
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([item.serialize(marker) for item in self.groupChoices])
+        return "".join([item.serialize(marker) for item in self.groupChoices])
 
 
 @dataclass
 class Tag(TokenNode):
-    '''
+    """
     A tag definition
     ```
     #6.32(tstr)
     ```
-    '''
+    """
+
     # TODO: consider storing the numeric part as an int or float instead of as
     # a NUMBER or FLOAT token (using Token for spaces and comments)
     numericPart: Token | None = None
@@ -319,10 +377,11 @@ class Tag(TokenNode):
         return [self.typePart] if self.typePart is not None else []
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        output: str = self._serializeToken(Token(Tokens.HASH, ''), marker)
+        output: str = self._serializeToken(Token(Tokens.HASH, ""), marker)
         output += self._serializeToken(self.numericPart, marker)
-        output += self.typePart.serialize(marker) if self.typePart is not None else ''
+        output += self.typePart.serialize(marker) if self.typePart is not None else ""
         return output
+
 
 @dataclass
 class Occurrence(TokenNode):
@@ -337,14 +396,15 @@ class Occurrence(TokenNode):
         super().__init__()
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([self._serializeToken(item, marker) for item in self.tokens])
+        return "".join([self._serializeToken(item, marker) for item in self.tokens])
 
 
 @dataclass
 class Value(TokenNode):
-    '''
+    """
     A value (number, text or bytes)
-    '''
+    """
+
     value: str
     type: ValueType
 
@@ -352,30 +412,31 @@ class Value(TokenNode):
         super().__init__()
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        prefix: str = ''
-        suffix: str = ''
-        if self.type == 'text':
+        prefix: str = ""
+        suffix: str = ""
+        if self.type == "text":
             prefix = '"'
             suffix = '"'
-        elif self.type == 'bytes':
-            prefix = '\''
-            suffix = '\''
-        elif self.type == 'hex':
-            prefix = 'h\''
-            suffix = '\''
-        elif self.type == 'base64':
-            prefix = 'b64\''
-            suffix = '\''
+        elif self.type == "bytes":
+            prefix = "'"
+            suffix = "'"
+        elif self.type == "hex":
+            prefix = "h'"
+            suffix = "'"
+        elif self.type == "base64":
+            prefix = "b64'"
+            suffix = "'"
         if marker is None:
             return prefix + self.value + suffix
-        else:
-            return marker.serializeValue(prefix, self.value, suffix, self)
+        return marker.serializeValue(prefix, self.value, suffix, self)
+
 
 @dataclass
 class Typename(TokenNode):
-    '''
+    """
     A typename (or groupname)
-    '''
+    """
+
     name: str
     unwrapped: Token | None
     parameters: GenericParameters | GenericArguments | None = None
@@ -390,7 +451,7 @@ class Typename(TokenNode):
         return self._serializeToken(self.unwrapped, marker)
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        output = ''
+        output = ""
         if marker is None:
             output = self.name
         else:
@@ -399,11 +460,13 @@ class Typename(TokenNode):
             output += self.parameters.serialize(marker)
         return output
 
+
 @dataclass
 class Reference(TokenNode):
-    '''
+    """
     A reference to another production
-    '''
+    """
+
     target: Group | Typename
 
     def __post_init__(self):
@@ -413,22 +476,25 @@ class Reference(TokenNode):
         return [self.target]
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        output: str = self._serializeToken(Token(Tokens.AMPERSAND, ''), marker)
+        output: str = self._serializeToken(Token(Tokens.AMPERSAND, ""), marker)
         output += self.target.serialize(marker)
         return output
+
 
 # A type2 production is one of a few possibilities
 Type2 = Value | Typename | Group | Array | Reference | Tag
 
+
 @dataclass
 class Range(TokenNode):
-    '''
+    """
     A Range is a specific kind of Type1.
 
     The grammar allows a range boundary to be a Type2. In practice, it can only
     be an integer, a float, or a reference to a value that holds an integer or
     a float.
-    '''
+    """
+
     min: Value | Typename
     max: Value | Typename
     # TODO: would be better to store that as an "inclusive" bool. Using a Token
@@ -447,11 +513,13 @@ class Range(TokenNode):
         output += self.max.serialize(marker)
         return output
 
+
 @dataclass
 class Operator(TokenNode):
-    '''
+    """
     An operator is a specific type of Type1
-    '''
+    """
+
     type: Type2
     # TODO: Consider storing operator as str. Using Token for spaces and
     # comments but Token is of type CTLOP and literal in OperatorName
@@ -469,6 +537,7 @@ class Operator(TokenNode):
         output += self._serializeToken(self.name, marker)
         output += self.controller.serialize(marker)
         return output
+
 
 # A Type1 production is either a Type2, a Range or an Operator
 Type1 = Type2 | Range | Operator
@@ -492,14 +561,18 @@ class Memberkey(CDDLNode):
 
     def _serialize(self, marker: Marker | None = None) -> str:
         output = self.type.serialize(marker)
-        output += ''.join([self._serializeToken(token, marker) for token in self.tokens])
+        output += "".join(
+            [self._serializeToken(token, marker) for token in self.tokens]
+        )
         return output
+
 
 @dataclass
 class Type(CDDLNode):
-    '''
+    """
     A Type is a list of Type1, each representing a possible choice.
-    '''
+    """
+
     types: list[Type1]
 
     def __post_init__(self):
@@ -509,13 +582,15 @@ class Type(CDDLNode):
         return self.types
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([item.serialize(marker) for item in self.types])
+        return "".join([item.serialize(marker) for item in self.types])
+
 
 @dataclass
 class GenericParameters(WrappedNode):
-    '''
+    """
     A set of generic parameters
-    '''
+    """
+
     parameters: list[Typename]
 
     def __post_init__(self):
@@ -525,13 +600,15 @@ class GenericParameters(WrappedNode):
         return self.parameters
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([item.serialize(marker) for item in self.parameters])
+        return "".join([item.serialize(marker) for item in self.parameters])
+
 
 @dataclass
 class GenericArguments(WrappedNode):
-    '''
+    """
     A set of generic arguments
-    '''
+    """
+
     parameters: list[Type1]
 
     def __post_init__(self):
@@ -541,38 +618,46 @@ class GenericArguments(WrappedNode):
         return self.parameters
 
     def _serialize(self, marker: Marker | None = None) -> str:
-        return ''.join([item.serialize(marker) for item in self.parameters])
+        return "".join([item.serialize(marker) for item in self.parameters])
+
 
 Markup = tuple[str | None, str | None]
 
-class Marker():
-    '''
-    Base class to markup nodes during serialization.
-    '''
 
+class Marker:
+    """
+    Base class to markup nodes during serialization.
+    """
+
+    # pylint: disable=unused-argument
     def serializeToken(self, token: Token, node: CDDLNode) -> str:
-        '''
+        """
         Serialize a Token.
 
         The function must handle whitespaces and comments that the Token
         contains.
-        '''
+        """
         return token.serialize()
 
-    def serializeValue(self, prefix: str, value: str, suffix: str, node: CDDLNode) -> str:
-        '''
+    # pylint: disable=unused-argument
+    def serializeValue(
+        self, prefix: str, value: str, suffix: str, node: CDDLNode
+    ) -> str:
+        """
         Serialize a Value.
-        '''
+        """
         return prefix + value + suffix
 
+    # pylint: disable=unused-argument
     def serializeName(self, name: str, node: CDDLNode) -> str:
-        '''
+        """
         Serialize a typename or a groupname
-        '''
+        """
         return name
 
+    # pylint: disable=unused-argument
     def markupFor(self, node: CDDLNode) -> Markup:
-        '''
+        """
         Wrapping markup for a node as a whole if needed
-        '''
+        """
         return (None, None)
