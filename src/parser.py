@@ -231,7 +231,7 @@ class Parser:
 
             case Tokens.HASH:
                 hashToken = self._nextToken()
-                if self.curToken.type == Tokens.NUMBER or self.curToken.type == Tokens.FLOAT:
+                if self.curToken.type in {Tokens.NUMBER, Tokens.FLOAT}:
                     number = self._nextToken()
                     if number.literal[0] == '6' and self.curToken.type == Tokens.LPAREN:
                         # TODO: assert that there is no space between number and "("
@@ -338,7 +338,7 @@ class Parser:
         # ```
         #  + bedroom: size,
         # ```
-        if self.curToken.type == Tokens.QUEST or self.curToken.type == Tokens.ASTERISK or self.curToken.type == Tokens.PLUS:
+        if self.curToken.type in {Tokens.QUEST, Tokens.ASTERISK, Tokens.PLUS}:
             n = 1 if self.curToken.type == Tokens.PLUS else 0
             m = inf
 
