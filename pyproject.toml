@@ -1,0 +1,12 @@
+[tool.pylint."MESSAGES CONTROL"]
+disable = [
+    "fixme",
+    "invalid-name",
+    "line-too-long",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "too-few-public-methods",
+    "too-many-branches",
+    "too-many-statements",
+]

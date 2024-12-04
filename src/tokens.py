@@ -1,5 +1,3 @@
-# pylint: disable=missing-module-docstring, missing-class-docstring, missing-function-docstring
-
 from enum import StrEnum
 from dataclasses import dataclass, field
 

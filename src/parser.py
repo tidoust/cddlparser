@@ -1,7 +1,3 @@
-# pylint: disable=missing-module-docstring, missing-class-docstring, missing-function-docstring
-# pylint: disable=invalid-name, fixme, too-many-statements, too-few-public-methods
-# pylint: disable=line-too-long
-
 from typing import get_args
 from math import inf
 

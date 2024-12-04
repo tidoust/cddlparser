@@ -15,15 +15,14 @@ if __name__ == "__main__":
         print("Ex: python cddlparser.py tests/__fixtures__/example.cddl")
     else:
         file = sys.argv[1]
-        f = open(file, "r")
-        cddl = f.read()
-        f.close()
-        ast = parse(cddl)
-        print("Abstract syntax tree (AST)")
-        print("--------------------")
-        pprint(ast)
+        with open(file, "r", encoding="utf8") as fhandle:
+            cddl = fhandle.read()
+            ast = parse(cddl)
+            print("Abstract syntax tree (AST)")
+            print("--------------------")
+            pprint(ast)
 
-        print()
-        print("AST re-serialization")
-        print("--------------------")
-        print(ast.serialize())
+            print()
+            print("AST re-serialization")
+            print("--------------------")
+            print(ast.serialize())

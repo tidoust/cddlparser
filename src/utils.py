@@ -1,5 +1,3 @@
-# pylint: disable=invalid-name, missing-module-docstring, missing-class-docstring, missing-function-docstring
-
 from .tokens import Tokens
 
 

@@ -1,5 +1,3 @@
-# pylint: disable=invalid-name, fixme, missing-module-docstring, missing-function-docstring, missing-class-docstring
-
 from __future__ import annotations
 from typing import Literal, Sequence
 from dataclasses import dataclass, field

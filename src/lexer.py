@@ -1,6 +1,3 @@
-# pylint: disable=missing-module-docstring, missing-class-docstring, missing-function-docstring
-# pylint: disable=invalid-name, fixme, too-many-branches, too-many-statements
-
 from dataclasses import dataclass
 from .tokens import Token, Tokens
 from .utils import isLetter, isAlphabeticCharacter
