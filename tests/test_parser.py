@@ -15,16 +15,16 @@ class TestParser(unittest.TestCase):
     files: list = []
 
     @classmethod
-    def setUpClass(self):
+    def setUpClass(cls):
         fixturesPath = os.path.join(basepath, "__fixtures__")
-        self.files = [
+        cls.files = [
             f
             for f in os.listdir(fixturesPath)
             if os.path.isfile(os.path.join(fixturesPath, f))
         ]
 
         rfcPath = os.path.join(fixturesPath, "rfc")
-        self.rfcs = [
+        cls.rfcs = [
             f for f in os.listdir(rfcPath) if os.path.isfile(os.path.join(rfcPath, f))
         ]
 
@@ -44,9 +44,10 @@ class TestParser(unittest.TestCase):
                 self._test_serialize_file("rfc", file)
 
     def _test_parse_file(self, file):
-        f = open(os.path.join(basepath, "__fixtures__", file), "r")
-        cddl = f.read()
-        f.close()
+        with open(
+            os.path.join(basepath, "__fixtures__", file), "r", encoding="utf8"
+        ) as fhandle:
+            cddl = fhandle.read()
         parser = Parser(cddl)
         ast = parser.parse()
 
@@ -55,21 +56,20 @@ class TestParser(unittest.TestCase):
         )
         if os.path.exists(snapfile):
             # Compare with snapshot if it exists
-            fsnap = open(snapfile, "r")
-            snap = fsnap.read()
-            fsnap.close()
+            with open(snapfile, "r", encoding="utf8") as fsnap:
+                snap = fsnap.read()
             self.assertEqual(pformat(ast.rules), snap)
         else:
             # Create the snapshot if it does not exist yet (in other words, to
             # refresh a snapshot, delete it and run tests again)
-            fsnap = open(snapfile, "w")
-            fsnap.write(pformat(ast.rules))
-            fsnap.close()
+            with open(snapfile, "w", encoding="utf8") as fsnap:
+                fsnap.write(pformat(ast.rules))
 
     def _test_serialize_file(self, path, file):
-        f = open(os.path.join(basepath, "__fixtures__", path, file), "r")
-        cddl = f.read()
-        f.close()
+        with open(
+            os.path.join(basepath, "__fixtures__", path, file), "r", encoding="utf8"
+        ) as fhandle:
+            cddl = fhandle.read()
         parser = Parser(cddl)
         ast = parser.parse()
         serialization = ast.serialize()

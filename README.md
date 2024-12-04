@@ -54,7 +54,7 @@ To create markup during serialization, you need to pass an object that subclasse
 
 ```python
 from cddlparser import parse
-from src.ast import CDDLNode, Marker, Markup, Rule
+from cddlparser.ast import CDDLNode, Marker, Markup, Rule
 
 class StrongNameMarker(Marker):
     def serializeName(self, name: str, node: CDDLNode) -> str:
@@ -63,8 +63,7 @@ class StrongNameMarker(Marker):
     def markupFor(self, node: CDDLNode) -> Markup:
         if isinstance(node, Rule):
             return ('<div class="rule">', '</div>')
-        else:
-            return super().markupFor(node)
+        return super().markupFor(node)
 
 ast = parse('''person = {
   identity,
@@ -97,10 +96,13 @@ The test files are a combination of the test files used in the other CDDL parser
 - [Test files from cddl-rs](https://github.com/anweiss/cddl/tree/main/tests/fixtures/cddl).
 - [Test files from cddl](https://github.com/christian-bromann/cddl/tree/main/tests/__fixtures__), with a couple of fixes.
 
-The code uses static types. To validate types, [install `mypy`](https://mypy.readthedocs.io/en/stable/getting_started.html#installing-and-running-mypy) if not already done and run:
+The code uses static types. To validate types and code, install [`mypy`](https://mypy.readthedocs.io/en/stable/getting_started.html#installing-and-running-mypy), [ruff](https://docs.astral.sh/ruff/), [black](https://black.readthedocs.io/en/stable/index.html) and [pylint](https://www.pylint.org/) if not already done and run:
 
 ```bash
-mypy src
+mypy cddlparser
+ruff check
+black .
+pylint cddlparser
 ```
 
 ## Known limitations

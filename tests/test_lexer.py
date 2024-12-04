@@ -9,7 +9,7 @@ from cddlparser.lexer import Lexer
 
 class TestLexer(unittest.TestCase):
     def test_should_allow_to_read_token(self):
-        input = "=+(){},/"
+        cddl = "=+(){},/"
         tests = [
             Tokens.ASSIGN,
             Tokens.PLUS,
@@ -21,13 +21,13 @@ class TestLexer(unittest.TestCase):
             Tokens.TCHOICE,
         ]
 
-        lexer = Lexer(input)
-        for type in tests:
+        lexer = Lexer(cddl)
+        for tokenType in tests:
             token = lexer.nextToken()
-            self.assertEqual(token.type, type)
+            self.assertEqual(token.type, tokenType)
 
     def test_should_read_identifiers_and_comments(self):
-        input = "   headers,       \n   ; Headers for the recipient"
+        cddl = "   headers,       \n   ; Headers for the recipient"
         comment = Token(
             Tokens.COMMENT, "; Headers for the recipient", [], "       \n   "
         )
@@ -37,10 +37,10 @@ class TestLexer(unittest.TestCase):
             [Tokens.EOF, "", "", comment],
         ]
 
-        lexer = Lexer(input)
-        for [type, literal, whitespace, comment] in tests:
+        lexer = Lexer(cddl)
+        for [tokenType, literal, whitespace, comment] in tests:
             token = lexer.nextToken()
-            self.assertEqual(token.type, type)
+            self.assertEqual(token.type, tokenType)
             self.assertEqual(token.literal, literal)
             self.assertEqual(token.whitespace, whitespace)
             if comment is None:
