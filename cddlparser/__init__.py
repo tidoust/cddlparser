@@ -1,7 +1,7 @@
-from .src.parser import Parser
-from .src.ast import Marker
-from .src.tokens import Token, Tokens
-from .src import ast
+from .parser import Parser
+from .ast import Marker
+from .tokens import Token, Tokens
+from . import ast
 
 __all__ = ["Marker", "Token", "Tokens", "ast"]
 

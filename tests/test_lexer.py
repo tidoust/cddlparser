@@ -3,8 +3,8 @@ import sys
 
 sys.path.append("..")
 
-from src.tokens import Tokens, Token
-from src.lexer import Lexer
+from cddlparser.tokens import Tokens, Token
+from cddlparser.lexer import Lexer
 
 
 class TestLexer(unittest.TestCase):

@@ -1,7 +1,7 @@
 import sys
 from pprint import pprint
-from src.parser import Parser
-from src.ast import CDDLTree
+from cddlparser.parser import Parser
+from cddlparser.ast import CDDLTree
 
 
 def parse(string) -> CDDLTree:
