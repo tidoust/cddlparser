@@ -267,7 +267,7 @@ class GroupEntry(TokenNode):
 
     occurrence: Occurrence | None
     key: Memberkey | None
-    type: Type | Group
+    type: Type
 
     def __post_init__(self):
         super().__init__()
@@ -289,6 +289,23 @@ class GroupEntry(TokenNode):
             output += self.key.serialize(marker)
         output += self.type.serialize(marker)
         return output
+
+    def isConvertibleToType(self) -> bool:
+        """
+        Return true if GroupEntry can be converted to a proper Type.
+
+        Essentially, the function returns true when the GroupEntry does not
+        start with an occurrence production, does not define a member key,
+        and has a Type that is not the "(" S group S ")" production (which
+        we represent as a Type to simplify the parsing logic, but which isn't
+        a proper Type.
+        """
+        return (
+            self.occurrence is None
+            and self.key is None
+            # pylint: disable-next=no-member
+            and not (isinstance(self.type, Group) and not self.type.isMap)
+        )
 
 
 @dataclass

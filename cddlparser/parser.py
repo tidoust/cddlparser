@@ -24,6 +24,7 @@ from .ast import (
     OperatorName,
     GenericParameters,
     GenericArguments,
+    PreludeType,
 )
 
 NIL_TOKEN: Token = Token(Tokens.ILLEGAL, "")
@@ -51,11 +52,17 @@ class Parser:
         # final whitespaces
         tree = CDDLTree(rules)
         tree.separator = self._nextToken()
+        tree.setChildrenParent()
+
+        # Some of the rules are type definitions, but we can only know for sure
+        # when the whole CDDL has been parsed. Convert GroupEntry instances to
+        # Type where appropriate
+        self._convertGroupDefinitions(tree)
+
         return tree
 
     def _parseRule(self) -> Rule:
-        """
-        rule = typename [genericparm] S assignt S type
+        """rule = typename [genericparm] S assignt S type
                / groupname [genericparm] S asssigng S grpent
 
         Both constructs are similar, we'll parse them the same way and merely
@@ -74,9 +81,8 @@ class Parser:
                 f'assignment expected, received "{assign.serialize()}"'
             )
 
-        # TODO: convert GroupEntry back to a Type if possible or needed
-        # because "//=" was used
         groupEntry = self._parseGroupEntry()
+
         node = Rule(typename, assign, groupEntry)
         return node
 
@@ -476,6 +482,123 @@ class Parser:
             )
         node.closeToken = self._nextToken()
         return node
+
+    def _convertGroupDefinitions(self, tree: CDDLTree) -> None:
+        """
+        The parser creates a tree where the right-hand side of all rules are a
+        GroupEntry. Sometimes, we really know that we're dealing with a type
+        definition and not a group definition. This method converts GroupEntry
+        instances to Type instances when possible.
+
+        Note it is not always possible to determine whether a definition is a
+        type definition or a group definition. The method keeps the GroupEntry
+        in such cases.
+        """
+        # TODO: the logic on rules is clunky and incomplete
+        # TODO: groups that represent "(" S type S ")" should also be converted
+        # to a Type, ideally. Problem is that we cannot record the parentheses
+        # in a Type directly.
+        typenames: set[str] = set()
+        groupnames: set[str] = set()
+
+        def checkDefinitionType(type1: Type1) -> str:
+            name: str = ""
+            if isinstance(type1, Typename):
+                name = type1.name
+            elif isinstance(type1, Range) and isinstance(type1.min, Typename):
+                name = type1.min.name
+            elif isinstance(type1, Operator) and isinstance(type1.type, Typename):
+                name = type1.type.name
+            if name in typenames or name in get_args(PreludeType):
+                return "type"
+            if name in groupnames:
+                return "group"
+            return "unknown"
+
+        # Collect definitions that must be type or group definitions
+        for rule in tree.rules:
+            assert isinstance(rule.type, GroupEntry)
+            if rule.assign.type == Tokens.TCHOICEALT:
+                # Use of "/=" explicitly signals a typename
+                typenames.add(rule.name.name)
+            elif rule.assign.type == Tokens.GCHOICEALT:
+                # Use of "//=" explicitly signals a groupname
+                if rule.name.name not in groupnames:
+                    groupnames.add(rule.name.name)
+            else:
+                # All rules targeted by another rule with "~" are typenames
+                # All rules targeted by another rule with "&" are groupnames
+                for type1 in rule.type.type.types:
+                    if (
+                        isinstance(type1, Typename)
+                        and type1.unwrapped is not None
+                        and type1.name not in typenames
+                    ):
+                        typenames.add(type1.name)
+                    elif (
+                        isinstance(type1, Reference)
+                        and isinstance(type1.target, Typename)
+                        and type1.target.name not in groupnames
+                    ):
+                        groupnames.add(type1.target.name)
+
+        # Rule definitions that directly reference a prelude type are type
+        # definitions.
+        # Rule definitions that directly reference a rule that we know is a
+        # type (resp. group) definition are type (resp. group) definitions too.
+        # Rules referenced by a rule that is a type (resp. group) definition are
+        # type (resp. group) definitions too.
+        # Rule definitions that reference a mix of type and group rules are
+        # invalid.
+        updateFound = True
+        while updateFound:
+            updateFound = False
+            for rule in tree.rules:
+                assert isinstance(rule.type, GroupEntry)
+                if rule.name.name in typenames:
+                    for type1 in rule.type.type.types:
+                        if isinstance(type1, Typename):
+                            updateFound = type1.name not in typenames
+                            typenames.add(type1.name)
+                    continue
+                if rule.name.name in groupnames:
+                    for type1 in rule.type.type.types:
+                        if isinstance(type1, Typename):
+                            updateFound = type1.name not in groupnames
+                            groupnames.add(type1.name)
+                    continue
+                if rule.assign.type == Tokens.ASSIGN:
+                    defTypes: set[str] = {
+                        checkDefinitionType(type1) for type1 in rule.type.type.types
+                    }
+                    if "type" in defTypes and "group" in defTypes:
+                        raise self._parserError(
+                            f'rule "{rule.name.name}" targets a mix of type and group rules'
+                        )
+                    if "type" in defTypes:
+                        updateFound = True
+                        typenames.add(rule.name.name)
+                    elif "group" in defTypes:
+                        updateFound = True
+                        groupnames.add(rule.name.name)
+
+        # There should be no overlap between the two lists
+        overlap = list(set(typenames) & set(groupnames))
+        if len(overlap) > 0:
+            overlapStr = ", ".join(overlap)
+            raise self._parserError(
+                f"mix of type and group definitions for {overlapStr}"
+            )
+
+        # Convert GroupEntry to Type for type definitions
+        for rule in tree.rules:
+            assert isinstance(rule.type, GroupEntry)
+            if rule.name.name in typenames:
+                if not rule.type.isConvertibleToType():
+                    raise self._parserError(
+                        f'rule "{rule.name.name}" is a type definition but uses a group entry'
+                    )
+                rule.type = rule.type.type
 
     def _nextToken(self) -> Token:
         curToken = self.curToken
