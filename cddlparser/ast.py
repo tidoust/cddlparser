@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Literal, Sequence
+from typing import Literal, Sequence, Union
 from dataclasses import dataclass, field
 from .tokens import Token, Tokens
 
@@ -303,20 +303,19 @@ class GroupEntry(TokenNode):
         return (
             self.occurrence is None
             and self.key is None
-            # pylint: disable-next=no-member
-            and not (isinstance(self.type, Group) and not self.type.isMap)
+            and (
+                not isinstance(self.type, Group) or isinstance(self.type, (Array, Map))
+            )
         )
 
 
 @dataclass
 class Group(TokenNode):
     """
-    A group, meaning a list of group choices wrapped in parentheses or curly
-    braces
+    A group, meaning a list of group choices wrapped in parentheses
     """
 
     groupChoices: list[GroupChoice]
-    isMap: bool
 
     def __post_init__(self):
         super().__init__()
@@ -326,6 +325,23 @@ class Group(TokenNode):
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([item.serialize(marker) for item in self.groupChoices])
+
+
+@dataclass
+class Map(Group):
+    """
+    A map, meaning a list of group choices wrapped in curly braces
+    """
+
+
+@dataclass
+class Array(Group):
+    """
+    An array
+    ```
+    [ city: tstr ]
+    ```
+    """
 
 
 @dataclass
@@ -347,27 +363,6 @@ class GroupChoice(TokenNode):
 
 
 @dataclass
-class Array(TokenNode):
-    """
-    An array
-    ```
-    [ city: tstr ]
-    ```
-    """
-
-    groupChoices: list[GroupChoice]
-
-    def __post_init__(self):
-        super().__init__()
-
-    def getChildren(self) -> Sequence[CDDLNode]:
-        return self.groupChoices
-
-    def _serialize(self, marker: Marker | None = None) -> str:
-        return "".join([item.serialize(marker) for item in self.groupChoices])
-
-
-@dataclass
 class Tag(TokenNode):
     """
     A tag definition
@@ -379,11 +374,7 @@ class Tag(TokenNode):
     # TODO: consider storing the numeric part as an int or float instead of as
     # a NUMBER or FLOAT token (using Token for spaces and comments)
     numericPart: Token | None = None
-    # TODO: Consider getting back to a Type, storing spaces and comments before
-    # closing ")" separately, because a Group is fairly verbose
-    # (use of a group means one can only access the type through:
-    # typePart.groupChoices[0].groupEntries[0].type)
-    typePart: Group | None = None
+    typePart: Type | None = None
 
     def __post_init__(self):
         super().__init__()
@@ -497,7 +488,10 @@ class ChoiceFrom(TokenNode):
 
 
 # A type2 production is one of a few possibilities
-Type2 = Value | Typename | Group | Array | ChoiceFrom | Tag
+# (Note the need to use a forward reference to resolve the circular dependency
+# between Type and Type2, see:
+# https://docs.python.org/3/library/stdtypes.html#types-union)
+Type2 = Union["Value | Typename | Type | Group | Map | Array | ChoiceFrom | Tag"]
 
 
 @dataclass
@@ -583,9 +577,12 @@ class Memberkey(CDDLNode):
 
 
 @dataclass
-class Type(CDDLNode):
+class Type(TokenNode):
     """
     A Type is a list of Type1, each representing a possible choice.
+
+    The Type construct can also represent a type wrapped in parentheses
+    (hence why the class subclasses WrappedNode)
     """
 
     types: list[Type1]
