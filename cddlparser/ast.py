@@ -477,9 +477,9 @@ class Typename(TokenNode):
 
 
 @dataclass
-class Reference(TokenNode):
+class ChoiceFrom(TokenNode):
     """
-    A reference to another production
+    A choice built from a group (or a groupname)
     """
 
     target: Group | Typename
@@ -497,7 +497,7 @@ class Reference(TokenNode):
 
 
 # A type2 production is one of a few possibilities
-Type2 = Value | Typename | Group | Array | Reference | Tag
+Type2 = Value | Typename | Group | Array | ChoiceFrom | Tag
 
 
 @dataclass

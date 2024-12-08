@@ -19,7 +19,7 @@ from .ast import (
     Tag,
     Range,
     Memberkey,
-    Reference,
+    ChoiceFrom,
     Occurrence,
     OperatorName,
     GenericParameters,
@@ -257,10 +257,10 @@ class Parser:
                             f'expected right parenthesis, received "{self.curToken.serialize()}"'
                         )
                     group.closeToken = self._nextToken()
-                    node = Reference(group)
+                    node = ChoiceFrom(group)
                 else:
                     typename = self._parseTypename(definition=False, unwrapped=None)
-                    node = Reference(typename)
+                    node = ChoiceFrom(typename)
                 node.setComments(refToken)
 
             case Tokens.HASH:
@@ -536,7 +536,7 @@ class Parser:
                     ):
                         typenames.add(type1.name)
                     elif (
-                        isinstance(type1, Reference)
+                        isinstance(type1, ChoiceFrom)
                         and isinstance(type1.target, Typename)
                         and type1.target.name not in groupnames
                     ):
