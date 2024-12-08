@@ -567,14 +567,17 @@ class Parser:
         # group keys (real typenames, not barewords). Such keys are types, see:
         # https://datatracker.ietf.org/doc/html/rfc8610#section-2.1.2
         def lookForKeys(node: CDDLNode):
-            if (isinstance(node, GroupEntry) and
-                    node.key is not None
-                    and isinstance(node.key.type, Typename)
-                    and not node.key.hasColon
-                    and node.key.type.name in rulenames):
+            if (
+                isinstance(node, GroupEntry)
+                and node.key is not None
+                and isinstance(node.key.type, Typename)
+                and not node.key.hasColon
+                and node.key.type.name in rulenames
+            ):
                 typenames.add(node.key.type.name)
             for child in node.getChildren():
                 lookForKeys(child)
+
         lookForKeys(tree)
 
         # Rule definitions that directly reference a prelude type, a tag or a
