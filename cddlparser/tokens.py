@@ -94,3 +94,6 @@ class Token:
             case _:
                 output += str(self.type)
         return output
+
+    def startWithSpaces(self) -> bool:
+        return self.whitespace != "" or len(self.comments) > 0

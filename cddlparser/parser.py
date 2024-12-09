@@ -4,6 +4,7 @@ from math import inf
 from .errors import ParserError
 from .lexer import Lexer
 from .tokens import Token, Tokens
+from .utils import isUint
 from .ast import (
     CDDLTree,
     CDDLNode,
@@ -65,7 +66,8 @@ class Parser:
         return tree
 
     def _parseRule(self) -> Rule:
-        """rule = typename [genericparm] S assignt S type
+        """
+        rule = typename [genericparm] S assignt S type
                / groupname [genericparm] S asssigng S grpent
 
         Both constructs are similar, we'll parse them the same way and merely
@@ -174,12 +176,20 @@ class Parser:
         if self.curToken.type in (Tokens.INCLRANGE, Tokens.EXCLRANGE):
             rangeop = self._nextToken()
             maxType = self._parseType2()
-            # TODO: raise an error instead
-            assert isinstance(type2, (Value, Typename))
-            assert isinstance(maxType, (Value, Typename))
+            if not isinstance(type2, (Value, Typename)):
+                raise self._parserError(
+                    f"range detected but min is neither a value nor a typename. Got: {type2.serialize()}"
+                )
+            if not isinstance(maxType, (Value, Typename)):
+                raise self._parserError(
+                    f"range detected but max is neither a value nor a typename. Got: {maxType.serialize()}"
+                )
             node = Range(type2, maxType, rangeop)
         elif self.curToken.type == Tokens.CTLOP:
-            assert self.curToken.literal in get_args(OperatorName)
+            if self.curToken.literal not in get_args(OperatorName):
+                raise self._parserError(
+                    f'unknown control operator "{self.curToken.literal}"'
+                )
             operator = self._nextToken()
             controlType = self._parseType2()
             node = Operator(type2, operator, controlType)
@@ -267,14 +277,24 @@ class Parser:
 
             case Tokens.HASH:
                 hashToken = self._nextToken()
-                if self.curToken.type in {Tokens.NUMBER, Tokens.FLOAT}:
+                if (
+                    self.curToken.type in {Tokens.NUMBER, Tokens.FLOAT}
+                    and not self.curToken.startWithSpaces()
+                ):
                     number = self._nextToken()
-                    if number.literal[0] == "6" and self.curToken.type == Tokens.LPAREN:
-                        # TODO: assert that there is no space between number and "("
+                    if len(number.literal) > 1 and (
+                        number.literal[1] != "." or "e" in number.literal
+                    ):
+                        raise self._parserError(
+                            f'data item after "#" must match DIGIT ["." uint], got "{self.curToken.serialize()}"'
+                        )
+                    if (
+                        number.literal[0] == "6"
+                        and self.curToken.type == Tokens.LPAREN
+                        and not self.curToken.startWithSpaces()
+                    ):
                         type2 = self._parseType2()
-                        # TODO: raise an error instead
                         assert isinstance(type2, Type)
-                        assert type2.openToken is not None
                         node = Tag(number, type2)
                     else:
                         node = Tag(number)
@@ -377,15 +397,15 @@ class Parser:
             m = inf
 
             # check if there is a max definition
-            # (that max definition MUST be right after the asterisk, if there's a space
-            # the number is an identifier, not a max definition!)
+            # (that max definition MUST be right after the asterisk, if there's a space, the number is an identifier, not a max definition!)
             if (
                 self.curToken.type == Tokens.ASTERISK
                 and self.peekToken.type == Tokens.NUMBER
-                and self.peekToken.whitespace == ""
+                and isUint(self.peekToken.literal)
+                and not self.peekToken.startWithSpaces()
             ):
-                m = int(self.peekToken.literal)
                 tokens.append(self._nextToken())
+                m = int(self.curToken.literal)
 
             tokens.append(self._nextToken())
             occurrence = Occurrence(n, m, tokens)
@@ -395,17 +415,21 @@ class Parser:
         # ```
         elif (
             self.curToken.type == Tokens.NUMBER
+            and isUint(self.curToken.literal)
             and self.peekToken.type == Tokens.ASTERISK
+            and not self.peekToken.startWithSpaces()
         ):
-            # TODO: assert no space between min number and ASTERISK
             n = int(self.curToken.literal)
             m = inf
             tokens.append(self._nextToken())  # eat "n"
             tokens.append(self._nextToken())  # eat "*"
 
             # check if there is a max definition
-            if self.curToken.type == Tokens.NUMBER:
-                # TODO: assert no space between ASTERISK and max number
+            if (
+                self.curToken.type == Tokens.NUMBER
+                and isUint(self.curToken.literal)
+                and not self.curToken.startWithSpaces()
+            ):
                 m = int(self.curToken.literal)
                 tokens.append(self._nextToken())
 
@@ -434,8 +458,7 @@ class Parser:
         """
         genericparm = "<" S id S *("," S id S ) ">"
         """
-        # TODO: make sure there is no space before "<"
-        if self.curToken.type != Tokens.LT:
+        if self.curToken.type != Tokens.LT or self.curToken.startWithSpaces():
             return None
         openToken = self._nextToken()
 
@@ -463,8 +486,7 @@ class Parser:
         The function is very similar to the _parseGenericParameters function
         expect that type1 replaces id
         """
-        # TODO: make sure there is no space before "<"
-        if self.curToken.type != Tokens.LT:
+        if self.curToken.type != Tokens.LT or self.curToken.startWithSpaces():
             return None
         openToken = self._nextToken()
 
@@ -493,10 +515,10 @@ class Parser:
         instances to Type instances when possible.
 
         Note it is not always possible to determine whether a definition is a
-        type definition or a group definition. The method keeps the GroupEntry
-        in such cases.
+        type definition or a group definition. Also, the logic is likely
+        slightly incomplete. Whenever in doubt, this method keeps the initial
+        GroupEntry instance.
         """
-        # TODO: the logic on rules is incomplete
         rulenames: set[str] = set()
         typenames: set[str] = set()
         groupnames: set[str] = set()
