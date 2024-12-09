@@ -1,6 +1,7 @@
 from typing import get_args
 from math import inf
 
+from .errors import ParserError
 from .lexer import Lexer
 from .tokens import Token, Tokens
 from .ast import (
@@ -652,9 +653,9 @@ class Parser:
         self.peekToken = self.lexer.nextToken()
         return curToken
 
-    def _parserError(self, message: str) -> Exception:
+    def _parserError(self, message: str) -> ParserError:
         location = self.lexer.getLocation()
         locInfo = self.lexer.getLocationInfo()
-        return Exception(
-            f"CDDL SYNTAX ERROR - line {location.line + 1}, col {location.position}: {message}\n\n{locInfo}"
+        return ParserError(
+            f"CDDL syntax error - line {location.line + 1}, col {location.position}: {message}\n\n{locInfo}"
         )
