@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from .tokens import Token, Tokens
 from .utils import isLetter, isAlphabeticCharacter
+from .errors import ParserError
 
 
 @dataclass
@@ -231,6 +232,7 @@ class Lexer:
 
     def _readNumberOrFloat(self) -> str:
         position = self.position
+        dotFound = False
 
         # Negative numbers start with a minus prefix
         if chr(self.ch) == "-":
@@ -243,10 +245,12 @@ class Lexer:
             if chr(self.ch) == "x":
                 # Hex number
                 self.readChar()
-                # TODO: assert there's at least one hex digit
+                if chr(self.ch) not in "0123456789ABCDEF":
+                    raise self._tokenError("hex number detected but no hex digit found")
                 while chr(self.ch) in "0123456789ABCDEF":
                     self.readChar()
                 if chr(self.ch) == ".":
+                    dotFound = True
                     if self._peekAtNextChar() == ".":
                         # Two continuous dots is a range operator,
                         # number stops before the first dot.
@@ -254,19 +258,28 @@ class Lexer:
                     self.readChar()
                     while chr(self.ch) in "0123456789ABCDEF":
                         self.readChar()
-                # TODO: assert that, if there was a ".", then there is a "p"
+                if dotFound and chr(self.ch) != "p":
+                    raise self._tokenError(
+                        "hex number with fraction detected but no exponent found"
+                    )
                 if chr(self.ch) == "p":
                     # Number contains an exponent
                     self.readChar()
                     if chr(self.ch) in "+-":
                         self.readChar()
-                    # TODO: assert that exponent contains at least one digit
+                    if not chr(self.ch).isdigit():
+                        raise self._tokenError(
+                            "hex number with exponent detected but no digit found for exponent"
+                        )
                     while chr(self.ch).isdigit():
                         self.readChar()
             elif chr(self.ch) == "b":
                 # Binary number
                 self.readChar()
-                # TODO: assert there's at least one binary digit
+                if chr(self.ch) not in "01":
+                    raise self._tokenError(
+                        "binary number detected but no binary digit found"
+                    )
                 while chr(self.ch) in "01":
                     self.readChar()
             elif chr(self.ch) == ".":
@@ -275,7 +288,10 @@ class Lexer:
                     # number stops before the first dot.
                     return self.input[position : self.position]
                 self.readChar()
-                # TODO: assert that fraction contains at least one digit
+                if not chr(self.ch).isdigit():
+                    raise self._tokenError(
+                        "number with fraction detected but no digit found in fraction"
+                    )
                 while chr(self.ch).isdigit():
                     self.readChar()
                 if chr(self.ch) == "e":
@@ -283,7 +299,10 @@ class Lexer:
                     self.readChar()
                     if chr(self.ch) in "+-":
                         self.readChar()
-                    # TODO: assert that exponent contains at least one digit
+                    if not chr(self.ch).isdigit():
+                        raise self._tokenError(
+                            "number with exponent detected but no digit found in exponent"
+                        )
                     while chr(self.ch).isdigit():
                         self.readChar()
             else:
@@ -298,7 +317,10 @@ class Lexer:
                     # number stops before the first dot.
                     return self.input[position : self.position]
                 self.readChar()
-                # TODO: assert that fraction contains at least one digit
+                if not chr(self.ch).isdigit():
+                    raise self._tokenError(
+                        "number with fraction detected but no digit found in fraction"
+                    )
                 while chr(self.ch).isdigit():
                     self.readChar()
             if chr(self.ch) == "e":
@@ -306,7 +328,10 @@ class Lexer:
                 self.readChar()
                 if chr(self.ch) in "+-":
                     self.readChar()
-                # TODO: assert that exponent contains at least one digit
+                if not chr(self.ch).isdigit():
+                    raise self._tokenError(
+                        "number with exponent detected but no digit found in exponent"
+                    )
                 while chr(self.ch).isdigit():
                     self.readChar()
 
@@ -333,3 +358,10 @@ class Lexer:
             token = Token(Tokens.COMMENT, self._readComment(), [], whitespace)
             comments.append(token)
         return comments
+
+    def _tokenError(self, message: str) -> ParserError:
+        location = self.getLocation()
+        locInfo = self.getLocationInfo()
+        return ParserError(
+            f"CDDL token error - line {location.line + 1}, col {location.position}: {message}\n\n{locInfo}"
+        )
