@@ -26,12 +26,15 @@ python cddlparser.py tests/__fixtures__/example.cddl
 
 That should print a serialization of the [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) produced by the parser, followed by a re-serialization of the AST, which should match the original file.
 
-### As a Python module
+### As a Python package
 
-> [!NOTE]
-> Need to figure out to release the code as a Python package
+The parser is available as a Pypi package.
 
-From your local copy, you should be able to write code such as:
+```bash
+pip install cddlparser
+```
+
+You should then be able to write code such as:
 
 ```python
 from cddlparser import parse
@@ -83,6 +86,8 @@ This should produce:
 ```
 
 ## How to run tests
+
+You may run tests from a local copy of the code:
 
 ```bash
 python tests.py
