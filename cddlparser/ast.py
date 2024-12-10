@@ -652,16 +652,14 @@ class Marker:
         return token.serialize()
 
     # pylint: disable=unused-argument
-    def serializeValue(
-        self, prefix: str, value: str, suffix: str, node: CDDLNode
-    ) -> str:
+    def serializeValue(self, prefix: str, value: str, suffix: str, node: Value) -> str:
         """
         Serialize a Value.
         """
         return prefix + value + suffix
 
     # pylint: disable=unused-argument
-    def serializeName(self, name: str, node: CDDLNode) -> str:
+    def serializeName(self, name: str, node: Typename) -> str:
         """
         Serialize a typename or a groupname
         """
