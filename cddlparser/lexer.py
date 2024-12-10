@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from .tokens import Token, Tokens
-from .utils import isLetter, isAlphabeticCharacter
+from .utils import isExtendedAlpha
 from .errors import ParserError
 
 
@@ -102,7 +102,7 @@ class Lexer:
                     if self._peekAtNextChar() == ".":
                         self.readChar()
                         token = Token(Tokens.EXCLRANGE, "", comments, whitespace)
-                elif isAlphabeticCharacter(self._peekAtNextChar()):
+                elif isExtendedAlpha(self._peekAtNextChar()):
                     self.readChar()
                     token = Token(
                         Tokens.CTLOP, self._readIdentifier(), comments, whitespace
@@ -146,7 +146,7 @@ class Lexer:
             case _:
                 if self.ch == 0:
                     token = Token(Tokens.EOF, "", comments, whitespace)
-                elif isAlphabeticCharacter(literal):
+                elif isExtendedAlpha(literal):
                     if literal == "b" and self._peekAtNextChar() == "6":
                         self.readChar()
                         self.readChar()
@@ -163,7 +163,7 @@ class Lexer:
                             # identifier in the end
                             token = Token(
                                 Tokens.IDENT,
-                                "b6" + self._readIdentifier(),
+                                self._readIdentifier("b6"),
                                 comments,
                                 whitespace,
                             )
@@ -193,16 +193,25 @@ class Lexer:
             self.readChar()
         return token
 
-    def _readIdentifier(self) -> str:
+    def _readIdentifier(self, start: str = "") -> str:
         position = self.position
 
         # see https://tools.ietf.org/html/draft-ietf-cbor-cddl-08#section-3.1
+        if start == "" and not isExtendedAlpha(chr(self.ch)):
+            raise self._tokenError("identifier expected, found nothing")
         while (
-            isLetter(chr(self.ch)) or chr(self.ch).isdigit() or chr(self.ch) in "-_@.$"
+            isExtendedAlpha(chr(self.ch))
+            or chr(self.ch).isdigit()
+            or chr(self.ch) in "-."
         ):
             self.readChar()
 
-        return self.input[position : self.position]
+        identifier = start + self.input[position : self.position]
+        if identifier[-1] in "-.":
+            raise self._tokenError(
+                'identifier cannot end with "-" or ".", found "{identifier}"'
+            )
+        return identifier
 
     def _readComment(self) -> str:
         position = self.position
@@ -215,18 +224,57 @@ class Lexer:
     def _readString(self) -> str:
         position = self.position
 
+        assert chr(self.ch) == '"'
         self.readChar()  # eat "
-        while self.ch and chr(self.ch) != Tokens.QUOT:
-            self.readChar()  # eat any character until "
+        while chr(self.ch) != '"':
+            if (
+                0x20 <= self.ch <= 0x21
+                or 0x23 <= self.ch <= 0x5B
+                or 0x5D <= self.ch <= 0x7E
+                or 0x80 <= self.ch <= 0x10FFFD
+            ):
+                self.readChar()
+            elif chr(self.ch) == "\\":
+                self.readChar()
+                if 0x20 <= self.ch <= 0x7E or 0x80 <= self.ch <= 0x10FFFD:
+                    self.readChar()
+                else:
+                    raise self._tokenError("invalid escape character in text string")
+            elif self.ch == 0x0A:
+                self.readChar()
+            elif self.ch == 0x0D and ord(self._peekAtNextChar()) == 0x0A:
+                self.readChar()
+                self.readChar()
+            else:
+                raise self._tokenError("invalid text string")
 
         return self.input[position + 1 : self.position]
 
     def _readBytesString(self) -> str:
         position = self.position
 
+        assert chr(self.ch) == "'"
         self.readChar()  # eat '
-        while self.ch and chr(self.ch) != "'":
-            self.readChar()  # eat any character until "
+        while chr(self.ch) != "'":
+            if (
+                0x20 <= self.ch <= 0x26
+                or 0x28 <= self.ch <= 0x5B
+                or 0x5D <= self.ch <= 0x10FFFD
+            ):
+                self.readChar()
+            elif chr(self.ch) == "\\":
+                self.readChar()
+                if 0x20 <= self.ch <= 0x7E or 0x80 <= self.ch <= 0x10FFFD:
+                    self.readChar()
+                else:
+                    raise self._tokenError("invalid escape character in byte string")
+            elif self.ch == 0x0A:
+                self.readChar()
+            elif self.ch == 0x0D and ord(self._peekAtNextChar()) == 0x0A:
+                self.readChar()
+                self.readChar()
+            else:
+                raise self._tokenError("invalid byte string")
 
         return self.input[position + 1 : self.position]
 

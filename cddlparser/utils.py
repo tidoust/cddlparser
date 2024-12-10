@@ -2,12 +2,12 @@ import re
 from .tokens import Tokens
 
 
-def isLetter(ch: str) -> bool:
+def isAlpha(ch: str) -> bool:
     return ("a" <= ch <= "z") or ("A" <= ch <= "Z")
 
 
-def isAlphabeticCharacter(ch: str) -> bool:
-    return isLetter(ch) or ch in {Tokens.ATSIGN, Tokens.UNDERSCORE, Tokens.DOLLAR}
+def isExtendedAlpha(ch: str) -> bool:
+    return isAlpha(ch) or ch in {Tokens.ATSIGN, Tokens.UNDERSCORE, Tokens.DOLLAR}
 
 
 def isUint(literal: str) -> bool:

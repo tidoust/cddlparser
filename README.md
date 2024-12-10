@@ -112,10 +112,10 @@ pylint cddlparser
 
 ## Known limitations
 
-- No attempt is made at validating the CDDL while parsing. The parser should choke on fairly invalid CDDL blocks but may accept blocks that do not respect the CDDL grammar.
+- Updates to the CDDL grammar defined in [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) are not supported.
+- The parser validates the CDDL syntax against the CDDL grammar. It also validates that there are no obvious type/group inconsistencies. The parser does not validate the CDDL beyond that. For example, the parser does not choke if two rules have the same name but define different types.
 - The only logic that exists in the AST for now is the serialization logic. There are no facilities to import CDDL modules, resolve references, inline groups, validate CBOR, etc.
 - The parser does not fully understand when a rule defines a type and when it defines a group. It may represent the right hand side of a type definition as a `GroupEntry` node, instead of as a `Type` node.
-- Parsing of strings and byte strings may not be fully correct. CDDL grammar updates in [RFC 9862](https://www.rfc-editor.org/rfc/rfc9682.html) are not supported.
 - Overall, the AST is verbose and could be simplified.
 
 ## Acknowledgments
