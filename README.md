@@ -28,7 +28,7 @@ That should print a serialization of the [Abstract Syntax Tree](https://en.wikip
 
 ### As a Python package
 
-The parser is available as a Pypi package.
+The parser is available as a [Pypi package](https://pypi.org/project/cddlparser/). To install the package, run:
 
 ```bash
 pip install cddlparser
