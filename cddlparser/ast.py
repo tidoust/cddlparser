@@ -491,7 +491,7 @@ class ChoiceFrom(TokenNode):
 # (Note the need to use a forward reference to resolve the circular dependency
 # between Type and Type2, see:
 # https://docs.python.org/3/library/stdtypes.html#types-union)
-Type2 = Union["Value", "Typename", "Type", "Group", "Map", "Array", "ChoiceFrom", "Tag"]
+Type2 = Union[Value, Typename, "Type", Group, Map, Array, ChoiceFrom, Tag]
 
 
 @dataclass
@@ -549,7 +549,7 @@ class Operator(TokenNode):
 
 
 # A Type1 production is either a Type2, a Range or an Operator
-Type1 = Type2 | Range | Operator
+Type1 = Union[Type2, Range, Operator]
 
 
 @dataclass
