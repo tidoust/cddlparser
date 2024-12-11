@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Literal, Sequence, Union
+from typing import Literal, Sequence, Union, Optional
 from dataclasses import dataclass, field
 from .tokens import Token, Tokens
 
@@ -633,7 +633,7 @@ class GenericArguments(WrappedNode):
         return "".join([item.serialize(marker) for item in self.parameters])
 
 
-Markup = tuple[str | None, str | None]
+Markup = tuple[Optional[str], Optional[str]]
 
 
 class Marker:
