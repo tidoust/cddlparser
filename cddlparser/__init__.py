@@ -7,6 +7,6 @@ from . import ast
 __all__ = ["Marker", "Token", "Tokens", "ParserError", "ast"]
 
 
-def parse(string) -> ast.CDDLTree:
+def parse(string: str) -> ast.CDDLTree:
     parser = Parser(string)
     return parser.parse()

@@ -217,7 +217,7 @@ class CDDLTree(TokenNode):
 
     rules: list[Rule]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -246,7 +246,7 @@ class Rule(CDDLNode):
     assign: Token
     type: Type | GroupEntry
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -269,7 +269,7 @@ class GroupEntry(TokenNode):
     key: Memberkey | None
     type: Type
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -317,7 +317,7 @@ class Group(TokenNode):
 
     groupChoices: list[GroupChoice]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -352,7 +352,7 @@ class GroupChoice(TokenNode):
 
     groupEntries: list[GroupEntry]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -376,7 +376,7 @@ class Tag(TokenNode):
     numericPart: Token | None = None
     typePart: Type | None = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -398,7 +398,7 @@ class Occurrence(TokenNode):
     # different combinations right
     tokens: list[Token] = field(default_factory=list)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def _serialize(self, marker: Marker | None = None) -> str:
@@ -414,7 +414,7 @@ class Value(TokenNode):
     value: str
     type: ValueType
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def _serialize(self, marker: Marker | None = None) -> str:
@@ -447,7 +447,7 @@ class Typename(TokenNode):
     unwrapped: Token | None
     parameters: GenericParameters | GenericArguments | None = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -475,7 +475,7 @@ class ChoiceFrom(TokenNode):
 
     target: Group | Typename
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -510,7 +510,7 @@ class Range(TokenNode):
     # for now to store spaces and comments
     rangeop: Token
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -535,7 +535,7 @@ class Operator(TokenNode):
     name: Token
     controller: Type2
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -562,7 +562,7 @@ class Memberkey(CDDLNode):
     # different combinations of cut tokens right (with spaces and comments)
     tokens: list[Token] = field(default_factory=list)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -587,7 +587,7 @@ class Type(TokenNode):
 
     types: list[Type1]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -605,7 +605,7 @@ class GenericParameters(WrappedNode):
 
     parameters: list[Typename]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:
@@ -623,7 +623,7 @@ class GenericArguments(WrappedNode):
 
     parameters: list[Type1]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__init__()
 
     def getChildren(self) -> Sequence[CDDLNode]:

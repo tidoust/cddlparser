@@ -1,4 +1,4 @@
-from typing import get_args
+from typing import get_args, Union, Optional
 from math import inf
 
 from .errors import ParserError
@@ -117,7 +117,7 @@ class Parser:
             node = GroupEntry(occurrence, None, looseType)
         return node
 
-    def _parseType(self, loose: bool = False) -> Type | Memberkey:
+    def _parseType(self, loose: bool = False) -> Union[Type, Memberkey]:
         """
         type = type1 *(S "/" S type1)
 
@@ -368,16 +368,16 @@ class Parser:
                 break
             groupChoice.separator = self._nextToken()
 
-        node: Map | Group
+        node: Union[Map, Group]
         if isMap:
             node = Map(groupChoices)
         else:
             node = Group(groupChoices)
         return node
 
-    def _parseOccurrence(self) -> Occurrence | None:
+    def _parseOccurrence(self) -> Optional[Occurrence]:
         tokens: list[Token] = []
-        occurrence: Occurrence | None = None
+        occurrence: Optional[Occurrence] = None
 
         # check for non-numbered occurrence indicator, e.g.
         # ```
@@ -437,14 +437,14 @@ class Parser:
         return occurrence
 
     def _parseTypename(
-        self, definition: bool = False, unwrapped: Token | None = None
+        self, definition: bool = False, unwrapped: Optional[Token] = None
     ) -> Typename:
         if self.curToken.type != Tokens.IDENT:
             raise self._parserError(
                 f'group identifier expected, received "{self.curToken.serialize()}"'
             )
         ident = self._nextToken()
-        parameters: GenericParameters | GenericArguments | None
+        parameters: Union[GenericParameters, GenericArguments, None]
         if definition:
             parameters = self._parseGenericParameters()
         else:
@@ -453,7 +453,7 @@ class Parser:
         typename.setComments(ident)
         return typename
 
-    def _parseGenericParameters(self) -> GenericParameters | None:
+    def _parseGenericParameters(self) -> Optional[GenericParameters]:
         """
         genericparm = "<" S id S *("," S id S ) ">"
         """
@@ -478,7 +478,7 @@ class Parser:
         node.closeToken = self._nextToken()
         return node
 
-    def _parseGenericArguments(self) -> GenericArguments | None:
+    def _parseGenericArguments(self) -> Optional[GenericArguments]:
         """
         genericarg = "<" S type1 S *("," S type1 S ) ">"
 
@@ -588,7 +588,7 @@ class Parser:
         # Recursive check in the tree to look for typenames that are used as
         # group keys (real typenames, not barewords). Such keys are types, see:
         # https://datatracker.ietf.org/doc/html/rfc8610#section-2.1.2
-        def lookForKeys(node: CDDLNode):
+        def lookForKeys(node: CDDLNode) -> None:
             if (
                 isinstance(node, GroupEntry)
                 and node.key is not None

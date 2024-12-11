@@ -104,7 +104,7 @@ The test files are a combination of the test files used in the other CDDL parser
 The code uses static types. To validate types and code, install [`mypy`](https://mypy.readthedocs.io/en/stable/getting_started.html#installing-and-running-mypy), [ruff](https://docs.astral.sh/ruff/), [black](https://black.readthedocs.io/en/stable/index.html) and [pylint](https://www.pylint.org/) if not already done and run:
 
 ```bash
-mypy cddlparser
+mypy
 ruff check
 black .
 pylint cddlparser
