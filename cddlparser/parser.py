@@ -217,128 +217,127 @@ class Parser:
               / "(" S group S ")"
         """
         node: Type2
-        match self.curToken.type:
-            case Tokens.LPAREN:
+        if self.curToken.type == Tokens.LPAREN:
+            openToken = self._nextToken()
+            if loose:
+                node = self._parseGroup(isMap=False)
+            else:
+                innerType = self._parseType()
+                assert isinstance(innerType, Type)
+                node = innerType
+            node.openToken = openToken
+            if self.curToken.type != Tokens.RPAREN:
+                raise self._parserError(
+                    f'expected right parenthesis, received "{self.curToken.serialize()}"'
+                )
+            node.closeToken = self._nextToken()
+
+        elif self.curToken.type == Tokens.LBRACE:
+            openToken = self._nextToken()
+            node = self._parseGroup(isMap=True)
+            node.openToken = openToken
+            if self.curToken.type != Tokens.RBRACE:
+                raise self._parserError(
+                    f'expected right brace, received "{self.curToken.serialize()}"'
+                )
+            node.closeToken = self._nextToken()
+
+        elif self.curToken.type == Tokens.LBRACK:
+            openToken = self._nextToken()
+            group = self._parseGroup(isMap=False)
+            node = Array(group.groupChoices)
+            node.openToken = openToken
+            if self.curToken.type != Tokens.RBRACK:
+                raise self._parserError(
+                    f'expected right bracket, received "{self.curToken.serialize()}"'
+                )
+            node.closeToken = self._nextToken()
+
+        elif self.curToken.type == Tokens.TILDE:
+            unwrapped = self._nextToken()
+            node = self._parseTypename(definition=False, unwrapped=unwrapped)
+
+        elif self.curToken.type == Tokens.AMPERSAND:
+            refToken = self._nextToken()
+            if self.curToken.type == Tokens.LPAREN:
                 openToken = self._nextToken()
-                if loose:
-                    node = self._parseGroup(isMap=False)
-                else:
-                    innerType = self._parseType()
-                    assert isinstance(innerType, Type)
-                    node = innerType
-                node.openToken = openToken
+                group = self._parseGroup(isMap=False)
+                group.openToken = openToken
                 if self.curToken.type != Tokens.RPAREN:
                     raise self._parserError(
                         f'expected right parenthesis, received "{self.curToken.serialize()}"'
                     )
-                node.closeToken = self._nextToken()
+                group.closeToken = self._nextToken()
+                node = ChoiceFrom(group)
+            else:
+                typename = self._parseTypename(definition=False, unwrapped=None)
+                node = ChoiceFrom(typename)
+            node.setComments(refToken)
 
-            case Tokens.LBRACE:
-                openToken = self._nextToken()
-                node = self._parseGroup(isMap=True)
-                node.openToken = openToken
-                if self.curToken.type != Tokens.RBRACE:
+        elif self.curToken.type == Tokens.HASH:
+            hashToken = self._nextToken()
+            if (
+                self.curToken.type in {Tokens.NUMBER, Tokens.FLOAT}
+                and not self.curToken.startWithSpaces()
+            ):
+                number = self._nextToken()
+                if len(number.literal) > 1 and (
+                    number.literal[1] != "." or "e" in number.literal
+                ):
                     raise self._parserError(
-                        f'expected right brace, received "{self.curToken.serialize()}"'
+                        f'data item after "#" must match DIGIT ["." uint], got "{self.curToken.serialize()}"'
                     )
-                node.closeToken = self._nextToken()
-
-            case Tokens.LBRACK:
-                openToken = self._nextToken()
-                group = self._parseGroup(isMap=False)
-                node = Array(group.groupChoices)
-                node.openToken = openToken
-                if self.curToken.type != Tokens.RBRACK:
-                    raise self._parserError(
-                        f'expected right bracket, received "{self.curToken.serialize()}"'
-                    )
-                node.closeToken = self._nextToken()
-
-            case Tokens.TILDE:
-                unwrapped = self._nextToken()
-                node = self._parseTypename(definition=False, unwrapped=unwrapped)
-
-            case Tokens.AMPERSAND:
-                refToken = self._nextToken()
-                if self.curToken.type == Tokens.LPAREN:
-                    openToken = self._nextToken()
-                    group = self._parseGroup(isMap=False)
-                    group.openToken = openToken
-                    if self.curToken.type != Tokens.RPAREN:
-                        raise self._parserError(
-                            f'expected right parenthesis, received "{self.curToken.serialize()}"'
-                        )
-                    group.closeToken = self._nextToken()
-                    node = ChoiceFrom(group)
-                else:
-                    typename = self._parseTypename(definition=False, unwrapped=None)
-                    node = ChoiceFrom(typename)
-                node.setComments(refToken)
-
-            case Tokens.HASH:
-                hashToken = self._nextToken()
                 if (
-                    self.curToken.type in {Tokens.NUMBER, Tokens.FLOAT}
+                    number.literal[0] == "6"
+                    and self.curToken.type == Tokens.LPAREN
                     and not self.curToken.startWithSpaces()
                 ):
-                    number = self._nextToken()
-                    if len(number.literal) > 1 and (
-                        number.literal[1] != "." or "e" in number.literal
-                    ):
-                        raise self._parserError(
-                            f'data item after "#" must match DIGIT ["." uint], got "{self.curToken.serialize()}"'
-                        )
-                    if (
-                        number.literal[0] == "6"
-                        and self.curToken.type == Tokens.LPAREN
-                        and not self.curToken.startWithSpaces()
-                    ):
-                        type2 = self._parseType2()
-                        assert isinstance(type2, Type)
-                        node = Tag(number, type2)
-                    else:
-                        node = Tag(number)
+                    type2 = self._parseType2()
+                    assert isinstance(type2, Type)
+                    node = Tag(number, type2)
                 else:
-                    node = Tag()
-                node.setComments(hashToken)
+                    node = Tag(number)
+            else:
+                node = Tag()
+            node.setComments(hashToken)
 
-            case Tokens.IDENT:
-                node = self._parseTypename(definition=False, unwrapped=None)
+        elif self.curToken.type == Tokens.IDENT:
+            node = self._parseTypename(definition=False, unwrapped=None)
 
-            case Tokens.STRING:
-                value = self._nextToken()
-                node = Value(value.literal, "text")
-                node.setComments(value)
+        elif self.curToken.type == Tokens.STRING:
+            value = self._nextToken()
+            node = Value(value.literal, "text")
+            node.setComments(value)
 
-            case Tokens.BYTES:
-                value = self._nextToken()
-                node = Value(value.literal, "bytes")
-                node.setComments(value)
+        elif self.curToken.type == Tokens.BYTES:
+            value = self._nextToken()
+            node = Value(value.literal, "bytes")
+            node.setComments(value)
 
-            case Tokens.HEX:
-                value = self._nextToken()
-                node = Value(value.literal, "hex")
-                node.setComments(value)
+        elif self.curToken.type == Tokens.HEX:
+            value = self._nextToken()
+            node = Value(value.literal, "hex")
+            node.setComments(value)
 
-            case Tokens.BASE64:
-                value = self._nextToken()
-                node = Value(value.literal, "base64")
-                node.setComments(value)
+        elif self.curToken.type == Tokens.BASE64:
+            value = self._nextToken()
+            node = Value(value.literal, "base64")
+            node.setComments(value)
 
-            case Tokens.NUMBER:
-                value = self._nextToken()
-                node = Value(value.literal, "number")
-                node.setComments(value)
+        elif self.curToken.type == Tokens.NUMBER:
+            value = self._nextToken()
+            node = Value(value.literal, "number")
+            node.setComments(value)
 
-            case Tokens.FLOAT:
-                value = self._nextToken()
-                node = Value(value.literal, "number")
-                node.setComments(value)
+        elif self.curToken.type == Tokens.FLOAT:
+            value = self._nextToken()
+            node = Value(value.literal, "number")
+            node.setComments(value)
 
-            case _:
-                raise self._parserError(
-                    f'invalid type2 production, received "{self.curToken.serialize()}"'
-                )
+        else:
+            raise self._parserError(
+                f'invalid type2 production, received "{self.curToken.serialize()}"'
+            )
 
         return node
 

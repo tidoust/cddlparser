@@ -70,29 +70,28 @@ class Token:
         for comment in self.comments:
             output += comment.serialize()
         output += self.whitespace
-        match self.type:
-            case Tokens.IDENT:
-                output += self.literal
-            case Tokens.COMMENT:
-                output += self.literal
-            case Tokens.STRING:
-                output += '"' + self.literal + '"'
-            case Tokens.NUMBER:
-                output += self.literal
-            case Tokens.FLOAT:
-                output += self.literal
-            case Tokens.CTLOP:
-                output += "." + self.literal
-            case Tokens.BYTES:
-                output += "'" + self.literal + "'"
-            case Tokens.HEX:
-                output += "h'" + self.literal + "'"
-            case Tokens.BASE64:
-                output += "b64'" + self.literal + "'"
-            case Tokens.EOF:
-                pass
-            case _:
-                output += str(self.type.value)
+        if self.type == Tokens.IDENT:
+            output += self.literal
+        elif self.type == Tokens.COMMENT:
+            output += self.literal
+        elif self.type == Tokens.STRING:
+            output += '"' + self.literal + '"'
+        elif self.type == Tokens.NUMBER:
+            output += self.literal
+        elif self.type == Tokens.FLOAT:
+            output += self.literal
+        elif self.type == Tokens.CTLOP:
+            output += "." + self.literal
+        elif self.type == Tokens.BYTES:
+            output += "'" + self.literal + "'"
+        elif self.type == Tokens.HEX:
+            output += "h'" + self.literal + "'"
+        elif self.type == Tokens.BASE64:
+            output += "b64'" + self.literal + "'"
+        elif self.type == Tokens.EOF:
+            pass
+        else:
+            output += str(self.type.value)
         return output
 
     def startWithSpaces(self) -> bool:
