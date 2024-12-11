@@ -7,7 +7,7 @@ def isAlpha(ch: str) -> bool:
 
 
 def isExtendedAlpha(ch: str) -> bool:
-    return isAlpha(ch) or ch in {Tokens.ATSIGN, Tokens.UNDERSCORE, Tokens.DOLLAR}
+    return isAlpha(ch) or ch in "@_$"
 
 
 def isUint(literal: str) -> bool:

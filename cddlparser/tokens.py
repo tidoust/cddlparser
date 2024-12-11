@@ -1,8 +1,8 @@
-from enum import StrEnum
+from enum import Enum
 from dataclasses import dataclass, field
 
 
-class Tokens(StrEnum):
+class Tokens(Enum):
     ILLEGAL = "ILLEGAL"
     EOF = "EOF"
     NL = "\n"
@@ -39,8 +39,8 @@ class Tokens(StrEnum):
     ASTERISK = "*"
 
     # Ranges,
-    INCLRANGE = ("..",)
-    EXCLRANGE = ("...",)
+    INCLRANGE = ".."
+    EXCLRANGE = "..."
 
     # Delimiters,
     COMMA = ","
@@ -92,7 +92,7 @@ class Token:
             case Tokens.EOF:
                 pass
             case _:
-                output += str(self.type)
+                output += str(self.type.value)
         return output
 
     def startWithSpaces(self) -> bool:

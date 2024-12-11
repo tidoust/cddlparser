@@ -216,7 +216,7 @@ class Lexer:
     def _readComment(self) -> str:
         position = self.position
 
-        while self.ch and chr(self.ch) != Tokens.NL:
+        while self.ch and chr(self.ch) != "\n":
             self.readChar()
 
         return self.input[position : self.position]
