@@ -1,6 +1,3 @@
-from .tokens import Tokens
-
-
 def isAlpha(ch: str) -> bool:
     return ("a" <= ch <= "z") or ("A" <= ch <= "Z")
 
