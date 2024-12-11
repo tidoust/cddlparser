@@ -1,5 +1,4 @@
 import sys
-from pprint import pprint
 from cddlparser.parser import Parser
 from cddlparser.ast import CDDLTree
 
@@ -20,7 +19,7 @@ if __name__ == "__main__":
             ast = parse(cddl)
             print("Abstract syntax tree (AST)")
             print("--------------------")
-            pprint(ast)
+            print(ast)
 
             print()
             print("AST re-serialization")

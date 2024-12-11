@@ -1,96 +1,114 @@
-[Rule(name=Typename(name='uint-simple', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='10045', type='number')])),
- Rule(name=Typename(name='uint-hex', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='0x0A54', type='number')])),
- Rule(name=Typename(name='uint-bin', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='0b01110', type='number')])),
- Rule(name=Typename(name='uint-zero', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='0', type='number')])),
- Rule(name=Typename(name='uint-fraction', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='0.96', type='number')])),
- Rule(name=Typename(name='int-neg', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='-42', type='number')])),
- Rule(name=Typename(name='int-hexneg', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='-0xFF', type='number')])),
- Rule(name=Typename(name='int-binneg', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='-0b1110', type='number')])),
- Rule(name=Typename(name='number-1', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='78.12', type='number')])),
- Rule(name=Typename(name='number-2', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='9993e2024', type='number')])),
- Rule(name=Typename(name='number-3', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='-375.023e14', type='number')])),
- Rule(name=Typename(name='number-4', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='-375.023e-14', type='number')])),
- Rule(name=Typename(name='number-5', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='-375.023e+14', type='number')])),
- Rule(name=Typename(name='hexfloat-int', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='0x09AB53p1', type='number')])),
- Rule(name=Typename(name='hexfloat-negative', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='-0x10p-20', type='number')])),
- Rule(name=Typename(name='heffloat-float', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Value(value='0xF.2Ap+2', type='number')]))]
+CDDLTree
+  Token: EOF (EOF)
+    whitespaces: 1
+  Rule
+    Typename: uint-simple
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 10045
+  Rule
+    Typename
+      whitespaces: 1: uint-hex
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 0x0A54
+  Rule
+    Typename
+      whitespaces: 1: uint-bin
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 0b01110
+  Rule
+    Typename
+      whitespaces: 1: uint-zero
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 0
+  Rule
+    Typename
+      whitespaces: 1: uint-fraction
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 0.96
+  Rule
+    Typename
+      whitespaces: 2: int-neg
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): -42
+  Rule
+    Typename
+      whitespaces: 1: int-hexneg
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): -0xFF
+  Rule
+    Typename
+      whitespaces: 1: int-binneg
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): -0b1110
+  Rule
+    Typename
+      whitespaces: 2: number-1
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 78.12
+  Rule
+    Typename
+      whitespaces: 1: number-2
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 9993e2024
+  Rule
+    Typename
+      whitespaces: 1: number-3
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): -375.023e14
+  Rule
+    Typename
+      whitespaces: 1: number-4
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): -375.023e-14
+  Rule
+    Typename
+      whitespaces: 1: number-5
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): -375.023e+14
+  Rule
+    Typename
+      whitespaces: 2: hexfloat-int
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 0x09AB53p1
+  Rule
+    Typename
+      whitespaces: 1: hexfloat-negative
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): -0x10p-20
+  Rule
+    Typename
+      whitespaces: 1: heffloat-float
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Value (number): 0xF.2Ap+2

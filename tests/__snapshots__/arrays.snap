@@ -1,251 +1,239 @@
-[Rule(name=Typename(name='unlimited-people', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                      m=inf,
-                                                                                                      tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='person',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='at-least-one-person',
-                    unwrapped=None,
-                    parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=1,
-                                                                                                      m=inf,
-                                                                                                      tokens=[Token(type=<Tokens.PLUS: '+'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='person',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='zero-or-one-person', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                      m=inf,
-                                                                                                      tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='person',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='one-or-two-people', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=1,
-                                                                                                      m=2,
-                                                                                                      tokens=[Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                    literal='1',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace=''),
-                                                                                                              Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace=''),
-                                                                                                              Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                    literal='2',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='person',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='zero-or-two-people', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                      m=2,
-                                                                                                      tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace=''),
-                                                                                                              Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                    literal='2',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='person',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='two-or-infinity-people',
-                    unwrapped=None,
-                    parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=2,
-                                                                                                      m=inf,
-                                                                                                      tokens=[Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                    literal='2',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace=''),
-                                                                                                              Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='person',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='person', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='name',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='tstr',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)])),
-                                                                                     GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='age',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='uint',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='ActionsPerformActionsParameters',
-                    unwrapped=None,
-                    parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=1,
-                                                                                                      m=4,
-                                                                                                      tokens=[Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                    literal='1',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace=''),
-                                                                                                              Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace=''),
-                                                                                                              Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                    literal='4',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                                                                        key=Memberkey(type=Typename(name='type',
-                                                                                                                                                                                    unwrapped=None,
-                                                                                                                                                                                    parameters=None),
-                                                                                                                                                                      hasCut=True,
-                                                                                                                                                                      hasColon=True,
-                                                                                                                                                                      tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                                                                    literal='',
-                                                                                                                                                                                    comments=[],
-                                                                                                                                                                                    whitespace='')]),
-                                                                                                                                                        type=Type(types=[Value(value='key',
-                                                                                                                                                                               type='text')])),
-                                                                                                                                             GroupEntry(occurrence=None,
-                                                                                                                                                        key=Memberkey(type=Typename(name='id',
-                                                                                                                                                                                    unwrapped=None,
-                                                                                                                                                                                    parameters=None),
-                                                                                                                                                                      hasCut=True,
-                                                                                                                                                                      hasColon=True,
-                                                                                                                                                                      tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                                                                    literal='',
-                                                                                                                                                                                    comments=[],
-                                                                                                                                                                                    whitespace='')]),
-                                                                                                                                                        type=Type(types=[Typename(name='text',
-                                                                                                                                                                                  unwrapped=None,
-                                                                                                                                                                                  parameters=None)])),
-                                                                                                                                             GroupEntry(occurrence=None,
-                                                                                                                                                        key=Memberkey(type=Typename(name='actions',
-                                                                                                                                                                                    unwrapped=None,
-                                                                                                                                                                                    parameters=None),
-                                                                                                                                                                      hasCut=True,
-                                                                                                                                                                      hasColon=True,
-                                                                                                                                                                      tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                                                                    literal='',
-                                                                                                                                                                                    comments=[],
-                                                                                                                                                                                    whitespace='')]),
-                                                                                                                                                        type=Type(types=[Typename(name='ActionItems',
-                                                                                                                                                                                  unwrapped=None,
-                                                                                                                                                                                  parameters=None)])),
-                                                                                                                                             GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                                                                                              m=inf,
-                                                                                                                                                                              tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                                                                                            literal='',
-                                                                                                                                                                                            comments=[],
-                                                                                                                                                                                            whitespace='\n'
-                                                                                                                                                                                                       '    ')]),
-                                                                                                                                                        key=Memberkey(type=Typename(name='text',
-                                                                                                                                                                                    unwrapped=None,
-                                                                                                                                                                                    parameters=None),
-                                                                                                                                                                      hasCut=False,
-                                                                                                                                                                      hasColon=False,
-                                                                                                                                                                      tokens=[Token(type=<Tokens.ARROWMAP: '=>'>,
-                                                                                                                                                                                    literal='',
-                                                                                                                                                                                    comments=[],
-                                                                                                                                                                                    whitespace=' ')]),
-                                                                                                                                                        type=Type(types=[Typename(name='any',
-                                                                                                                                                                                  unwrapped=None,
-                                                                                                                                                                                  parameters=None)]))])])]))])])])),
- Rule(name=Typename(name='script.MappingRemoteValue',
-                    unwrapped=None,
-                    parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                      m=inf,
-                                                                                                      tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace='')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                                                                          key=None,
-                                                                                                                                                          type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                                                                                                                                                    key=None,
-                                                                                                                                                                                                                                    type=Type(types=[Typename(name='script.RemoteValue',
-                                                                                                                                                                                                                                                              unwrapped=None,
-                                                                                                                                                                                                                                                              parameters=None),
-                                                                                                                                                                                                                                                     Typename(name='text',
-                                                                                                                                                                                                                                                              unwrapped=None,
-                                                                                                                                                                                                                                                              parameters=None)]))])])])),
-                                                                                                                                               GroupEntry(occurrence=None,
-                                                                                                                                                          key=None,
-                                                                                                                                                          type=Type(types=[Typename(name='script.RemoteValue',
-                                                                                                                                                                                    unwrapped=None,
-                                                                                                                                                                                    parameters=None)]))])])]))])])]))]
+CDDLTree
+  Token: EOF (EOF)
+    whitespaces: 1
+    Token: COMMENT (COMMENT)
+      literal: ;
+  Rule
+    Typename: unlimited-people
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: ASTERISK (*)
+            Type
+              Typename
+                whitespaces: 1: person
+  Rule
+    Typename
+      whitespaces: 1: at-least-one-person
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: PLUS (+)
+            Type
+              Typename
+                whitespaces: 1: person
+  Rule
+    Typename
+      Token: COMMENT (COMMENT)
+        whitespaces: 4
+        literal: ; some
+      whitespaces: 1: zero-or-one-person
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: QUEST (?)
+            Type
+              Typename
+                whitespaces: 1: person
+  Rule
+    Typename
+      Token: COMMENT (COMMENT)
+        whitespaces: 5
+        literal: ; comment
+      whitespaces: 1: one-or-two-people
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: NUMBER (NUMBER)
+                literal: 1
+              Token: ASTERISK (*)
+              Token: NUMBER (NUMBER)
+                literal: 2
+            Type
+              Typename
+                whitespaces: 1: person
+  Rule
+    Typename
+      whitespaces: 1: zero-or-two-people
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: ASTERISK (*)
+              Token: NUMBER (NUMBER)
+                literal: 2
+            Type
+              Typename
+                whitespaces: 1: person
+  Rule
+    Typename
+      whitespaces: 1: two-or-infinity-people
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: NUMBER (NUMBER)
+                literal: 2
+              Token: ASTERISK (*)
+            Type
+              Typename
+                whitespaces: 1: person
+  Rule
+    Typename
+      whitespaces: 1: person
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Token: COMMA (,)
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: tstr
+            GroupEntry
+              Token: COMMA (,)
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: uint
+  Rule
+    Typename
+      whitespaces: 2: ActionsPerformActionsParameters
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: NUMBER (NUMBER)
+                literal: 1
+              Token: ASTERISK (*)
+              Token: NUMBER (NUMBER)
+                literal: 4
+            Type
+              Map
+                Token: LBRACE ({)
+                  whitespaces: 1
+                Token: RBRACE (})
+                  whitespaces: 1
+                GroupChoice
+                  GroupEntry
+                    Token: COMMA (,)
+                    Memberkey
+                      Token: COLON (:)
+                    Type
+                      Value (text): key
+                  GroupEntry
+                    Token: COMMA (,)
+                    Memberkey
+                      Token: COLON (:)
+                    Type
+                      Typename
+                        whitespaces: 1: text
+                  GroupEntry
+                    Token: COMMA (,)
+                    Memberkey
+                      Token: COLON (:)
+                    Type
+                      Typename
+                        whitespaces: 1: ActionItems
+                  GroupEntry
+                    Occurrence
+                      Token: ASTERISK (*)
+                        whitespaces: 5
+                    Memberkey
+                      Token: ARROWMAP (=>)
+                        whitespaces: 1
+                    Type
+                      Typename
+                        whitespaces: 1: any
+  Rule
+    Typename
+      whitespaces: 2: script.MappingRemoteValue
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: ASTERISK (*)
+            Type
+              Array
+                Token: LBRACK ([)
+                Token: RBRACK (])
+                GroupChoice
+                  GroupEntry
+                    Token: COMMA (,)
+                    Type
+                      Group
+                        Token: LPAREN (()
+                        Token: RPAREN ())
+                        GroupChoice
+                          GroupEntry
+                            Type
+                              Typename
+                                Token: TCHOICE (/)
+                                  whitespaces: 1: script.RemoteValue
+                              Typename
+                                whitespaces: 1: text
+                  GroupEntry
+                    Type
+                      Typename
+                        whitespaces: 1: script.RemoteValue

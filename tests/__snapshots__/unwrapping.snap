@@ -1,74 +1,60 @@
-[Rule(name=Typename(name='basic-header', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                key=Memberkey(type=Typename(name='field1',
-                                                                                                            unwrapped=None,
-                                                                                                            parameters=None),
-                                                                                              hasCut=True,
-                                                                                              hasColon=True,
-                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                            literal='',
-                                                                                                            comments=[],
-                                                                                                            whitespace='')]),
-                                                                                type=Type(types=[Typename(name='int',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)])),
-                                                                     GroupEntry(occurrence=None,
-                                                                                key=Memberkey(type=Typename(name='field2',
-                                                                                                            unwrapped=None,
-                                                                                                            parameters=None),
-                                                                                              hasCut=True,
-                                                                                              hasColon=True,
-                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                            literal='',
-                                                                                                            comments=[],
-                                                                                                            whitespace='')]),
-                                                                                type=Type(types=[Typename(name='text',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='advanced-header', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='basic-header',
-                                                                                                          unwrapped=Token(type=<Tokens.TILDE: '~'>,
-                                                                                                                          literal='',
-                                                                                                                          comments=[],
-                                                                                                                          whitespace='\n'
-                                                                                                                                     '    '),
-                                                                                                          parameters=None)])),
-                                                                     GroupEntry(occurrence=None,
-                                                                                key=Memberkey(type=Typename(name='field3',
-                                                                                                            unwrapped=None,
-                                                                                                            parameters=None),
-                                                                                              hasCut=True,
-                                                                                              hasColon=True,
-                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                            literal='',
-                                                                                                            comments=[],
-                                                                                                            whitespace='')]),
-                                                                                type=Type(types=[Typename(name='bytes',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)])),
-                                                                     GroupEntry(occurrence=None,
-                                                                                key=Memberkey(type=Typename(name='field4',
-                                                                                                            unwrapped=None,
-                                                                                                            parameters=None),
-                                                                                              hasCut=True,
-                                                                                              hasColon=True,
-                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                            literal='',
-                                                                                                            comments=[],
-                                                                                                            whitespace='')]),
-                                                                                type=Type(types=[Typename(name='time',
-                                                                                                          unwrapped=Token(type=<Tokens.TILDE: '~'>,
-                                                                                                                          literal='',
-                                                                                                                          comments=[],
-                                                                                                                          whitespace=' '),
-                                                                                                          parameters=None)]))])])]))]
+CDDLTree
+  Token: EOF (EOF)
+  Rule
+    Typename: basic-header
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: int
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: text
+  Rule
+    Typename
+      whitespaces: 2: advanced-header
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename: basic-header
+                Token: TILDE (~)
+                  whitespaces: 5
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: bytes
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename: time
+                Token: TILDE (~)
+                  whitespaces: 1

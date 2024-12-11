@@ -1,146 +1,127 @@
-[Rule(name=Typename(name='PersonalData', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=Memberkey(type=Typename(name='displayName',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='NameComponents',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=Memberkey(type=Typename(name='age',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='uint',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='$$personaldata-extensions',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)]))])])])),
- Rule(name=Typename(name='NameComponents', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                                      m=inf,
-                                                                                                                      tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                                    literal='',
-                                                                                                                                    comments=[],
-                                                                                                                                    whitespace=' ')]),
-                                                                                                key=Memberkey(type=Typename(name='firstName',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='tstr',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)])),
-                                                                                     GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                                      m=inf,
-                                                                                                                      tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                                    literal='',
-                                                                                                                                    comments=[],
-                                                                                                                                    whitespace=' ')]),
-                                                                                                key=Memberkey(type=Typename(name='familyName',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='tstr',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='$$personaldata-extensions',
-                    unwrapped=None,
-                    parameters=None),
-      assign=Token(type=<Tokens.GCHOICEALT: '//='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='favorite-salsa',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='tstr',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='$$personaldata-extensions',
-                    unwrapped=None,
-                    parameters=None),
-      assign=Token(type=<Tokens.GCHOICEALT: '//='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='shoesize',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='uint',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])])))]
+CDDLTree
+  Token: EOF (EOF)
+    whitespaces: 1
+  Rule
+    Typename: PersonalData
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Map
+        Token: LBRACE ({)
+          whitespaces: 1
+        Token: RBRACE (})
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 2
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename
+                whitespaces: 2: NameComponents
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 2
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: uint
+          GroupEntry
+            Occurrence
+              Token: ASTERISK (*)
+                whitespaces: 2
+            Type
+              Typename
+                whitespaces: 1: $$personaldata-extensions
+  Rule
+    Typename
+      whitespaces: 2: NameComponents
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Token: COMMA (,)
+              Occurrence
+                Token: QUEST (?)
+                  whitespaces: 1
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: tstr
+            GroupEntry
+              Occurrence
+                Token: QUEST (?)
+                  whitespaces: 1
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: tstr
+  Rule
+    Typename
+      Token: COMMENT (COMMENT)
+        whitespaces: 2
+        literal: ; The above already works as is.
+      Token: COMMENT (COMMENT)
+        whitespaces: 1
+        literal: ; But then, we can add later:
+      whitespaces: 2: $$personaldata-extensions
+    Token: GCHOICEALT (//=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Token: COMMA (,)
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: tstr
+  Rule
+    Typename
+      Token: COMMENT (COMMENT)
+        whitespaces: 2
+        literal: ; and again, somewhere else:
+      whitespaces: 2: $$personaldata-extensions
+    Token: GCHOICEALT (//=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Token: COMMA (,)
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: uint

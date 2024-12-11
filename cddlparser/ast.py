@@ -132,6 +132,9 @@ class CDDLNode:
             return token.serialize()
         return marker.serializeToken(token, self)
 
+    def __repr__(self, indent: int = 0) -> str:
+        return "  " * indent + self.__class__.__name__
+
 
 class WrappedNode(CDDLNode):
     """
@@ -152,6 +155,14 @@ class WrappedNode(CDDLNode):
         Function must be implemented in all subclasses.
         """
         raise NotImplementedError("_serialize method must be implemented in subclass")
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        if self.openToken is not None:
+            res.append(self.openToken.__repr__(indent + 1))
+        if self.closeToken is not None:
+            res.append(self.closeToken.__repr__(indent + 1))
+        return "\n".join(res)
 
 
 class TokenNode(WrappedNode):
@@ -208,6 +219,16 @@ class TokenNode(WrappedNode):
         self.comments = token.comments
         self.whitespace = token.whitespace
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for comment in self.comments:
+            res.append(comment.__repr__(indent + 1))
+        if self.whitespace != "":
+            res.append("  " * (indent + 1) + f"whitespaces: {len(self.whitespace)}")
+        if self.separator is not None:
+            res.append(self.separator.__repr__(indent + 1))
+        return "\n".join(res)
+
 
 @dataclass
 class CDDLTree(TokenNode):
@@ -225,6 +246,12 @@ class CDDLTree(TokenNode):
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([item.serialize(marker) for item in self.rules])
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for rule in self.rules:
+            res.append(rule.__repr__(indent + 1))
+        return "\n".join(res)
 
 
 @dataclass
@@ -257,6 +284,16 @@ class Rule(CDDLNode):
         output += self._serializeToken(self.assign, marker)
         output += self.type.serialize(marker)
         return output
+
+    def __repr__(self, indent: int = 0) -> str:
+        return "\n".join(
+            [
+                super().__repr__(indent),
+                self.name.__repr__(indent + 1),
+                self.assign.__repr__(indent + 1),
+                self.type.__repr__(indent + 1),
+            ]
+        )
 
 
 @dataclass
@@ -308,6 +345,15 @@ class GroupEntry(TokenNode):
             )
         )
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        if self.occurrence is not None:
+            res.append(self.occurrence.__repr__(indent + 1))
+        if self.key is not None:
+            res.append(self.key.__repr__(indent + 1))
+        res.append(self.type.__repr__(indent + 1))
+        return "\n".join(res)
+
 
 @dataclass
 class Group(TokenNode):
@@ -326,15 +372,19 @@ class Group(TokenNode):
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([item.serialize(marker) for item in self.groupChoices])
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for item in self.groupChoices:
+            res.append(item.__repr__(indent + 1))
+        return "\n".join(res)
 
-@dataclass
+
 class Map(Group):
     """
     A map, meaning a list of group choices wrapped in curly braces
     """
 
 
-@dataclass
 class Array(Group):
     """
     An array
@@ -360,6 +410,12 @@ class GroupChoice(TokenNode):
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([item.serialize(marker) for item in self.groupEntries])
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for item in self.groupEntries:
+            res.append(item.__repr__(indent + 1))
+        return "\n".join(res)
 
 
 @dataclass
@@ -388,6 +444,14 @@ class Tag(TokenNode):
         output += self.typePart.serialize(marker) if self.typePart is not None else ""
         return output
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent) + " (#)"]
+        if self.numericPart is not None:
+            res.append(self.numericPart.__repr__(indent + 1))
+        if self.typePart is not None:
+            res.append(self.typePart.__repr__(indent + 1))
+        return "\n".join(res)
+
 
 @dataclass
 class Occurrence(TokenNode):
@@ -403,6 +467,12 @@ class Occurrence(TokenNode):
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([self._serializeToken(item, marker) for item in self.tokens])
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for item in self.tokens:
+            res.append(item.__repr__(indent + 1))
+        return "\n".join(res)
 
 
 @dataclass
@@ -436,6 +506,9 @@ class Value(TokenNode):
             return prefix + self.value + suffix
         return marker.serializeValue(prefix, self.value, suffix, self)
 
+    def __repr__(self, indent: int = 0) -> str:
+        return "  " * indent + f"{self.__class__.__name__} ({self.type}): {self.value}"
+
 
 @dataclass
 class Typename(TokenNode):
@@ -466,6 +539,14 @@ class Typename(TokenNode):
             output += self.parameters.serialize(marker)
         return output
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent) + ": " + self.name]
+        if self.unwrapped is not None:
+            res.append(self.unwrapped.__repr__(indent + 1))
+        if self.parameters is not None:
+            res.append(self.parameters.__repr__(indent + 1))
+        return "\n".join(res)
+
 
 @dataclass
 class ChoiceFrom(TokenNode):
@@ -485,6 +566,13 @@ class ChoiceFrom(TokenNode):
         output: str = self._serializeToken(Token(Tokens.AMPERSAND, ""), marker)
         output += self.target.serialize(marker)
         return output
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [
+            super().__repr__(indent) + " (&)",
+            self.target.__repr__(indent + 1),
+        ]
+        return "\n".join(res)
 
 
 # A type2 production is one of a few possibilities
@@ -522,6 +610,15 @@ class Range(TokenNode):
         output += self.max.serialize(marker)
         return output
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [
+            super().__repr__(indent),
+            self.min.__repr__(indent + 1),
+            self.rangeop.__repr__(indent + 1),
+            self.max.__repr__(indent + 1),
+        ]
+        return "\n".join(res)
+
 
 @dataclass
 class Operator(TokenNode):
@@ -546,6 +643,15 @@ class Operator(TokenNode):
         output += self._serializeToken(self.name, marker)
         output += self.controller.serialize(marker)
         return output
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [
+            super().__repr__(indent),
+            self.type.__repr__(indent + 1),
+            self.name.__repr__(indent + 1),
+            self.controller.__repr__(indent + 1),
+        ]
+        return "\n".join(res)
 
 
 # A Type1 production is either a Type2, a Range or an Operator
@@ -575,6 +681,12 @@ class Memberkey(CDDLNode):
         )
         return output
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for item in self.tokens:
+            res.append(item.__repr__(indent + 1))
+        return "\n".join(res)
+
 
 @dataclass
 class Type(TokenNode):
@@ -596,6 +708,12 @@ class Type(TokenNode):
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([item.serialize(marker) for item in self.types])
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for item in self.types:
+            res.append(item.__repr__(indent + 1))
+        return "\n".join(res)
+
 
 @dataclass
 class GenericParameters(WrappedNode):
@@ -614,6 +732,12 @@ class GenericParameters(WrappedNode):
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([item.serialize(marker) for item in self.parameters])
 
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for item in self.parameters:
+            res.append(item.__repr__(indent + 1))
+        return "\n".join(res)
+
 
 @dataclass
 class GenericArguments(WrappedNode):
@@ -631,6 +755,12 @@ class GenericArguments(WrappedNode):
 
     def _serialize(self, marker: Marker | None = None) -> str:
         return "".join([item.serialize(marker) for item in self.parameters])
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [super().__repr__(indent)]
+        for item in self.parameters:
+            res.append(item.__repr__(indent + 1))
+        return "\n".join(res)
 
 
 Markup = tuple[Optional[str], Optional[str]]

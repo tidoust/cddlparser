@@ -2,7 +2,6 @@ import unittest
 import os
 import sys
 import re
-from pprint import pformat
 
 sys.path.append("..")
 from cddlparser.parser import Parser
@@ -58,12 +57,12 @@ class TestParser(unittest.TestCase):
             # Compare with snapshot if it exists
             with open(snapfile, "r", encoding="utf8") as fsnap:
                 snap = fsnap.read()
-            self.assertEqual(pformat(ast.rules), snap)
+            self.assertEqual(repr(ast), snap)
         else:
             # Create the snapshot if it does not exist yet (in other words, to
             # refresh a snapshot, delete it and run tests again)
             with open(snapfile, "w", encoding="utf8") as fsnap:
-                fsnap.write(pformat(ast.rules))
+                fsnap.write(repr(ast))
 
     def _test_serialize_file(self, path, file):
         with open(

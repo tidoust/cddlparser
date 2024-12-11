@@ -1,135 +1,81 @@
-[Rule(name=Typename(name='someGroup', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '    ')]),
-                                                                              key=Memberkey(type=Typename(name='optional',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '    ')]),
-                                                                              key=Memberkey(type=Typename(name='anotherOptional',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=1,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.PLUS: '+'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '    ')]),
-                                                                              key=Memberkey(type=Typename(name='atLeastOne',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=23,
-                                                                                                    m=42,
-                                                                                                    tokens=[Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                  literal='23',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '    '),
-                                                                                                            Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace=''),
-                                                                                                            Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                  literal='42',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='')]),
-                                                                              key=Memberkey(type=Typename(name='numberedOccurence',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=42,
-                                                                                                    tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '    '),
-                                                                                                            Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                  literal='42',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='')]),
-                                                                              key=Memberkey(type=Typename(name='withoutLeftSide',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=23,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                                                                                                  literal='23',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '    '),
-                                                                                                            Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='')]),
-                                                                              key=Memberkey(type=Typename(name='withoutRightSide',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)]))])])]))]
+CDDLTree
+  Token: EOF (EOF)
+    whitespaces: 1
+  Rule
+    Typename: someGroup
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Map
+        Token: LBRACE ({)
+          whitespaces: 1
+        Token: RBRACE (})
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 5
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: ASTERISK (*)
+                whitespaces: 5
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: PLUS (+)
+                whitespaces: 5
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: NUMBER (NUMBER)
+                whitespaces: 5
+                literal: 23
+              Token: ASTERISK (*)
+              Token: NUMBER (NUMBER)
+                literal: 42
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: ASTERISK (*)
+                whitespaces: 5
+              Token: NUMBER (NUMBER)
+                literal: 42
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Occurrence
+              Token: NUMBER (NUMBER)
+                whitespaces: 5
+                literal: 23
+              Token: ASTERISK (*)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr

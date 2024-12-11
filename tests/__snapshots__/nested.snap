@@ -1,58 +1,59 @@
-[Rule(name=Typename(name='f', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='o',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                                                                      key=Memberkey(type=Typename(name='o',
-                                                                                                                                                                                  unwrapped=None,
-                                                                                                                                                                                  parameters=None),
-                                                                                                                                                                    hasCut=True,
-                                                                                                                                                                    hasColon=True,
-                                                                                                                                                                    tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                                                                  literal='',
-                                                                                                                                                                                  comments=[],
-                                                                                                                                                                                  whitespace='')]),
-                                                                                                                                                      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                                                                                                                                              key=Memberkey(type=Typename(name='b',
-                                                                                                                                                                                                                                                          unwrapped=None,
-                                                                                                                                                                                                                                                          parameters=None),
-                                                                                                                                                                                                                                            hasCut=True,
-                                                                                                                                                                                                                                            hasColon=True,
-                                                                                                                                                                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                                                                                                                                          literal='',
-                                                                                                                                                                                                                                                          comments=[],
-                                                                                                                                                                                                                                                          whitespace='')]),
-                                                                                                                                                                                                                              type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                                                                                                                                                                                                                      key=Memberkey(type=Typename(name='a',
-                                                                                                                                                                                                                                                                                                                                  unwrapped=None,
-                                                                                                                                                                                                                                                                                                                                  parameters=None),
-                                                                                                                                                                                                                                                                                                                    hasCut=True,
-                                                                                                                                                                                                                                                                                                                    hasColon=True,
-                                                                                                                                                                                                                                                                                                                    tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                                                                                                                                                                                                                  literal='',
-                                                                                                                                                                                                                                                                                                                                  comments=[],
-                                                                                                                                                                                                                                                                                                                                  whitespace='')]),
-                                                                                                                                                                                                                                                                                                      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                                                                                                                                                                                                                                                                                              key=Memberkey(type=Typename(name='r',
-                                                                                                                                                                                                                                                                                                                                                                                                          unwrapped=None,
-                                                                                                                                                                                                                                                                                                                                                                                                          parameters=None),
-                                                                                                                                                                                                                                                                                                                                                                                            hasCut=True,
-                                                                                                                                                                                                                                                                                                                                                                                            hasColon=True,
-                                                                                                                                                                                                                                                                                                                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                                                                                                                                                                                                                                                                                          literal='',
-                                                                                                                                                                                                                                                                                                                                                                                                          comments=[],
-                                                                                                                                                                                                                                                                                                                                                                                                          whitespace='')]),
-                                                                                                                                                                                                                                                                                                                                                                              type=Type(types=[Typename(name='text',
-                                                                                                                                                                                                                                                                                                                                                                                                        unwrapped=None,
-                                                                                                                                                                                                                                                                                                                                                                                                        parameters=None)]))])])]))])])]))])])]))])])]))])])]))]
+CDDLTree
+  Token: EOF (EOF)
+  Rule
+    Typename: f
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Map
+        Token: LBRACE ({)
+          whitespaces: 1
+        Token: RBRACE (})
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Memberkey
+              Token: COLON (:)
+            Type
+              Map
+                Token: LBRACE ({)
+                  whitespaces: 1
+                Token: RBRACE (})
+                  whitespaces: 5
+                GroupChoice
+                  GroupEntry
+                    Memberkey
+                      Token: COLON (:)
+                    Type
+                      Map
+                        Token: LBRACE ({)
+                          whitespaces: 1
+                        Token: RBRACE (})
+                          whitespaces: 9
+                        GroupChoice
+                          GroupEntry
+                            Memberkey
+                              Token: COLON (:)
+                            Type
+                              Map
+                                Token: LBRACE ({)
+                                  whitespaces: 1
+                                Token: RBRACE (})
+                                  whitespaces: 13
+                                GroupChoice
+                                  GroupEntry
+                                    Memberkey
+                                      Token: COLON (:)
+                                    Type
+                                      Map
+                                        Token: LBRACE ({)
+                                          whitespaces: 1
+                                        Token: RBRACE (})
+                                          whitespaces: 17
+                                        GroupChoice
+                                          GroupEntry
+                                            Memberkey
+                                              Token: COLON (:)
+                                            Type
+                                              Typename
+                                                whitespaces: 1: text

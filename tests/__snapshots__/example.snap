@@ -1,288 +1,180 @@
-[Rule(name=Typename(name='Example', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='title',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[Token(type=<Tokens.COMMENT: 'COMMENT'>,
-                                                                                                                                  literal='; '
-                                                                                                                                          'summary '
-                                                                                                                                          'of '
-                                                                                                                                          'test',
-                                                                                                                                  comments=[],
-                                                                                                                                  whitespace='                                 ')],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '   ')]),
-                                                                              key=Memberkey(type=Typename(name='description',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[Token(type=<Tokens.COMMENT: 'COMMENT'>,
-                                                                                                                                  literal='; '
-                                                                                                                                          'longer '
-                                                                                                                                          'description '
-                                                                                                                                          'of '
-                                                                                                                                          'test',
-                                                                                                                                  comments=[],
-                                                                                                                                  whitespace='                         ')],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '   ')]),
-                                                                              key=Memberkey(type=Typename(name='fail',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace=' ')]),
-                                                                              type=Type(types=[Typename(name='bool',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Value(value='input',
-                                                                                                       type='text'),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='Inputs',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[Token(type=<Tokens.COMMENT: 'COMMENT'>,
-                                                                                                                                  literal='; '
-                                                                                                                                          'Inputs '
-                                                                                                                                          'to '
-                                                                                                                                          'create '
-                                                                                                                                          'the '
-                                                                                                                                          'test',
-                                                                                                                                  comments=[],
-                                                                                                                                  whitespace='                             ')],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '   ')]),
-                                                                              key=Memberkey(type=Typename(name='intermediates',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace=' ')]),
-                                                                              type=Type(types=[Typename(name='Intermediates',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='output',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='Outputs',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='attire',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Value(value='bow '
-                                                                                                           'tie',
-                                                                                                     type='text')])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='someBool',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='true',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='someOtherBool',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='false',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='count',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Value(value='123',
-                                                                                                     type='number')])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='negative-count',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Value(value='-123',
-                                                                                                     type='number')])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '   ')]),
-                                                                              key=Memberkey(type=Value(value='rating',
-                                                                                                       type='text'),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Value(value='0.5724646875815566',
-                                                                                                     type='number')])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='hexa',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Value(value='0x123',
-                                                                                                     type='number')])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='bin',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Value(value='0b101',
-                                                                                                     type='number')])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='foobar',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='samples',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=1,
-                                                                                                                                                                              m=inf,
-                                                                                                                                                                              tokens=[Token(type=<Tokens.PLUS: '+'>,
-                                                                                                                                                                                            literal='',
-                                                                                                                                                                                            comments=[],
-                                                                                                                                                                                            whitespace='')]),
-                                                                                                                                                        key=None,
-                                                                                                                                                        type=Type(types=[Typename(name='float',
-                                                                                                                                                                                  unwrapped=None,
-                                                                                                                                                                                  parameters=None)]))])])])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='multitype',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Typename(name='float',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None),
-                                                                                               Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None),
-                                                                                               Value(value='foobar',
-                                                                                                     type='text')])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=Memberkey(type=Typename(name='my_uri',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None),
-                                                                                            hasCut=True,
-                                                                                            hasColon=True,
-                                                                                            tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                          literal='',
-                                                                                                          comments=[],
-                                                                                                          whitespace='')]),
-                                                                              type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                                                                                                     literal='6.32',
-                                                                                                                     comments=[],
-                                                                                                                     whitespace=''),
-                                                                                                   typePart=Type(types=[Typename(name='tstr',
-                                                                                                                                 unwrapped=None,
-                                                                                                                                 parameters=None)])),
-                                                                                               Typename(name='tstr',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)]))])])]))]
+CDDLTree
+  Token: EOF (EOF)
+  Rule
+    Typename: Example
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Map
+        Token: LBRACE ({)
+          whitespaces: 1
+        Token: RBRACE (})
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 4
+                Token: COMMENT (COMMENT)
+                  whitespaces: 33
+                  literal: ; summary of test
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: tstr
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 4
+                Token: COMMENT (COMMENT)
+                  whitespaces: 25
+                  literal: ; longer description of test
+            Memberkey
+              Token: COLON (:)
+                whitespaces: 1
+            Type
+              Typename
+                whitespaces: 1: bool
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: Inputs
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 4
+                Token: COMMENT (COMMENT)
+                  whitespaces: 29
+                  literal: ; Inputs to create the test
+            Memberkey
+              Token: COLON (:)
+                whitespaces: 1
+            Type
+              Typename
+                whitespaces: 1: Intermediates
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: Outputs
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Value (text): bow tie
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: true
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1: false
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Value (number): 123
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Value (number): -123
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 4
+            Memberkey
+              Token: COLON (:)
+            Type
+              Value (number): 0.5724646875815566
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Value (number): 0x123
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Value (number): 0b101
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename
+                whitespaces: 4: foobar
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Array
+                Token: LBRACK ([)
+                  whitespaces: 1
+                Token: RBRACK (])
+                GroupChoice
+                  GroupEntry
+                    Occurrence
+                      Token: PLUS (+)
+                    Type
+                      Typename
+                        whitespaces: 1: float
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Typename
+                whitespaces: 1
+                Token: TCHOICE (/)
+                  whitespaces: 1: float
+              Typename
+                whitespaces: 1
+                Token: TCHOICE (/)
+                  whitespaces: 1: tstr
+              Value (text): foobar
+          GroupEntry
+            Token: COMMA (,)
+            Memberkey
+              Token: COLON (:)
+            Type
+              Tag
+                whitespaces: 1
+                Token: TCHOICE (/)
+                  whitespaces: 1 (#)
+                Token: FLOAT (FLOAT)
+                  literal: 6.32
+                Type
+                  Token: LPAREN (()
+                  Token: RPAREN ())
+                  Typename: tstr
+              Typename
+                whitespaces: 1: tstr

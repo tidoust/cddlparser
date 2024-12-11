@@ -38,7 +38,6 @@ You should then be able to write code such as:
 
 ```python
 from cddlparser import parse
-from prettyprint import pprint
 ast = parse('''
   person = {
       identity,                         ; an identity
@@ -46,7 +45,7 @@ ast = parse('''
   }''')
 
 print('The Abstract syntax tree:')
-pprint(ast)
+print(ast)
 
 print()
 print('Re-serialization:')

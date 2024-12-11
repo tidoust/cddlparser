@@ -1,455 +1,508 @@
-[Rule(name=Typename(name='any', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=None, typePart=None)])),
- Rule(name=Typename(name='uint', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                             literal='0',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='nint', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                             literal='1',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='int', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='uint', unwrapped=None, parameters=None),
-                       Typename(name='nint', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='bstr', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                             literal='2',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='bytes', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='bstr', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='tstr', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.NUMBER: 'NUMBER'>,
-                                             literal='3',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='text', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='tstr', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='tdate', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.0',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='tstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='time', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.1',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='number',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='number', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='int', unwrapped=None, parameters=None),
-                       Typename(name='float', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='biguint', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.2',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='bstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='bignint', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.3',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='bstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='bigint', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='biguint',
-                                unwrapped=None,
-                                parameters=None),
-                       Typename(name='bignint',
-                                unwrapped=None,
-                                parameters=None)])),
- Rule(name=Typename(name='integer', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='int', unwrapped=None, parameters=None),
-                       Typename(name='bigint',
-                                unwrapped=None,
-                                parameters=None)])),
- Rule(name=Typename(name='unsigned', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='uint', unwrapped=None, parameters=None),
-                       Typename(name='biguint',
-                                unwrapped=None,
-                                parameters=None)])),
- Rule(name=Typename(name='decfrac', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.4',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                         key=Memberkey(type=Typename(name='e10',
-                                                                                                                                     unwrapped=None,
-                                                                                                                                     parameters=None),
-                                                                                                                       hasCut=True,
-                                                                                                                       hasColon=True,
-                                                                                                                       tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                     literal='',
-                                                                                                                                     comments=[],
-                                                                                                                                     whitespace='')]),
-                                                                                                         type=Type(types=[Typename(name='int',
-                                                                                                                                   unwrapped=None,
-                                                                                                                                   parameters=None)])),
-                                                                                              GroupEntry(occurrence=None,
-                                                                                                         key=Memberkey(type=Typename(name='m',
-                                                                                                                                     unwrapped=None,
-                                                                                                                                     parameters=None),
-                                                                                                                       hasCut=True,
-                                                                                                                       hasColon=True,
-                                                                                                                       tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                     literal='',
-                                                                                                                                     comments=[],
-                                                                                                                                     whitespace='')]),
-                                                                                                         type=Type(types=[Typename(name='integer',
-                                                                                                                                   unwrapped=None,
-                                                                                                                                   parameters=None)]))])])]))])),
- Rule(name=Typename(name='bigfloat', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.5',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                         key=Memberkey(type=Typename(name='e2',
-                                                                                                                                     unwrapped=None,
-                                                                                                                                     parameters=None),
-                                                                                                                       hasCut=True,
-                                                                                                                       hasColon=True,
-                                                                                                                       tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                     literal='',
-                                                                                                                                     comments=[],
-                                                                                                                                     whitespace='')]),
-                                                                                                         type=Type(types=[Typename(name='int',
-                                                                                                                                   unwrapped=None,
-                                                                                                                                   parameters=None)])),
-                                                                                              GroupEntry(occurrence=None,
-                                                                                                         key=Memberkey(type=Typename(name='m',
-                                                                                                                                     unwrapped=None,
-                                                                                                                                     parameters=None),
-                                                                                                                       hasCut=True,
-                                                                                                                       hasColon=True,
-                                                                                                                       tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                                     literal='',
-                                                                                                                                     comments=[],
-                                                                                                                                     whitespace='')]),
-                                                                                                         type=Type(types=[Typename(name='integer',
-                                                                                                                                   unwrapped=None,
-                                                                                                                                   parameters=None)]))])])]))])),
- Rule(name=Typename(name='eb64url', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.21',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='any',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='eb64legacy', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.22',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='any',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='eb16', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.23',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='any',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='encoded-cbor', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.24',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='bstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='uri', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.32',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='tstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='b64url', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.33',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='tstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='b64legacy', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.34',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='tstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='regexp', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.35',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='tstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='mime-message', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.36',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='tstr',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='cbor-any', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='6.55799',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=Type(types=[Typename(name='any',
-                                                         unwrapped=None,
-                                                         parameters=None)]))])),
- Rule(name=Typename(name='float16', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='7.25',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='float32', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='7.26',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='float64', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='7.27',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='float16-32', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='float16',
-                                unwrapped=None,
-                                parameters=None),
-                       Typename(name='float32',
-                                unwrapped=None,
-                                parameters=None)])),
- Rule(name=Typename(name='float32-64', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='float32',
-                                unwrapped=None,
-                                parameters=None),
-                       Typename(name='float64',
-                                unwrapped=None,
-                                parameters=None)])),
- Rule(name=Typename(name='float', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='float16-32',
-                                unwrapped=None,
-                                parameters=None),
-                       Typename(name='float64',
-                                unwrapped=None,
-                                parameters=None)])),
- Rule(name=Typename(name='false', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='7.20',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='true', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='7.21',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='bool', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='false', unwrapped=None, parameters=None),
-                       Typename(name='true', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='nil', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='7.22',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)])),
- Rule(name=Typename(name='null', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='nil', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='undefined', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Tag(numericPart=Token(type=<Tokens.FLOAT: 'FLOAT'>,
-                                             literal='7.23',
-                                             comments=[],
-                                             whitespace=''),
-                           typePart=None)]))]
+CDDLTree
+  Token: EOF (EOF)
+    whitespaces: 1
+  Rule
+    Typename: any
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+  Rule
+    Typename
+      whitespaces: 2: uint
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: NUMBER (NUMBER)
+          literal: 0
+  Rule
+    Typename
+      whitespaces: 1: nint
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: NUMBER (NUMBER)
+          literal: 1
+  Rule
+    Typename
+      whitespaces: 1: int
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: uint
+      Typename
+        whitespaces: 1: nint
+  Rule
+    Typename
+      whitespaces: 2: bstr
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: NUMBER (NUMBER)
+          literal: 2
+  Rule
+    Typename
+      whitespaces: 1: bytes
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1: bstr
+  Rule
+    Typename
+      whitespaces: 1: tstr
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: NUMBER (NUMBER)
+          literal: 3
+  Rule
+    Typename
+      whitespaces: 1: text
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1: tstr
+  Rule
+    Typename
+      whitespaces: 2: tdate
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.0
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: tstr
+  Rule
+    Typename
+      whitespaces: 1: time
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.1
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: number
+  Rule
+    Typename
+      whitespaces: 1: number
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: int
+      Typename
+        whitespaces: 1: float
+  Rule
+    Typename
+      whitespaces: 1: biguint
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.2
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: bstr
+  Rule
+    Typename
+      whitespaces: 1: bignint
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.3
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: bstr
+  Rule
+    Typename
+      whitespaces: 1: bigint
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: biguint
+      Typename
+        whitespaces: 1: bignint
+  Rule
+    Typename
+      whitespaces: 1: integer
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: int
+      Typename
+        whitespaces: 1: bigint
+  Rule
+    Typename
+      whitespaces: 1: unsigned
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: uint
+      Typename
+        whitespaces: 1: biguint
+  Rule
+    Typename
+      whitespaces: 1: decfrac
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.4
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Array
+            Token: LBRACK ([)
+            Token: RBRACK (])
+            GroupChoice
+              GroupEntry
+                Token: COMMA (,)
+                Memberkey
+                  Token: COLON (:)
+                Type
+                  Typename
+                    whitespaces: 1: int
+              GroupEntry
+                Memberkey
+                  Token: COLON (:)
+                Type
+                  Typename
+                    whitespaces: 1: integer
+  Rule
+    Typename
+      whitespaces: 1: bigfloat
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.5
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Array
+            Token: LBRACK ([)
+            Token: RBRACK (])
+            GroupChoice
+              GroupEntry
+                Token: COMMA (,)
+                Memberkey
+                  Token: COLON (:)
+                Type
+                  Typename
+                    whitespaces: 1: int
+              GroupEntry
+                Memberkey
+                  Token: COLON (:)
+                Type
+                  Typename
+                    whitespaces: 1: integer
+  Rule
+    Typename
+      whitespaces: 1: eb64url
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.21
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: any
+  Rule
+    Typename
+      whitespaces: 1: eb64legacy
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.22
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: any
+  Rule
+    Typename
+      whitespaces: 1: eb16
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.23
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: any
+  Rule
+    Typename
+      whitespaces: 1: encoded-cbor
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.24
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: bstr
+  Rule
+    Typename
+      whitespaces: 1: uri
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.32
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: tstr
+  Rule
+    Typename
+      whitespaces: 1: b64url
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.33
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: tstr
+  Rule
+    Typename
+      whitespaces: 1: b64legacy
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.34
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: tstr
+  Rule
+    Typename
+      whitespaces: 1: regexp
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.35
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: tstr
+  Rule
+    Typename
+      whitespaces: 1: mime-message
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.36
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: tstr
+  Rule
+    Typename
+      whitespaces: 1: cbor-any
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 6.55799
+        Type
+          Token: LPAREN (()
+          Token: RPAREN ())
+          Typename: any
+  Rule
+    Typename
+      whitespaces: 2: float16
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 7.25
+  Rule
+    Typename
+      whitespaces: 1: float32
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 7.26
+  Rule
+    Typename
+      whitespaces: 1: float64
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 7.27
+  Rule
+    Typename
+      whitespaces: 1: float16-32
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: float16
+      Typename
+        whitespaces: 1: float32
+  Rule
+    Typename
+      whitespaces: 1: float32-64
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: float32
+      Typename
+        whitespaces: 1: float64
+  Rule
+    Typename
+      whitespaces: 1: float
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: float16-32
+      Typename
+        whitespaces: 1: float64
+  Rule
+    Typename
+      whitespaces: 2: false
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 7.20
+  Rule
+    Typename
+      whitespaces: 1: true
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 7.21
+  Rule
+    Typename
+      whitespaces: 1: bool
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1
+        Token: TCHOICE (/)
+          whitespaces: 1: false
+      Typename
+        whitespaces: 1: true
+  Rule
+    Typename
+      whitespaces: 1: nil
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 7.22
+  Rule
+    Typename
+      whitespaces: 1: null
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1: nil
+  Rule
+    Typename
+      whitespaces: 1: undefined
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Tag
+        whitespaces: 1 (#)
+        Token: FLOAT (FLOAT)
+          literal: 7.23

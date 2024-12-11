@@ -1,76 +1,113 @@
-[Rule(name=Typename(name='a', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='b',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='b', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=None,
-                                                                                                type=Type(types=[Typename(name='c',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='c', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='d', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='d', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Typename(name='tstr', unwrapped=None, parameters=None)])),
- Rule(name=Typename(name='e', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=None,
-                                                                                                type=Type(types=[Typename(name='f',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='f', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=None,
-                                                                                                type=Type(types=[Typename(name='g',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='g', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Typename(name='h',
-                                                unwrapped=None,
-                                                parameters=None)]))),
- Rule(name=Typename(name='h', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[])])))]
+CDDLTree
+  Token: EOF (EOF)
+  Rule
+    Typename
+      Token: COMMENT (COMMENT)
+        literal: ; These may be type or group rules.
+      whitespaces: 1: a
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Group
+        Token: LPAREN (()
+          whitespaces: 1
+        Token: RPAREN ())
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Type
+              Typename
+                whitespaces: 1: b
+  Rule
+    Typename
+      whitespaces: 1: b
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Type
+                Typename
+                  whitespaces: 1: c
+  Rule
+    Typename
+      Token: COMMENT (COMMENT)
+        whitespaces: 2
+        literal: ; These are type rules for sure.
+      whitespaces: 1: c
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1: d
+  Rule
+    Typename
+      whitespaces: 1: d
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Typename
+        whitespaces: 1: tstr
+  Rule
+    Typename
+      Token: COMMENT (COMMENT)
+        whitespaces: 2
+        literal: ; These all are group rules.
+      whitespaces: 1: e
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Type
+                Typename
+                  whitespaces: 1: f
+  Rule
+    Typename
+      whitespaces: 1: f
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Type
+                Typename
+                  whitespaces: 1: g
+  Rule
+    Typename
+      whitespaces: 1: g
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Typename
+          whitespaces: 1: h
+  Rule
+    Typename
+      whitespaces: 1: h
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())

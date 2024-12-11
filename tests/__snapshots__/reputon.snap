@@ -1,361 +1,350 @@
-[Rule(name=Typename(name='reputation-object', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='reputation-context',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='reputon-list',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)]))])])])),
- Rule(name=Typename(name='reputation-context', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='application',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='text',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='reputon-list', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='reputons',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='reputon-array',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='reputon-array', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Array(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                      m=inf,
-                                                                                                      tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                    literal='',
-                                                                                                                    comments=[],
-                                                                                                                    whitespace=' ')]),
-                                                                                key=None,
-                                                                                type=Type(types=[Typename(name='reputon',
-                                                                                                          unwrapped=None,
-                                                                                                          parameters=None)]))])])])),
- Rule(name=Typename(name='reputon', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=Type(types=[Map(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='rater-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='assertion-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='rated-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=None,
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='rating-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='conf-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='normal-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='sample-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='gen-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.QUEST: '?'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='expire-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)])),
-                                                                   GroupEntry(occurrence=Occurrence(n=0,
-                                                                                                    m=inf,
-                                                                                                    tokens=[Token(type=<Tokens.ASTERISK: '*'>,
-                                                                                                                  literal='',
-                                                                                                                  comments=[],
-                                                                                                                  whitespace='\n'
-                                                                                                                             '\t')]),
-                                                                              key=None,
-                                                                              type=Type(types=[Typename(name='ext-value',
-                                                                                                        unwrapped=None,
-                                                                                                        parameters=None)]))])])])),
- Rule(name=Typename(name='rater-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='rater',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='text',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='assertion-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='assertion',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='text',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='rated-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='rated',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='text',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='rating-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='rating',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='float16',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='conf-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='confidence',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='float16',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='normal-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='normal-rating',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='float16',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='sample-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='sample-size',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='uint',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='gen-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='generated',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='uint',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='expire-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='expires',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=True,
-                                                                                                              hasColon=True,
-                                                                                                              tokens=[Token(type=<Tokens.COLON: ':'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace='')]),
-                                                                                                type=Type(types=[Typename(name='uint',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])]))),
- Rule(name=Typename(name='ext-value', unwrapped=None, parameters=None),
-      assign=Token(type=<Tokens.ASSIGN: '='>,
-                   literal='',
-                   comments=[],
-                   whitespace=' '),
-      type=GroupEntry(occurrence=None,
-                      key=None,
-                      type=Type(types=[Group(groupChoices=[GroupChoice(groupEntries=[GroupEntry(occurrence=None,
-                                                                                                key=Memberkey(type=Typename(name='text',
-                                                                                                                            unwrapped=None,
-                                                                                                                            parameters=None),
-                                                                                                              hasCut=False,
-                                                                                                              hasColon=False,
-                                                                                                              tokens=[Token(type=<Tokens.ARROWMAP: '=>'>,
-                                                                                                                            literal='',
-                                                                                                                            comments=[],
-                                                                                                                            whitespace=' ')]),
-                                                                                                type=Type(types=[Typename(name='any',
-                                                                                                                          unwrapped=None,
-                                                                                                                          parameters=None)]))])])])))]
+CDDLTree
+  Token: EOF (EOF)
+    whitespaces: 1
+  Rule
+    Typename: reputation-object
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Map
+        Token: LBRACE ({)
+          whitespaces: 1
+        Token: RBRACE (})
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename
+                whitespaces: 1: reputation-context
+          GroupEntry
+            Type
+              Typename
+                whitespaces: 1: reputon-list
+  Rule
+    Typename
+      whitespaces: 2: reputation-context
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: text
+  Rule
+    Typename
+      whitespaces: 2: reputon-list
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: reputon-array
+  Rule
+    Typename
+      whitespaces: 2: reputon-array
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Array
+        Token: LBRACK ([)
+          whitespaces: 1
+        Token: RBRACK (])
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Occurrence
+              Token: ASTERISK (*)
+                whitespaces: 1
+            Type
+              Typename
+                whitespaces: 1: reputon
+  Rule
+    Typename
+      whitespaces: 2: reputon
+    Token: ASSIGN (=)
+      whitespaces: 1
+    Type
+      Map
+        Token: LBRACE ({)
+          whitespaces: 1
+        Token: RBRACE (})
+          whitespaces: 1
+        GroupChoice
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename
+                whitespaces: 2: rater-value
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename
+                whitespaces: 2: assertion-value
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename
+                whitespaces: 2: rated-value
+          GroupEntry
+            Token: COMMA (,)
+            Type
+              Typename
+                whitespaces: 2: rating-value
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 2
+            Type
+              Typename
+                whitespaces: 1: conf-value
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 2
+            Type
+              Typename
+                whitespaces: 1: normal-value
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 2
+            Type
+              Typename
+                whitespaces: 1: sample-value
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 2
+            Type
+              Typename
+                whitespaces: 1: gen-value
+          GroupEntry
+            Token: COMMA (,)
+            Occurrence
+              Token: QUEST (?)
+                whitespaces: 2
+            Type
+              Typename
+                whitespaces: 1: expire-value
+          GroupEntry
+            Occurrence
+              Token: ASTERISK (*)
+                whitespaces: 2
+            Type
+              Typename
+                whitespaces: 1: ext-value
+  Rule
+    Typename
+      whitespaces: 2: rater-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: text
+  Rule
+    Typename
+      whitespaces: 2: assertion-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: text
+  Rule
+    Typename
+      whitespaces: 2: rated-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: text
+  Rule
+    Typename
+      whitespaces: 2: rating-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: float16
+  Rule
+    Typename
+      whitespaces: 2: conf-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: float16
+  Rule
+    Typename
+      whitespaces: 2: normal-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: float16
+  Rule
+    Typename
+      whitespaces: 2: sample-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: uint
+  Rule
+    Typename
+      whitespaces: 2: gen-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: uint
+  Rule
+    Typename
+      whitespaces: 2: expire-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: COLON (:)
+              Type
+                Typename
+                  whitespaces: 1: uint
+  Rule
+    Typename
+      whitespaces: 2: ext-value
+    Token: ASSIGN (=)
+      whitespaces: 1
+    GroupEntry
+      Type
+        Group
+          Token: LPAREN (()
+            whitespaces: 1
+          Token: RPAREN ())
+            whitespaces: 1
+          GroupChoice
+            GroupEntry
+              Memberkey
+                Token: ARROWMAP (=>)
+                  whitespaces: 1
+              Type
+                Typename
+                  whitespaces: 1: any

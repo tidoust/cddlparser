@@ -96,3 +96,15 @@ class Token:
 
     def startWithSpaces(self) -> bool:
         return self.whitespace != "" or len(self.comments) > 0
+
+    def __repr__(self, indent: int = 0) -> str:
+        res: list[str] = [
+            f"{self.__class__.__name__}: {self.type.name} ({self.type.value})"
+        ]
+        if self.whitespace != "":
+            res.append("  " * (indent + 1) + f"whitespaces: {len(self.whitespace)}")
+        if self.literal != "":
+            res.append("  " * (indent + 1) + f"literal: {self.literal}")
+        for comment in self.comments:
+            res.append(comment.__repr__(indent + 1))
+        return "  " * indent + "\n".join(res)
