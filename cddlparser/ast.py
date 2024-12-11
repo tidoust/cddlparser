@@ -491,7 +491,7 @@ class ChoiceFrom(TokenNode):
 # (Note the need to use a forward reference to resolve the circular dependency
 # between Type and Type2, see:
 # https://docs.python.org/3/library/stdtypes.html#types-union)
-Type2 = Union["Value | Typename | Type | Group | Map | Array | ChoiceFrom | Tag"]
+Type2 = Union["Value", "Typename", "Type", "Group", "Map", "Array", "ChoiceFrom", "Tag"]
 
 
 @dataclass
