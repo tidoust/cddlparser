@@ -1,4 +1,3 @@
-import re
 from .tokens import Tokens
 
 
@@ -11,4 +10,8 @@ def isExtendedAlpha(ch: str) -> bool:
 
 
 def isUint(literal: str) -> bool:
-    return re.match(r"^[1-9]\d*$", literal) is not None
+    return (
+        len(literal) > 0
+        and literal[0] in "123456789"
+        and all(ch in "0123456789" for ch in literal)
+    )
