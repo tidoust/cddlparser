@@ -90,7 +90,7 @@ class Parser:
             node = Rule(typename, assign, ruleType)
         else:
             raise self._parserError(
-                f'assignment expected, received "{assign.serialize()}"'
+                f"expected assignment (`=`, `/=`, `//=`) after `{typename.serialize().strip()}`, got `{assign.serialize().strip()}`"
             )
         return node
 
@@ -137,7 +137,7 @@ class Parser:
             caretTokens.append(self._nextToken())
             if self.curToken.type != Tokens.ARROWMAP:
                 raise self._parserError(
-                    f'expected arrow map, received "{self.curToken.serialize()}{self.peekToken.serialize()}"'
+                    f"expected arrow map (`=>`), got `{(self.curToken.serialize() + self.peekToken.serialize()).strip()}`"
                 )
             caretTokens.append(self._nextToken())
             key = Memberkey(type1, hasCut=True, hasColon=False, tokens=caretTokens)
@@ -178,17 +178,17 @@ class Parser:
             maxType = self._parseType2()
             if not isinstance(type2, (Value, Typename)):
                 raise self._parserError(
-                    f"range detected but min is neither a value nor a typename. Got: {type2.serialize()}"
+                    f"expected range min to be a value or a typename, got `{type2.serialize().strip()}`"
                 )
             if not isinstance(maxType, (Value, Typename)):
                 raise self._parserError(
-                    f"range detected but max is neither a value nor a typename. Got: {maxType.serialize()}"
+                    f"expected range max to be a value or a typename, got `{maxType.serialize().strip()}`"
                 )
             node = Range(type2, maxType, rangeop)
         elif self.curToken.type == Tokens.CTLOP:
             if self.curToken.literal not in get_args(OperatorName):
                 raise self._parserError(
-                    f'unknown control operator "{self.curToken.literal}"'
+                    f"found unknown control operator `{self.curToken.literal.strip()}`"
                 )
             operator = self._nextToken()
             controlType = self._parseType2()
@@ -228,7 +228,7 @@ class Parser:
             node.openToken = openToken
             if self.curToken.type != Tokens.RPAREN:
                 raise self._parserError(
-                    f'expected right parenthesis, received "{self.curToken.serialize()}"'
+                    f"expected right parenthesis, got `{self.curToken.serialize().strip()}`"
                 )
             node.closeToken = self._nextToken()
 
@@ -238,7 +238,7 @@ class Parser:
             node.openToken = openToken
             if self.curToken.type != Tokens.RBRACE:
                 raise self._parserError(
-                    f'expected right brace, received "{self.curToken.serialize()}"'
+                    f"expected right brace, got `{self.curToken.serialize()}`"
                 )
             node.closeToken = self._nextToken()
 
@@ -249,7 +249,7 @@ class Parser:
             node.openToken = openToken
             if self.curToken.type != Tokens.RBRACK:
                 raise self._parserError(
-                    f'expected right bracket, received "{self.curToken.serialize()}"'
+                    f"expected right bracket, got `{self.curToken.serialize().strip()}`"
                 )
             node.closeToken = self._nextToken()
 
@@ -265,7 +265,7 @@ class Parser:
                 group.openToken = openToken
                 if self.curToken.type != Tokens.RPAREN:
                     raise self._parserError(
-                        f'expected right parenthesis, received "{self.curToken.serialize()}"'
+                        f"expected right parenthesis, got `{self.curToken.serialize().strip()}`"
                     )
                 group.closeToken = self._nextToken()
                 node = ChoiceFrom(group)
@@ -285,7 +285,7 @@ class Parser:
                     number.literal[1] != "." or "e" in number.literal
                 ):
                     raise self._parserError(
-                        f'data item after "#" must match DIGIT ["." uint], got "{self.curToken.serialize()}"'
+                        f'expected data item after "#" to match `DIGIT ["." uint]`, got `{self.curToken.serialize().strip()}`'
                     )
                 if (
                     number.literal[0] == "6"
@@ -336,7 +336,7 @@ class Parser:
 
         else:
             raise self._parserError(
-                f'invalid type2 production, received "{self.curToken.serialize()}"'
+                f"invalid type2 production, got `{self.curToken.serialize().strip()}`"
             )
 
         return node
@@ -441,7 +441,7 @@ class Parser:
     ) -> Typename:
         if self.curToken.type != Tokens.IDENT:
             raise self._parserError(
-                f'group identifier expected, received "{self.curToken.serialize()}"'
+                f"expected group identifier, got `{self.curToken.serialize().strip()}`"
             )
         ident = self._nextToken()
         parameters: Union[GenericParameters, GenericArguments, None]
@@ -473,7 +473,7 @@ class Parser:
         node.openToken = openToken
         if self.curToken.type != Tokens.GT:
             raise self._parserError(
-                f'">" character expected to end generic production, received "{self.curToken.serialize()}"'
+                f"expected `>` character to end generic production, got `{self.curToken.serialize().strip()}`"
             )
         node.closeToken = self._nextToken()
         return node
@@ -501,7 +501,7 @@ class Parser:
         node.openToken = openToken
         if self.curToken.type != Tokens.GT:
             raise self._parserError(
-                f'">" character expected to end generic production, received "{self.curToken.serialize()}"'
+                f"expected `>` character to end generic production, got `{self.curToken.serialize().strip()}`"
             )
         node.closeToken = self._nextToken()
         return node
@@ -638,8 +638,8 @@ class Parser:
                         checkUnderlyingType(type1) for type1 in rule.type.type.types
                     }
                     if "type" in defTypes and "group" in defTypes:
-                        raise self._parserError(
-                            f'rule "{rule.name.name}" targets a mix of type and group rules'
+                        raise ParserError(
+                            f"CDDL semantic error - rule `{rule.name.name}` targets a mix of type and group rules"
                         )
                     if "type" in defTypes:
                         updateFound = rule.name.name not in typenames
@@ -652,8 +652,8 @@ class Parser:
         overlap = list(set(typenames) & set(groupnames))
         if len(overlap) > 0:
             overlapStr = ", ".join(overlap)
-            raise self._parserError(
-                f"mix of type and group definitions for {overlapStr}"
+            raise ParserError(
+                f"CDDL semantic error - mix of type and group definitions for {overlapStr}"
             )
 
         # Convert GroupEntry to Type for type definitions
@@ -663,8 +663,8 @@ class Parser:
             assert isinstance(rule.type, GroupEntry)
             if rule.name.name in typenames:
                 if not rule.type.isConvertibleToType():
-                    raise self._parserError(
-                        f'rule "{rule.name.name}" is a type definition but uses a group entry'
+                    raise ParserError(
+                        f"CDDL semantic error - rule `{rule.name.name}` is a type definition but uses a group entry"
                     )
                 rule.type = rule.type.type
 
@@ -676,7 +676,4 @@ class Parser:
 
     def _parserError(self, message: str) -> ParserError:
         location = self.lexer.getLocation()
-        locInfo = self.lexer.getLocationInfo()
-        return ParserError(
-            f"CDDL syntax error - line {location.line + 1}, col {location.position}: {message}\n\n{locInfo}"
-        )
+        return ParserError(f"CDDL syntax error - line {location.line + 1}: {message}")

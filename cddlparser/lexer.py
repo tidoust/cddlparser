@@ -38,10 +38,8 @@ class Lexer:
         sourceLines = self.input.split("\n")
         sourceLineLength = [len(line) for line in sourceLines]
         i = 0
-
         for line, lineLength in enumerate(sourceLineLength):
             i += lineLength + 1
-            lineBegin = i - lineLength
             if i > position:
                 lineBegin = i - lineLength
                 return Location(line, position - lineBegin + 1)
@@ -192,7 +190,7 @@ class Lexer:
 
         # see https://tools.ietf.org/html/draft-ietf-cbor-cddl-08#section-3.1
         if start == "" and not isExtendedAlpha(chr(self.ch)):
-            raise self._tokenError("identifier expected, found nothing")
+            raise self._tokenError("expected identifier, got nothing")
         while (
             isExtendedAlpha(chr(self.ch))
             or chr(self.ch).isdigit()
@@ -203,7 +201,7 @@ class Lexer:
         identifier = start + self.input[position : self.position]
         if identifier[-1] in "-.":
             raise self._tokenError(
-                'identifier cannot end with "-" or ".", found "{identifier}"'
+                f"identifier cannot end with `-` or `.`, got `{identifier}`"
             )
         return identifier
 
@@ -233,14 +231,18 @@ class Lexer:
                 if 0x20 <= self.ch <= 0x7E or 0x80 <= self.ch <= 0x10FFFD:
                     self.readChar()
                 else:
-                    raise self._tokenError("invalid escape character in text string")
+                    raise self._tokenError(
+                        f"invalid escape character in text string `{self.input[position + 1 : self.position]}`"
+                    )
             elif self.ch == 0x0A:
                 self.readChar()
             elif self.ch == 0x0D and ord(self._peekAtNextChar()) == 0x0A:
                 self.readChar()
                 self.readChar()
             else:
-                raise self._tokenError("invalid text string")
+                raise self._tokenError(
+                    f"invalid text string `{self.input[position + 1 : self.position]}`"
+                )
 
         return self.input[position + 1 : self.position]
 
@@ -261,14 +263,18 @@ class Lexer:
                 if 0x20 <= self.ch <= 0x7E or 0x80 <= self.ch <= 0x10FFFD:
                     self.readChar()
                 else:
-                    raise self._tokenError("invalid escape character in byte string")
+                    raise self._tokenError(
+                        f"invalid escape character in byte string `{self.input[position + 1 : self.position]}`"
+                    )
             elif self.ch == 0x0A:
                 self.readChar()
             elif self.ch == 0x0D and ord(self._peekAtNextChar()) == 0x0A:
                 self.readChar()
                 self.readChar()
             else:
-                raise self._tokenError("invalid byte string")
+                raise self._tokenError(
+                    f"invalid byte string `{self.input[position + 1 : self.position]}`"
+                )
 
         return self.input[position + 1 : self.position]
 
@@ -288,7 +294,9 @@ class Lexer:
                 # Hex number
                 self.readChar()
                 if chr(self.ch) not in "0123456789ABCDEF":
-                    raise self._tokenError("hex number detected but no hex digit found")
+                    raise self._tokenError(
+                        f"expected hex number to contain hex digits, got `{self.input[position : self.position]}`"
+                    )
                 while chr(self.ch) in "0123456789ABCDEF":
                     self.readChar()
                 if chr(self.ch) == ".":
@@ -302,7 +310,7 @@ class Lexer:
                         self.readChar()
                 if dotFound and chr(self.ch) != "p":
                     raise self._tokenError(
-                        "hex number with fraction detected but no exponent found"
+                        f"expected hex number with fraction to have an exponent, got `{self.input[position : self.position]}`"
                     )
                 if chr(self.ch) == "p":
                     # Number contains an exponent
@@ -311,7 +319,7 @@ class Lexer:
                         self.readChar()
                     if not chr(self.ch).isdigit():
                         raise self._tokenError(
-                            "hex number with exponent detected but no digit found for exponent"
+                            f"expected hex number with exponent to have a digit in exponent, got `{self.input[position : self.position]}`"
                         )
                     while chr(self.ch).isdigit():
                         self.readChar()
@@ -320,7 +328,7 @@ class Lexer:
                 self.readChar()
                 if chr(self.ch) not in "01":
                     raise self._tokenError(
-                        "binary number detected but no binary digit found"
+                        f"expected binary number to have binary digits, got `{self.input[position : self.position]}`"
                     )
                 while chr(self.ch) in "01":
                     self.readChar()
@@ -332,7 +340,7 @@ class Lexer:
                 self.readChar()
                 if not chr(self.ch).isdigit():
                     raise self._tokenError(
-                        "number with fraction detected but no digit found in fraction"
+                        f"expected number with fraction to have digits in fraction part, got `{self.input[position : self.position]}`"
                     )
                 while chr(self.ch).isdigit():
                     self.readChar()
@@ -343,7 +351,7 @@ class Lexer:
                         self.readChar()
                     if not chr(self.ch).isdigit():
                         raise self._tokenError(
-                            "number with exponent detected but no digit found in exponent"
+                            f"expected number with exponent to have digits in exponent, got `{self.input[position : self.position]}`"
                         )
                     while chr(self.ch).isdigit():
                         self.readChar()
@@ -361,7 +369,7 @@ class Lexer:
                 self.readChar()
                 if not chr(self.ch).isdigit():
                     raise self._tokenError(
-                        "number with fraction detected but no digit found in fraction"
+                        f"expected number with fraction to have digits in fraction part, got `{self.input[position : self.position]}`"
                     )
                 while chr(self.ch).isdigit():
                     self.readChar()
@@ -372,7 +380,7 @@ class Lexer:
                     self.readChar()
                 if not chr(self.ch).isdigit():
                     raise self._tokenError(
-                        "number with exponent detected but no digit found in exponent"
+                        f"expected number with exponent to have digits in exponent, got `{self.input[position : self.position]}`"
                     )
                 while chr(self.ch).isdigit():
                     self.readChar()
@@ -403,7 +411,4 @@ class Lexer:
 
     def _tokenError(self, message: str) -> ParserError:
         location = self.getLocation()
-        locInfo = self.getLocationInfo()
-        return ParserError(
-            f"CDDL token error - line {location.line + 1}, col {location.position}: {message}\n\n{locInfo}"
-        )
+        return ParserError(f"CDDL token error - line {location.line + 1}: {message}")
