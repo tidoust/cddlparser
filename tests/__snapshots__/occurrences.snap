@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: someGroup
+    Typename
+      someGroup
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -18,30 +19,42 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                whitespaces: 1
+                optional
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 5
             Memberkey
+              Typename
+                whitespaces: 1
+                anotherOptional
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: PLUS (+)
                 whitespaces: 5
             Memberkey
+              Typename
+                whitespaces: 1
+                atLeastOne
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -52,10 +65,13 @@ CDDLTree
               Token: NUMBER (NUMBER)
                 literal: 42
             Memberkey
+              Typename
+                numberedOccurence
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -64,10 +80,13 @@ CDDLTree
               Token: NUMBER (NUMBER)
                 literal: 42
             Memberkey
+              Typename
+                withoutLeftSide
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Occurrence
               Token: NUMBER (NUMBER)
@@ -75,7 +94,10 @@ CDDLTree
                 literal: 23
               Token: ASTERISK (*)
             Memberkey
+              Typename
+                withoutRightSide
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr

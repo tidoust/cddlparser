@@ -4,7 +4,8 @@ CDDLTree
     Typename
       Token: COMMENT (COMMENT)
         literal: ; Shelley Types
-      whitespaces: 2: block
+      whitespaces: 2
+      block
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -19,11 +20,15 @@ CDDLTree
               whitespaces: 3
             Type
               Typename
-                whitespaces: 1: header
+                whitespaces: 1
+                header
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                transaction_bodies
               Token: COLON (:)
                 whitespaces: 9
             Type
@@ -37,11 +42,15 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: transaction_body
+                        whitespaces: 1
+                        transaction_body
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                transaction_witness_sets
               Token: COLON (:)
                 whitespaces: 3
             Type
@@ -55,9 +64,13 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: transaction_witness_set
+                        whitespaces: 1
+                        transaction_witness_set
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 1
+                transaction_metadata_set
               Token: COLON (:)
                 whitespaces: 3
             Type
@@ -72,11 +85,15 @@ CDDLTree
                       Token: ASTERISK (*)
                         whitespaces: 1
                     Memberkey
+                      Typename
+                        whitespaces: 1
+                        transaction_index
                       Token: ARROWMAP (=>)
                         whitespaces: 1
                     Type
                       Typename
-                        whitespaces: 1: transaction_metadata
+                        whitespaces: 1
+                        transaction_metadata
   Rule
     Typename
       Token: COMMENT (COMMENT)
@@ -93,7 +110,8 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 4
         literal: ;    length of transaction_bodies
-      whitespaces: 2: transaction
+      whitespaces: 2
+      transaction
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -108,32 +126,39 @@ CDDLTree
               whitespaces: 3
             Type
               Typename
-                whitespaces: 1: transaction_body
+                whitespaces: 1
+                transaction_body
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Type
               Typename
-                whitespaces: 1: transaction_witness_set
+                whitespaces: 1
+                transaction_witness_set
           GroupEntry
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: transaction_metadata
+                  whitespaces: 1
+                transaction_metadata
               Typename
-                whitespaces: 1: null
+                whitespaces: 1
+                null
   Rule
     Typename
-      whitespaces: 2: transaction_index
+      whitespaces: 2
+      transaction_index
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: uint
+        whitespaces: 1
+        uint
   Rule
     Typename
-      whitespaces: 2: header
+      whitespaces: 2
+      header
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -148,17 +173,23 @@ CDDLTree
               whitespaces: 3
             Type
               Typename
-                whitespaces: 1: header_body
+                whitespaces: 1
+                header_body
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 1
+                body_signature
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $kes_signature
+                whitespaces: 1
+                $kes_signature
   Rule
     Typename
-      whitespaces: 2: header_body
+      whitespaces: 2
+      header_body
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -172,78 +203,111 @@ CDDLTree
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                block_number
               Token: COLON (:)
                 whitespaces: 5
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                slot
               Token: COLON (:)
                 whitespaces: 13
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                prev_hash
               Token: COLON (:)
                 whitespaces: 8
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: $hash32
+                  whitespaces: 1
+                $hash32
               Typename
-                whitespaces: 1: null
+                whitespaces: 1
+                null
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                issuer_vkey
               Token: COLON (:)
                 whitespaces: 6
             Type
               Typename
-                whitespaces: 1: $vkey
+                whitespaces: 1
+                $vkey
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                vrf_vkey
               Token: COLON (:)
                 whitespaces: 9
             Type
               Typename
-                whitespaces: 1: $vrf_vkey
+                whitespaces: 1
+                $vrf_vkey
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                nonce_vrf
               Token: COLON (:)
                 whitespaces: 8
             Type
               Typename
-                whitespaces: 1: $vrf_cert
+                whitespaces: 1
+                $vrf_cert
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                leader_vrf
               Token: COLON (:)
                 whitespaces: 7
             Type
               Typename
-                whitespaces: 1: $vrf_cert
+                whitespaces: 1
+                $vrf_cert
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                block_body_size
               Token: COLON (:)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -251,24 +315,31 @@ CDDLTree
                 whitespaces: 1
                 literal: ; merkle triple root
             Memberkey
+              Typename
+                whitespaces: 1
+                block_body_hash
               Token: COLON (:)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $hash32
+                whitespaces: 1
+                $hash32
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Type
               Typename
-                whitespaces: 1: operational_cert
+                whitespaces: 1
+                operational_cert
           GroupEntry
             Type
               Typename
-                whitespaces: 1: protocol_version
+                whitespaces: 1
+                protocol_version
   Rule
     Typename
-      whitespaces: 2: operational_cert
+      whitespaces: 2
+      operational_cert
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -283,39 +354,56 @@ CDDLTree
               Token: COMMA (,)
                 whitespaces: 3
               Memberkey
+                Typename
+                  whitespaces: 1
+                  hot_vkey
                 Token: COLON (:)
                   whitespaces: 8
               Type
                 Typename
-                  whitespaces: 1: $kes_vkey
+                  whitespaces: 1
+                  $kes_vkey
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 3
               Memberkey
+                Typename
+                  whitespaces: 1
+                  sequence_number
                 Token: COLON (:)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 3
               Memberkey
+                Typename
+                  whitespaces: 1
+                  kes_period
                 Token: COLON (:)
                   whitespaces: 6
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  sigma
                 Token: COLON (:)
                   whitespaces: 11
               Type
                 Typename
-                  whitespaces: 1: $signature
+                  whitespaces: 1
+                  $signature
   Rule
     Typename
-      whitespaces: 2: protocol_version
+      whitespaces: 2
+      protocol_version
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -328,14 +416,17 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Type
-                Typename: uint
+                Typename
+                  uint
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
   Rule
     Typename
-      whitespaces: 2: transaction_body
+      whitespaces: 2
+      transaction_body
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -349,19 +440,23 @@ CDDLTree
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Value (number): 0
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: set
+                whitespaces: 1
+                set
                 GenericArguments
                   Token: LT (<)
                   Token: GT (>)
-                  Typename: transaction_input
+                  Typename
+                    transaction_input
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Value (number): 1
               Token: COLON (:)
                 whitespaces: 1
             Type
@@ -375,7 +470,8 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: transaction_output
+                        whitespaces: 1
+                        transaction_output
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -383,11 +479,13 @@ CDDLTree
                 whitespaces: 1
                 literal: ; fee
             Memberkey
+              Value (number): 2
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: coin
+                whitespaces: 1
+                coin
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -395,11 +493,13 @@ CDDLTree
                 whitespaces: 1
                 literal: ; ttl
             Memberkey
+              Value (number): 3
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -407,6 +507,7 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 4
               Token: COLON (:)
                 whitespaces: 1
             Type
@@ -420,7 +521,8 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: certificate
+                        whitespaces: 1
+                        certificate
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -428,11 +530,13 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 5
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: withdrawals
+                whitespaces: 1
+                withdrawals
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -440,24 +544,29 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 6
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: update
+                whitespaces: 1
+                update
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 7
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: metadata_hash
+                whitespaces: 1
+                metadata_hash
   Rule
     Typename
-      whitespaces: 2: transaction_input
+      whitespaces: 2
+      transaction_input
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -471,21 +580,30 @@ CDDLTree
             Token: COMMA (,)
               whitespaces: 21
             Memberkey
+              Typename
+                whitespaces: 1
+                transaction_id
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $hash32
+                whitespaces: 1
+                $hash32
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 1
+                index
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
   Rule
     Typename
-      whitespaces: 2: transaction_output
+      whitespaces: 2
+      transaction_output
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -497,14 +615,19 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Type
-              Typename: address
+              Typename
+                address
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 1
+                amount
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: coin
+                whitespaces: 1
+                coin
   Rule
     Typename
       Token: COMMENT (COMMENT)
@@ -600,7 +723,8 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 1
         literal: ; 1001 - 1101: future formats
-      whitespaces: 2: certificate
+      whitespaces: 2
+      certificate
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -615,50 +739,58 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 1: stake_registration
+                whitespaces: 1
+                stake_registration
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: stake_deregistration
+                whitespaces: 1
+                stake_deregistration
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: stake_delegation
+                whitespaces: 1
+                stake_delegation
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: pool_registration
+                whitespaces: 1
+                pool_registration
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: pool_retirement
+                whitespaces: 1
+                pool_retirement
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: genesis_key_delegation
+                whitespaces: 1
+                genesis_key_delegation
         GroupChoice
           GroupEntry
             Type
               Typename
-                whitespaces: 1: move_instantaneous_rewards_cert
+                whitespaces: 1
+                move_instantaneous_rewards_cert
   Rule
     Typename
-      whitespaces: 2: stake_registration
+      whitespaces: 2
+      stake_registration
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -675,10 +807,12 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: stake_credential
+                  whitespaces: 1
+                  stake_credential
   Rule
     Typename
-      whitespaces: 1: stake_deregistration
+      whitespaces: 1
+      stake_deregistration
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -695,10 +829,12 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: stake_credential
+                  whitespaces: 1
+                  stake_credential
   Rule
     Typename
-      whitespaces: 1: stake_delegation
+      whitespaces: 1
+      stake_delegation
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -716,14 +852,17 @@ CDDLTree
               Token: COMMA (,)
               Type
                 Typename
-                  whitespaces: 1: stake_credential
+                  whitespaces: 1
+                  stake_credential
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: pool_keyhash
+                  whitespaces: 1
+                  pool_keyhash
   Rule
     Typename
-      whitespaces: 1: pool_registration
+      whitespaces: 1
+      pool_registration
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -740,10 +879,12 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: pool_params
+                  whitespaces: 1
+                  pool_params
   Rule
     Typename
-      whitespaces: 1: pool_retirement
+      whitespaces: 1
+      pool_retirement
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -761,14 +902,17 @@ CDDLTree
               Token: COMMA (,)
               Type
                 Typename
-                  whitespaces: 1: pool_keyhash
+                  whitespaces: 1
+                  pool_keyhash
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: epoch
+                  whitespaces: 1
+                  epoch
   Rule
     Typename
-      whitespaces: 1: genesis_key_delegation
+      whitespaces: 1
+      genesis_key_delegation
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -786,19 +930,23 @@ CDDLTree
               Token: COMMA (,)
               Type
                 Typename
-                  whitespaces: 1: genesishash
+                  whitespaces: 1
+                  genesishash
             GroupEntry
               Token: COMMA (,)
               Type
                 Typename
-                  whitespaces: 1: genesis_delegate_hash
+                  whitespaces: 1
+                  genesis_delegate_hash
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: vrf_keyhash
+                  whitespaces: 1
+                  vrf_keyhash
   Rule
     Typename
-      whitespaces: 1: move_instantaneous_rewards_cert
+      whitespaces: 1
+      move_instantaneous_rewards_cert
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -815,10 +963,12 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: move_instantaneous_reward
+                  whitespaces: 1
+                  move_instantaneous_reward
   Rule
     Typename
-      whitespaces: 2: move_instantaneous_reward
+      whitespaces: 2
+      move_instantaneous_reward
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -846,11 +996,15 @@ CDDLTree
                       Token: ASTERISK (*)
                         whitespaces: 1
                     Memberkey
+                      Typename
+                        whitespaces: 1
+                        stake_credential
                       Token: ARROWMAP (=>)
                         whitespaces: 1
                     Type
                       Typename
-                        whitespaces: 1: coin
+                        whitespaces: 1
+                        coin
   Rule
     Typename
       Token: COMMENT (COMMENT)
@@ -859,7 +1013,8 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 1
         literal: ; 0 denotes the reserves, 1 denotes the treasury.
-      whitespaces: 2: stake_credential
+      whitespaces: 2
+      stake_credential
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -878,7 +1033,8 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 1: addr_keyhash
+                whitespaces: 1
+                addr_keyhash
         GroupChoice
           GroupEntry
             Token: COMMA (,)
@@ -887,10 +1043,12 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 1: scripthash
+                whitespaces: 1
+                scripthash
   Rule
     Typename
-      whitespaces: 2: pool_params
+      whitespaces: 2
+      pool_params
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -905,66 +1063,98 @@ CDDLTree
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  operator
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 7: pool_keyhash
+                  whitespaces: 7
+                  pool_keyhash
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  vrf_keyhash
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 4: vrf_keyhash
+                  whitespaces: 4
+                  vrf_keyhash
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  pledge
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 9: coin
+                  whitespaces: 9
+                  coin
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  cost
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 11: coin
+                  whitespaces: 11
+                  coin
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  margin
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 9: unit_interval
+                  whitespaces: 9
+                  unit_interval
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  reward_account
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: reward_account
+                  whitespaces: 1
+                  reward_account
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  pool_owners
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 4: set
+                  whitespaces: 4
+                  set
                   GenericArguments
                     Token: LT (<)
                     Token: GT (>)
-                    Typename: addr_keyhash
+                    Typename
+                      addr_keyhash
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 15
               Memberkey
+                Typename
+                  whitespaces: 1
+                  relays
                 Token: COLON (:)
               Type
                 Array
@@ -977,65 +1167,79 @@ CDDLTree
                         Token: ASTERISK (*)
                       Type
                         Typename
-                          whitespaces: 1: relay
+                          whitespaces: 1
+                          relay
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  pool_metadata
                 Token: COLON (:)
               Type
                 Typename
                   whitespaces: 2
                   Token: TCHOICE (/)
-                    whitespaces: 1: pool_metadata
+                    whitespaces: 1
+                  pool_metadata
                 Typename
-                  whitespaces: 1: null
+                  whitespaces: 1
+                  null
   Rule
     Typename
-      whitespaces: 2: port
+      whitespaces: 2
+      port
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: uint
+          whitespaces: 1
+          uint
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: le
         Value (number): 65535
   Rule
     Typename
-      whitespaces: 1: ipv4
+      whitespaces: 1
+      ipv4
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 4
   Rule
     Typename
-      whitespaces: 1: ipv6
+      whitespaces: 1
+      ipv6
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 16
   Rule
     Typename
-      whitespaces: 1: dns_name
+      whitespaces: 1
+      dns_name
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: tstr
+          whitespaces: 1
+          tstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
@@ -1049,7 +1253,8 @@ CDDLTree
             Value (number): 64
   Rule
     Typename
-      whitespaces: 2: single_host_addr
+      whitespaces: 2
+      single_host_addr
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1072,9 +1277,11 @@ CDDLTree
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 1: port
+                    whitespaces: 1
+                  port
                 Typename
-                  whitespaces: 1: null
+                  whitespaces: 1
+                  null
             GroupEntry
               Token: COMMA (,)
                 whitespaces: 20
@@ -1082,20 +1289,25 @@ CDDLTree
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 1: ipv4
+                    whitespaces: 1
+                  ipv4
                 Typename
-                  whitespaces: 1: null
+                  whitespaces: 1
+                  null
             GroupEntry
               Type
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 1: ipv6
+                    whitespaces: 1
+                  ipv6
                 Typename
-                  whitespaces: 1: null
+                  whitespaces: 1
+                  null
   Rule
     Typename
-      whitespaces: 1: single_host_name
+      whitespaces: 1
+      single_host_name
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1121,16 +1333,20 @@ CDDLTree
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 1: port
+                    whitespaces: 1
+                  port
                 Typename
-                  whitespaces: 1: null
+                  whitespaces: 1
+                  null
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: dns_name
+                  whitespaces: 1
+                  dns_name
   Rule
     Typename
-      whitespaces: 1: multi_host_name
+      whitespaces: 1
+      multi_host_name
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1152,10 +1368,12 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: dns_name
+                  whitespaces: 1
+                  dns_name
   Rule
     Typename
-      whitespaces: 1: relay
+      whitespaces: 1
+      relay
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1170,22 +1388,26 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 2: single_host_addr
+                whitespaces: 2
+                single_host_addr
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: single_host_name
+                whitespaces: 1
+                single_host_name
         GroupChoice
           GroupEntry
             Type
               Typename
-                whitespaces: 1: multi_host_name
+                whitespaces: 1
+                multi_host_name
   Rule
     Typename
-      whitespaces: 2: pool_metadata
+      whitespaces: 2
+      pool_metadata
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1197,20 +1419,24 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Type
-              Typename: url
+              Typename
+                url
           GroupEntry
             Type
               Typename
-                whitespaces: 1: metadata_hash
+                whitespaces: 1
+                metadata_hash
   Rule
     Typename
-      whitespaces: 1: url
+      whitespaces: 1
+      url
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: tstr
+          whitespaces: 1
+          tstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
@@ -1224,7 +1450,8 @@ CDDLTree
             Value (number): 64
   Rule
     Typename
-      whitespaces: 2: withdrawals
+      whitespaces: 2
+      withdrawals
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1239,14 +1466,19 @@ CDDLTree
               Token: ASTERISK (*)
                 whitespaces: 1
             Memberkey
+              Typename
+                whitespaces: 1
+                reward_account
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: coin
+                whitespaces: 1
+                coin
   Rule
     Typename
-      whitespaces: 2: update
+      whitespaces: 2
+      update
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1261,14 +1493,17 @@ CDDLTree
               whitespaces: 10
             Type
               Typename
-                whitespaces: 1: proposed_protocol_parameter_updates
+                whitespaces: 1
+                proposed_protocol_parameter_updates
           GroupEntry
             Type
               Typename
-                whitespaces: 1: epoch
+                whitespaces: 1
+                epoch
   Rule
     Typename
-      whitespaces: 2: proposed_protocol_parameter_updates
+      whitespaces: 2
+      proposed_protocol_parameter_updates
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1283,14 +1518,19 @@ CDDLTree
               Token: ASTERISK (*)
                 whitespaces: 1
             Memberkey
+              Typename
+                whitespaces: 1
+                genesishash
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: protocol_param_update
+                whitespaces: 1
+                protocol_param_update
   Rule
     Typename
-      whitespaces: 2: protocol_param_update
+      whitespaces: 2
+      protocol_param_update
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1313,10 +1553,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 0
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 2: uint
+                whitespaces: 2
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1327,10 +1569,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 1
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 2: uint
+                whitespaces: 2
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1341,10 +1585,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 2
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 2: uint
+                whitespaces: 2
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1355,10 +1601,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 3
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 2: uint
+                whitespaces: 2
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1369,10 +1617,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 4
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 2: uint
+                whitespaces: 2
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1383,10 +1633,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 5
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 2: coin
+                whitespaces: 2
+                coin
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1397,10 +1649,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 6
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 2: coin
+                whitespaces: 2
+                coin
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1411,10 +1665,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 7
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: epoch
+                whitespaces: 1
+                epoch
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1425,10 +1681,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 8
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1439,10 +1697,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 9
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: rational
+                whitespaces: 1
+                rational
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1453,10 +1713,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 10
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: unit_interval
+                whitespaces: 1
+                unit_interval
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1467,10 +1729,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 11
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: unit_interval
+                whitespaces: 1
+                unit_interval
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1481,10 +1745,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 12
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: unit_interval
+                whitespaces: 1
+                unit_interval
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1495,10 +1761,12 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 13
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: $nonce
+                whitespaces: 1
+                $nonce
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1509,6 +1777,7 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 14
               Token: COLON (:)
             Type
               Array
@@ -1518,19 +1787,23 @@ CDDLTree
                 GroupChoice
                   GroupEntry
                     Type
-                      Typename: protocol_version
+                      Typename
+                        protocol_version
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 15
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: coin
+                whitespaces: 1
+                coin
   Rule
     Typename
-      whitespaces: 2: transaction_witness_set
+      whitespaces: 2
+      transaction_witness_set
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1556,6 +1829,7 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 0
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
@@ -1570,7 +1844,8 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: vkeywitness
+                        whitespaces: 1
+                        vkeywitness
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
@@ -1578,6 +1853,7 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 1
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
@@ -1592,12 +1868,14 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: multisig_script
+                        whitespaces: 1
+                        multisig_script
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 1
             Memberkey
+              Value (number): 2
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
@@ -1612,10 +1890,12 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: bootstrap_witness
+                        whitespaces: 1
+                        bootstrap_witness
   Rule
     Typename
-      whitespaces: 2: transaction_metadatum
+      whitespaces: 2
+      transaction_metadatum
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1632,11 +1912,15 @@ CDDLTree
               Token: ASTERISK (*)
                 whitespaces: 1
             Memberkey
+              Typename
+                whitespaces: 1
+                transaction_metadatum
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: transaction_metadatum
+                whitespaces: 1
+                transaction_metadatum
       Array
         Token: LBRACK ([)
           whitespaces: 1
@@ -1651,16 +1935,19 @@ CDDLTree
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: transaction_metadatum
+                whitespaces: 1
+                transaction_metadatum
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 3: int
+          whitespaces: 3
+        int
       Operator
         Token: TCHOICE (/)
           whitespaces: 3
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
@@ -1674,7 +1961,8 @@ CDDLTree
             Value (number): 64
       Operator
         Typename
-          whitespaces: 1: text
+          whitespaces: 1
+          text
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
@@ -1688,15 +1976,18 @@ CDDLTree
             Value (number): 64
   Rule
     Typename
-      whitespaces: 2: transaction_metadatum_label
+      whitespaces: 2
+      transaction_metadatum_label
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: uint
+        whitespaces: 1
+        uint
   Rule
     Typename
-      whitespaces: 2: transaction_metadata
+      whitespaces: 2
+      transaction_metadata
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1711,14 +2002,19 @@ CDDLTree
               Token: ASTERISK (*)
                 whitespaces: 1
             Memberkey
+              Typename
+                whitespaces: 1
+                transaction_metadatum_label
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: transaction_metadatum
+                whitespaces: 1
+                transaction_metadatum
   Rule
     Typename
-      whitespaces: 2: vkeywitness
+      whitespaces: 2
+      vkeywitness
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1732,14 +2028,17 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 1: $vkey
+                whitespaces: 1
+                $vkey
           GroupEntry
             Type
               Typename
-                whitespaces: 1: $signature
+                whitespaces: 1
+                $signature
   Rule
     Typename
-      whitespaces: 2: bootstrap_witness
+      whitespaces: 2
+      bootstrap_witness
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1753,44 +2052,61 @@ CDDLTree
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                public_key
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $vkey
+                whitespaces: 1
+                $vkey
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                signature
               Token: COLON (:)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $signature
+                whitespaces: 1
+                $signature
           GroupEntry
             Token: COMMA (,)
               whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                chain_code
               Token: COLON (:)
                 whitespaces: 1
             Type
               Operator
                 Typename
-                  whitespaces: 1: bytes
+                  whitespaces: 1
+                  bytes
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: size
                 Value (number): 32
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 1
+                attributes
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: bytes
+                whitespaces: 1
+                bytes
   Rule
     Typename
-      whitespaces: 2: multisig_script
+      whitespaces: 2
+      multisig_script
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1805,29 +2121,34 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 1: multisig_pubkey
+                whitespaces: 1
+                multisig_pubkey
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: multisig_all
+                whitespaces: 1
+                multisig_all
         GroupChoice
           Token: GCHOICE (//)
             whitespaces: 3
           GroupEntry
             Type
               Typename
-                whitespaces: 1: multisig_any
+                whitespaces: 1
+                multisig_any
         GroupChoice
           GroupEntry
             Type
               Typename
-                whitespaces: 1: multisig_n_of_k
+                whitespaces: 1
+                multisig_n_of_k
   Rule
     Typename
-      whitespaces: 2: multisig_pubkey
+      whitespaces: 2
+      multisig_pubkey
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1844,10 +2165,12 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: addr_keyhash
+                  whitespaces: 1
+                  addr_keyhash
   Rule
     Typename
-      whitespaces: 1: multisig_all
+      whitespaces: 1
+      multisig_all
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1875,10 +2198,12 @@ CDDLTree
                           whitespaces: 1
                       Type
                         Typename
-                          whitespaces: 1: multisig_script
+                          whitespaces: 1
+                          multisig_script
   Rule
     Typename
-      whitespaces: 1: multisig_any
+      whitespaces: 1
+      multisig_any
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1906,10 +2231,12 @@ CDDLTree
                           whitespaces: 1
                       Type
                         Typename
-                          whitespaces: 1: multisig_script
+                          whitespaces: 1
+                          multisig_script
   Rule
     Typename
-      whitespaces: 1: multisig_n_of_k
+      whitespaces: 1
+      multisig_n_of_k
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1926,10 +2253,14 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 1
+                  n
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
             GroupEntry
               Type
                 Array
@@ -1944,82 +2275,102 @@ CDDLTree
                           whitespaces: 1
                       Type
                         Typename
-                          whitespaces: 1: multisig_script
+                          whitespaces: 1
+                          multisig_script
   Rule
     Typename
-      whitespaces: 2: coin
+      whitespaces: 2
+      coin
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: uint
+        whitespaces: 1
+        uint
   Rule
     Typename
-      whitespaces: 1: epoch
+      whitespaces: 1
+      epoch
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: uint
+        whitespaces: 1
+        uint
   Rule
     Typename
-      whitespaces: 2: addr_keyhash
+      whitespaces: 2
+      addr_keyhash
     Token: ASSIGN (=)
       whitespaces: 10
     Type
       Typename
-        whitespaces: 1: $hash28
+        whitespaces: 1
+        $hash28
   Rule
     Typename
-      whitespaces: 1: scripthash
+      whitespaces: 1
+      scripthash
     Token: ASSIGN (=)
       whitespaces: 12
     Type
       Typename
-        whitespaces: 1: $hash28
+        whitespaces: 1
+        $hash28
   Rule
     Typename
-      whitespaces: 1: genesis_delegate_hash
+      whitespaces: 1
+      genesis_delegate_hash
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: $hash28
+        whitespaces: 1
+        $hash28
   Rule
     Typename
-      whitespaces: 1: pool_keyhash
+      whitespaces: 1
+      pool_keyhash
     Token: ASSIGN (=)
       whitespaces: 10
     Type
       Typename
-        whitespaces: 1: $hash28
+        whitespaces: 1
+        $hash28
   Rule
     Typename
-      whitespaces: 1: genesishash
+      whitespaces: 1
+      genesishash
     Token: ASSIGN (=)
       whitespaces: 11
     Type
       Typename
-        whitespaces: 1: $hash28
+        whitespaces: 1
+        $hash28
   Rule
     Typename
-      whitespaces: 2: vrf_keyhash
+      whitespaces: 2
+      vrf_keyhash
     Token: ASSIGN (=)
       whitespaces: 11
     Type
       Typename
-        whitespaces: 1: $hash32
+        whitespaces: 1
+        $hash32
   Rule
     Typename
-      whitespaces: 1: metadata_hash
+      whitespaces: 1
+      metadata_hash
     Token: ASSIGN (=)
       whitespaces: 9
     Type
       Typename
-        whitespaces: 1: $hash32
+        whitespaces: 1
+        $hash32
   Rule
     Typename
-      whitespaces: 2: $nonce
+      whitespaces: 2
+      $nonce
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
@@ -2043,18 +2394,21 @@ CDDLTree
             Type
               Operator
                 Typename
-                  whitespaces: 1: bytes
+                  whitespaces: 1
+                  bytes
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: size
                 Value (number): 32
   Rule
     Typename
-      whitespaces: 2: finite_set
+      whitespaces: 2
+      finite_set
       GenericParameters
         Token: LT (<)
         Token: GT (>)
-        Typename: a
+        Typename
+          a
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -2069,62 +2423,72 @@ CDDLTree
               Token: ASTERISK (*)
             Type
               Typename
-                whitespaces: 1: a
+                whitespaces: 1
+                a
   Rule
     Typename
-      whitespaces: 2: $hash28
+      whitespaces: 2
+      $hash28
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 28
   Rule
     Typename
-      whitespaces: 1: $hash32
+      whitespaces: 1
+      $hash32
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 32
   Rule
     Typename
-      whitespaces: 2: $vkey
+      whitespaces: 2
+      $vkey
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 32
   Rule
     Typename
-      whitespaces: 2: $vrf_vkey
+      whitespaces: 2
+      $vrf_vkey
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 32
   Rule
     Typename
-      whitespaces: 1: $vrf_cert
+      whitespaces: 1
+      $vrf_cert
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
@@ -2136,123 +2500,142 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Type
-              Typename: bytes
+              Typename
+                bytes
           GroupEntry
             Type
               Operator
                 Typename
-                  whitespaces: 1: bytes
+                  whitespaces: 1
+                  bytes
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: size
                 Value (number): 80
   Rule
     Typename
-      whitespaces: 2: $kes_vkey
+      whitespaces: 2
+      $kes_vkey
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 32
   Rule
     Typename
-      whitespaces: 1: $kes_signature
+      whitespaces: 1
+      $kes_signature
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 448
   Rule
     Typename
-      whitespaces: 1: signkeyKES
+      whitespaces: 1
+      signkeyKES
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 64
   Rule
     Typename
-      whitespaces: 2: $signature
+      whitespaces: 2
+      $signature
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 64
   Rule
     Typename
-      whitespaces: 2: $hash28
+      whitespaces: 2
+      $hash28
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 8
   Rule
     Typename
-      whitespaces: 1: $hash32
+      whitespaces: 1
+      $hash32
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 10
   Rule
     Typename
-      whitespaces: 2: $vkey
+      whitespaces: 2
+      $vkey
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 8
   Rule
     Typename
-      whitespaces: 2: $vrf_vkey
+      whitespaces: 2
+      $vrf_vkey
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 8
   Rule
     Typename
-      whitespaces: 1: $vrf_cert
+      whitespaces: 1
+      $vrf_cert
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
@@ -2264,62 +2647,72 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Type
-              Typename: bytes
+              Typename
+                bytes
           GroupEntry
             Type
               Operator
                 Typename
-                  whitespaces: 1: bytes
+                  whitespaces: 1
+                  bytes
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: size
                 Value (number): 10
   Rule
     Typename
-      whitespaces: 2: $kes_vkey
+      whitespaces: 2
+      $kes_vkey
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 8
   Rule
     Typename
-      whitespaces: 1: $kes_signature
+      whitespaces: 1
+      $kes_signature
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 32
   Rule
     Typename
-      whitespaces: 2: $signature
+      whitespaces: 2
+      $signature
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bytes
+          whitespaces: 1
+          bytes
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 16
   Rule
     Typename
-      whitespaces: 2: set
+      whitespaces: 2
+      set
       GenericParameters
         Token: LT (<)
         Token: GT (>)
-        Typename: a
+        Typename
+          a
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -2330,13 +2723,15 @@ CDDLTree
         GroupChoice
           GroupEntry
             Type
-              Typename: a
+              Typename
+                a
   Rule
     Typename
       Token: COMMENT (COMMENT)
         whitespaces: 3
         literal: ; real set is [* a]
-      whitespaces: 2: unit_interval
+      whitespaces: 2
+      unit_interval
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -2369,7 +2764,8 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 3
         literal: ; and can also produce a zero in the denominator
-      whitespaces: 2: rational
+      whitespaces: 2
+      rational
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -2390,12 +2786,18 @@ CDDLTree
                 Token: COMMA (,)
                   whitespaces: 4
                 Memberkey
+                  Typename
+                    whitespaces: 1
+                    numerator
                   Token: COLON (:)
                     whitespaces: 3
                 Type
                   Value (number): 1
               GroupEntry
                 Memberkey
+                  Typename
+                    whitespaces: 1
+                    denominator
                   Token: COLON (:)
                     whitespaces: 1
                 Type
@@ -2411,7 +2813,8 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 3
         literal: ; and can also produce a zero in the denominator
-      whitespaces: 3: address
+      whitespaces: 3
+      address
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -2425,7 +2828,8 @@ CDDLTree
       Value (hex): 7080000000000000000000000000000000000000000000000000000000
   Rule
     Typename
-      whitespaces: 2: reward_account
+      whitespaces: 2
+      reward_account
     Token: ASSIGN (=)
       whitespaces: 1
     Type

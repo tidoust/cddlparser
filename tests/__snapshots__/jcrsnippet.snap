@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: root
+    Typename
+      root
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -30,55 +31,87 @@ CDDLTree
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        precision
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: text
+                        whitespaces: 1
+                        text
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        Latitude
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: float
+                        whitespaces: 1
+                        float
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        Longitude
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: float
+                        whitespaces: 1
+                        float
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        Address
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: text
+                        whitespaces: 1
+                        text
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        City
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: text
+                        whitespaces: 1
+                        text
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        State
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: text
+                        whitespaces: 1
+                        text
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        Zip
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: text
+                        whitespaces: 1
+                        text
                   GroupEntry
                     Memberkey
+                      Typename
+                        whitespaces: 2
+                        Country
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: text
+                        whitespaces: 1
+                        text

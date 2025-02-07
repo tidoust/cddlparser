@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: t
+    Typename
+      t
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -15,10 +16,12 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 1: group1
+                whitespaces: 1
+                group1
   Rule
     Typename
-      whitespaces: 2: group1
+      whitespaces: 2
+      group1
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -36,42 +39,50 @@ CDDLTree
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 1: a
+                    whitespaces: 1
+                  a
                 Typename
-                  whitespaces: 1: b
+                  whitespaces: 1
+                  b
           GroupChoice
             GroupEntry
               Type
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 1: c
+                    whitespaces: 1
+                  c
                 Typename
-                  whitespaces: 1: d
+                  whitespaces: 1
+                  d
   Rule
     Typename
-      whitespaces: 2: a
+      whitespaces: 2
+      a
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 1
   Rule
     Typename
-      whitespaces: 1: b
+      whitespaces: 1
+      b
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 2
   Rule
     Typename
-      whitespaces: 1: c
+      whitespaces: 1
+      c
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 3
   Rule
     Typename
-      whitespaces: 1: d
+      whitespaces: 1
+      d
     Token: ASSIGN (=)
       whitespaces: 1
     Type

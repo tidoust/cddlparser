@@ -2,26 +2,30 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: ip4
+    Typename
+      ip4
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bstr
+          whitespaces: 1
+          bstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
         Value (number): 4
   Rule
     Typename
-      whitespaces: 1: label
+      whitespaces: 1
+      label
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: bstr
+          whitespaces: 1
+          bstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: size
@@ -35,82 +39,98 @@ CDDLTree
             Value (number): 63
   Rule
     Typename
-      whitespaces: 1: nai
+      whitespaces: 1
+      nai
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: tstr
+          whitespaces: 1
+          tstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: regexp
         Value (text): [A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+
   Rule
     Typename
-      whitespaces: 1: rwxbits
+      whitespaces: 1
+      rwxbits
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: uint
+          whitespaces: 1
+          uint
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: bits
         Typename
-          whitespaces: 1: rwx
+          whitespaces: 1
+          rwx
   Rule
     Typename
-      whitespaces: 2: foo
+      whitespaces: 2
+      foo
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: ip4
+          whitespaces: 1
+          ip4
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: and
         Typename
-          whitespaces: 1: nai
+          whitespaces: 1
+          nai
   Rule
     Typename
-      whitespaces: 1: fooWithin
+      whitespaces: 1
+      fooWithin
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: ip4
+          whitespaces: 1
+          ip4
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: within
         Typename
-          whitespaces: 1: nai
+          whitespaces: 1
+          nai
   Rule
     Typename
-      whitespaces: 1: bar
+      whitespaces: 1
+      bar
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: foo
+          whitespaces: 1
+          foo
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: ne
         Typename
-          whitespaces: 1: fooWithin
+          whitespaces: 1
+          fooWithin
   Rule
     Typename
-      whitespaces: 2: speed
+      whitespaces: 2
+      speed
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: number
+          whitespaces: 1
+          number
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: ge
@@ -120,13 +140,15 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; unit: m/s
-      whitespaces: 1: speed2
+      whitespaces: 1
+      speed2
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: number
+          whitespaces: 1
+          number
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: le
@@ -136,13 +158,15 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; unit: m/s
-      whitespaces: 1: speed3
+      whitespaces: 1
+      speed3
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: number
+          whitespaces: 1
+          number
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: gt
@@ -152,13 +176,15 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; unit: m/s
-      whitespaces: 1: speed4
+      whitespaces: 1
+      speed4
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: number
+          whitespaces: 1
+          number
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: lt
@@ -168,20 +194,23 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; unit: m/s
-      whitespaces: 2: displayed-step
+      whitespaces: 2
+      displayed-step
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: number
+          whitespaces: 1
+          number
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: default
         Value (number): 1
   Rule
     Typename
-      whitespaces: 1: someGroup
+      whitespaces: 1
+      someGroup
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -197,11 +226,14 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                optional
               Token: COLON (:)
             Type
               Operator
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: default
@@ -212,6 +244,8 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                orientation
               Token: COLON (:)
             Type
               Operator
@@ -231,6 +265,8 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                scale
               Token: COLON (:)
             Type
               Operator
@@ -252,22 +288,28 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                shrinkToFit
               Token: COLON (:)
             Type
               Operator
                 Typename
-                  whitespaces: 1: bool
+                  whitespaces: 1
+                  bool
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: default
                 Typename
-                  whitespaces: 1: true
+                  whitespaces: 1
+                  true
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                shrinkToFitP
               Token: COLON (:)
             Type
               Operator
@@ -275,18 +317,22 @@ CDDLTree
                   Token: LPAREN (()
                     whitespaces: 1
                   Token: RPAREN ())
-                  Typename: bool
+                  Typename
+                    bool
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: default
                 Typename
-                  whitespaces: 1: true
+                  whitespaces: 1
+                  true
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                bottom
               Token: COLON (:)
             Type
               Operator
@@ -295,7 +341,8 @@ CDDLTree
                     whitespaces: 1
                   Token: RPAREN ())
                   Operator
-                    Typename: float
+                    Typename
+                      float
                     Token: CTLOP (CTLOP)
                       whitespaces: 1
                       literal: ge
@@ -306,20 +353,23 @@ CDDLTree
                 Value (number): 1.0
   Rule
     Typename
-      whitespaces: 2: optional
+      whitespaces: 2
+      optional
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: tstr
+          whitespaces: 1
+          tstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: default
         Value (text): foobar
   Rule
     Typename
-      whitespaces: 1: orientation
+      whitespaces: 1
+      orientation
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry

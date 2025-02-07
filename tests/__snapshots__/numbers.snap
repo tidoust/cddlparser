@@ -2,112 +2,128 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: uint-simple
+    Typename
+      uint-simple
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 10045
   Rule
     Typename
-      whitespaces: 1: uint-hex
+      whitespaces: 1
+      uint-hex
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 0x0A54
   Rule
     Typename
-      whitespaces: 1: uint-bin
+      whitespaces: 1
+      uint-bin
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 0b01110
   Rule
     Typename
-      whitespaces: 1: uint-zero
+      whitespaces: 1
+      uint-zero
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 0
   Rule
     Typename
-      whitespaces: 1: uint-fraction
+      whitespaces: 1
+      uint-fraction
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 0.96
   Rule
     Typename
-      whitespaces: 2: int-neg
+      whitespaces: 2
+      int-neg
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): -42
   Rule
     Typename
-      whitespaces: 1: int-hexneg
+      whitespaces: 1
+      int-hexneg
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): -0xFF
   Rule
     Typename
-      whitespaces: 1: int-binneg
+      whitespaces: 1
+      int-binneg
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): -0b1110
   Rule
     Typename
-      whitespaces: 2: number-1
+      whitespaces: 2
+      number-1
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 78.12
   Rule
     Typename
-      whitespaces: 1: number-2
+      whitespaces: 1
+      number-2
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 9993e2024
   Rule
     Typename
-      whitespaces: 1: number-3
+      whitespaces: 1
+      number-3
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): -375.023e14
   Rule
     Typename
-      whitespaces: 1: number-4
+      whitespaces: 1
+      number-4
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): -375.023e-14
   Rule
     Typename
-      whitespaces: 1: number-5
+      whitespaces: 1
+      number-5
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): -375.023e+14
   Rule
     Typename
-      whitespaces: 2: hexfloat-int
+      whitespaces: 2
+      hexfloat-int
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 0x09AB53p1
   Rule
     Typename
-      whitespaces: 1: hexfloat-negative
+      whitespaces: 1
+      hexfloat-negative
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): -0x10p-20
   Rule
     Typename
-      whitespaces: 1: heffloat-float
+      whitespaces: 1
+      heffloat-float
     Token: ASSIGN (=)
       whitespaces: 1
     Type

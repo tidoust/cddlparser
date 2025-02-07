@@ -4,7 +4,8 @@ CDDLTree
     Typename
       Token: COMMENT (COMMENT)
         literal: ; These may be type or group rules.
-      whitespaces: 1: a
+      whitespaces: 1
+      a
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -17,10 +18,12 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 1: b
+                whitespaces: 1
+                b
   Rule
     Typename
-      whitespaces: 1: b
+      whitespaces: 1
+      b
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -34,32 +37,38 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: c
+                  whitespaces: 1
+                  c
   Rule
     Typename
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; These are type rules for sure.
-      whitespaces: 1: c
+      whitespaces: 1
+      c
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: d
+        whitespaces: 1
+        d
   Rule
     Typename
-      whitespaces: 1: d
+      whitespaces: 1
+      d
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: tstr
+        whitespaces: 1
+        tstr
   Rule
     Typename
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; These all are group rules.
-      whitespaces: 1: e
+      whitespaces: 1
+      e
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -73,10 +82,12 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: f
+                  whitespaces: 1
+                  f
   Rule
     Typename
-      whitespaces: 1: f
+      whitespaces: 1
+      f
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -90,19 +101,23 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: g
+                  whitespaces: 1
+                  g
   Rule
     Typename
-      whitespaces: 1: g
+      whitespaces: 1
+      g
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
       Type
         Typename
-          whitespaces: 1: h
+          whitespaces: 1
+          h
   Rule
     Typename
-      whitespaces: 1: h
+      whitespaces: 1
+      h
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry

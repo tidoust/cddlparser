@@ -1,7 +1,8 @@
 CDDLTree
   Token: EOF (EOF)
   Rule
-    Typename: Example
+    Typename
+      Example
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -14,10 +15,14 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                title
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -27,10 +32,14 @@ CDDLTree
                   whitespaces: 33
                   literal: ; summary of test
             Memberkey
+              Typename
+                whitespaces: 1
+                description
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -40,18 +49,24 @@ CDDLTree
                   whitespaces: 25
                   literal: ; longer description of test
             Memberkey
+              Typename
+                whitespaces: 1
+                fail
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: bool
+                whitespaces: 1
+                bool
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Value (text): input
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: Inputs
+                whitespaces: 1
+                Inputs
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -61,47 +76,78 @@ CDDLTree
                   whitespaces: 29
                   literal: ; Inputs to create the test
             Memberkey
+              Typename
+                whitespaces: 1
+                intermediates
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: Intermediates
+                whitespaces: 1
+                Intermediates
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                Token: COMMENT (COMMENT)
+                  whitespaces: 13
+                  literal: ; Intermediate values for debugging
+                whitespaces: 4
+                output
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: Outputs
+                whitespaces: 1
+                Outputs
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                Token: COMMENT (COMMENT)
+                  whitespaces: 29
+                  literal: ; Outputs of the test
+                whitespaces: 4
+                attire
               Token: COLON (:)
             Type
               Value (text): bow tie
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                someBool
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: true
+                whitespaces: 1
+                true
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                someOtherBool
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: false
+                whitespaces: 1
+                false
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                count
               Token: COLON (:)
             Type
               Value (number): 123
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                negative-count
               Token: COLON (:)
             Type
               Value (number): -123
@@ -111,18 +157,25 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 4
             Memberkey
+              Value (text): rating
               Token: COLON (:)
             Type
               Value (number): 0.5724646875815566
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                hexa
               Token: COLON (:)
             Type
               Value (number): 0x123
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                bin
               Token: COLON (:)
             Type
               Value (number): 0b101
@@ -130,10 +183,14 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 4: foobar
+                whitespaces: 4
+                foobar
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                samples
               Token: COLON (:)
             Type
               Array
@@ -146,24 +203,33 @@ CDDLTree
                       Token: PLUS (+)
                     Type
                       Typename
-                        whitespaces: 1: float
+                        whitespaces: 1
+                        float
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                multitype
               Token: COLON (:)
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: float
+                  whitespaces: 1
+                float
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                tstr
               Value (text): foobar
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 4
+                my_uri
               Token: COLON (:)
             Type
               Tag
@@ -175,6 +241,8 @@ CDDLTree
                 Type
                   Token: LPAREN (()
                   Token: RPAREN ())
-                  Typename: tstr
+                  Typename
+                    tstr
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr

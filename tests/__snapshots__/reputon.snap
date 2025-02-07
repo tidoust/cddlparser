@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: reputation-object
+    Typename
+      reputation-object
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -16,14 +17,17 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 1: reputation-context
+                whitespaces: 1
+                reputation-context
           GroupEntry
             Type
               Typename
-                whitespaces: 1: reputon-list
+                whitespaces: 1
+                reputon-list
   Rule
     Typename
-      whitespaces: 2: reputation-context
+      whitespaces: 2
+      reputation-context
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -36,13 +40,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  application
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
   Rule
     Typename
-      whitespaces: 2: reputon-list
+      whitespaces: 2
+      reputon-list
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -55,13 +64,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  reputons
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: reputon-array
+                  whitespaces: 1
+                  reputon-array
   Rule
     Typename
-      whitespaces: 2: reputon-array
+      whitespaces: 2
+      reputon-array
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -77,10 +91,12 @@ CDDLTree
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: reputon
+                whitespaces: 1
+                reputon
   Rule
     Typename
-      whitespaces: 2: reputon
+      whitespaces: 2
+      reputon
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -94,22 +110,26 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: rater-value
+                whitespaces: 2
+                rater-value
           GroupEntry
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: assertion-value
+                whitespaces: 2
+                assertion-value
           GroupEntry
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: rated-value
+                whitespaces: 2
+                rated-value
           GroupEntry
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: rating-value
+                whitespaces: 2
+                rating-value
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -117,7 +137,8 @@ CDDLTree
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: conf-value
+                whitespaces: 1
+                conf-value
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -125,7 +146,8 @@ CDDLTree
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: normal-value
+                whitespaces: 1
+                normal-value
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -133,7 +155,8 @@ CDDLTree
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: sample-value
+                whitespaces: 1
+                sample-value
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -141,7 +164,8 @@ CDDLTree
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: gen-value
+                whitespaces: 1
+                gen-value
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -149,17 +173,20 @@ CDDLTree
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: expire-value
+                whitespaces: 1
+                expire-value
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: ext-value
+                whitespaces: 1
+                ext-value
   Rule
     Typename
-      whitespaces: 2: rater-value
+      whitespaces: 2
+      rater-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -172,13 +199,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  rater
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
   Rule
     Typename
-      whitespaces: 2: assertion-value
+      whitespaces: 2
+      assertion-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -191,13 +223,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  assertion
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
   Rule
     Typename
-      whitespaces: 2: rated-value
+      whitespaces: 2
+      rated-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -210,13 +247,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  rated
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
   Rule
     Typename
-      whitespaces: 2: rating-value
+      whitespaces: 2
+      rating-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -229,13 +271,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  rating
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: float16
+                  whitespaces: 1
+                  float16
   Rule
     Typename
-      whitespaces: 2: conf-value
+      whitespaces: 2
+      conf-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -248,13 +295,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  confidence
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: float16
+                  whitespaces: 1
+                  float16
   Rule
     Typename
-      whitespaces: 2: normal-value
+      whitespaces: 2
+      normal-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -267,13 +319,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  normal-rating
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: float16
+                  whitespaces: 1
+                  float16
   Rule
     Typename
-      whitespaces: 2: sample-value
+      whitespaces: 2
+      sample-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -286,13 +343,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  sample-size
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
   Rule
     Typename
-      whitespaces: 2: gen-value
+      whitespaces: 2
+      gen-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -305,13 +367,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  generated
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
   Rule
     Typename
-      whitespaces: 2: expire-value
+      whitespaces: 2
+      expire-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -324,13 +391,18 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  expires
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
   Rule
     Typename
-      whitespaces: 2: ext-value
+      whitespaces: 2
+      ext-value
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -343,8 +415,12 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  text
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: any
+                  whitespaces: 1
+                  any

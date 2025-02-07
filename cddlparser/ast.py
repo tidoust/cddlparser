@@ -540,7 +540,7 @@ class Typename(TokenNode):
         return output
 
     def __repr__(self, indent: int = 0) -> str:
-        res: list[str] = [super().__repr__(indent) + ": " + self.name]
+        res: list[str] = [super().__repr__(indent), ("  " * (indent + 1)) + self.name]
         if self.unwrapped is not None:
             res.append(self.unwrapped.__repr__(indent + 1))
         if self.parameters is not None:
@@ -682,7 +682,10 @@ class Memberkey(CDDLNode):
         return output
 
     def __repr__(self, indent: int = 0) -> str:
-        res: list[str] = [super().__repr__(indent)]
+        res: list[str] = [
+            super().__repr__(indent),
+            self.type.__repr__(indent + 1),
+        ]
         for item in self.tokens:
             res.append(item.__repr__(indent + 1))
         return "\n".join(res)

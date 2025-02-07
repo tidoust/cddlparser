@@ -1,31 +1,36 @@
 CDDLTree
   Token: EOF (EOF)
   Rule
-    Typename: helloworld
+    Typename
+      helloworld
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (bytes): hello world
   Rule
     Typename
-      whitespaces: 1: hellohex
+      whitespaces: 1
+      hellohex
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (hex): 68656c6c6f20776f726c64
   Rule
     Typename
-      whitespaces: 1: foobar
+      whitespaces: 1
+      foobar
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (base64): Zm9vYmFy
   Rule
     Typename
-      whitespaces: 1: blah
+      whitespaces: 1
+      blah
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
       Type
         Typename
-          whitespaces: 1: b64blah
+          whitespaces: 1
+          b64blah

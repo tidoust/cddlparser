@@ -1,7 +1,8 @@
 CDDLTree
   Token: EOF (EOF)
   Rule
-    Typename: DID-document
+    Typename
+      DID-document
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -16,23 +17,34 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                @context
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: uri
+                whitespaces: 1
+                uri
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                id
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: did
+                whitespaces: 1
+                did
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                publicKey
               Token: COLON (:)
                 whitespaces: 1
             Type
@@ -47,12 +59,16 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: publicKey
+                        whitespaces: 1
+                        publicKey
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                authentication
               Token: COLON (:)
                 whitespaces: 1
             Type
@@ -69,7 +85,8 @@ CDDLTree
                       Token: ASTERISK (*)
                         whitespaces: 1
                     Type
-                      Typename: did
+                      Typename
+                        did
                 GroupChoice
                   Token: GCHOICE (//)
                     whitespaces: 1
@@ -78,19 +95,24 @@ CDDLTree
                       Token: ASTERISK (*)
                         whitespaces: 1
                     Type
-                      Typename: publicKey
+                      Typename
+                        publicKey
                 GroupChoice
                   GroupEntry
                     Occurrence
                       Token: ASTERISK (*)
                         whitespaces: 1
                     Type
-                      Typename: tstr
+                      Typename
+                        tstr
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                service
               Token: COLON (:)
                 whitespaces: 1
             Type
@@ -106,19 +128,24 @@ CDDLTree
                         whitespaces: 1
                     Type
                       Typename
-                        whitespaces: 1: service
+                        whitespaces: 1
+                        service
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                controller
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: did
+                  whitespaces: 1
+                did
               Array
                 Token: LBRACK ([)
                   whitespaces: 1
@@ -130,37 +157,51 @@ CDDLTree
                       Token: ASTERISK (*)
                         whitespaces: 1
                     Type
-                      Typename: did
+                      Typename
+                        did
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                created
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: time
+                whitespaces: 1
+                time
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                updated
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: time
+                whitespaces: 1
+                time
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                proof
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 2: any
+                whitespaces: 2
+                any
   Rule
     Typename
-      whitespaces: 2: publicKey
+      whitespaces: 2
+      publicKey
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -172,54 +213,71 @@ CDDLTree
         GroupChoice
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                id
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: did
+                whitespaces: 1
+                did
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                type
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                controller
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: uri
+                whitespaces: 1
+                uri
   Rule
     Typename
-      whitespaces: 2: did
+      whitespaces: 2
+      did
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 1: tstr
+          whitespaces: 1
+          tstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: pcre
         Value (text): ^did\\:(?<method-name>[a-z0-9]{2,})\\:(?<method-specific-id>[A-Za-z0-9\\.\\-\\:\\_]+)
   Rule
     Typename
-      whitespaces: 2: did-url
+      whitespaces: 2
+      did-url
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Operator
         Typename
-          whitespaces: 2: tstr
+          whitespaces: 2
+          tstr
         Token: CTLOP (CTLOP)
           whitespaces: 1
           literal: pcre
         Value (text): ^did\\:(?<method-name>[a-z0-9]{2,})\\:(?<method-specific-id>[A-Za-z0-9\\.\\-\\:\\_]+)\\;(?<path>[A-Za-z0-9\\/)(?<query>\\?[a-z0-9\\=\\&])#(?<fragment>.+)
   Rule
     Typename
-      whitespaces: 2: service
+      whitespaces: 2
+      service
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -231,42 +289,62 @@ CDDLTree
         GroupChoice
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                id
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: did-url
+                whitespaces: 1
+                did-url
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                type
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 3
+                serviceEndpoint
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: uri
+                whitespaces: 1
+                uri
           GroupEntry
             Occurrence
               Token: QUEST (?)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                description
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 3
             Memberkey
+              Typename
+                whitespaces: 1
+                tstr
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: any
+                whitespaces: 1
+                any

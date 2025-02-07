@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: concise-swid-tag
+    Typename
+      concise-swid-tag
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -16,20 +17,26 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: global-attributes
+                whitespaces: 2
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                tag-id
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: text
+                  whitespaces: 1
+                text
               Operator
                 Typename
-                  whitespaces: 1: bstr
+                  whitespaces: 1
+                  bstr
                 Token: CTLOP (CTLOP)
                   whitespaces: 1
                   literal: size
@@ -37,98 +44,134 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                tag-version
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: integer
+                whitespaces: 1
+                integer
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                corpus
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: bool
+                whitespaces: 1
+                bool
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                patch
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: bool
+                whitespaces: 1
+                bool
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                supplemental
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: bool
+                whitespaces: 1
+                bool
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                software-name
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                software-version
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                version-scheme
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $version-scheme
+                whitespaces: 1
+                $version-scheme
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                media
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                software-meta
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: software-meta-entry
+                  whitespaces: 1
+                software-meta-entry
               Array
                 Token: LBRACK ([)
                   whitespaces: 1
@@ -143,17 +186,22 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: software-meta-entry
+                        whitespaces: 1
+                        software-meta-entry
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                entity
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: entity-entry
+                  whitespaces: 1
+                entity-entry
               Array
                 Token: LBRACK ([)
                   whitespaces: 1
@@ -168,20 +216,25 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: entity-entry
+                        whitespaces: 1
+                        entity-entry
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                link
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: link-entry
+                  whitespaces: 1
+                link-entry
               Array
                 Token: LBRACK ([)
                   whitespaces: 1
@@ -196,7 +249,8 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: link-entry
+                        whitespaces: 1
+                        link-entry
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -221,11 +275,15 @@ CDDLTree
                         GroupChoice
                           GroupEntry
                             Memberkey
+                              Typename
+                                whitespaces: 1
+                                payload
                               Token: ARROWMAP (=>)
                                 whitespaces: 1
                             Type
                               Typename
-                                whitespaces: 1: payload-entry
+                                whitespaces: 1
+                                payload-entry
                 GroupChoice
                   GroupEntry
                     Type
@@ -237,93 +295,117 @@ CDDLTree
                         GroupChoice
                           GroupEntry
                             Memberkey
+                              Typename
+                                whitespaces: 1
+                                evidence
                               Token: ARROWMAP (=>)
                                 whitespaces: 1
                             Type
                               Typename
-                                whitespaces: 1: evidence-entry
+                                whitespaces: 1
+                                evidence-entry
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$coswid-extension
+                whitespaces: 1
+                $$coswid-extension
   Rule
     Typename
-      whitespaces: 2: any-uri
+      whitespaces: 2
+      any-uri
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: text
+        whitespaces: 1
+        text
   Rule
     Typename
-      whitespaces: 1: label
+      whitespaces: 1
+      label
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: text
+          whitespaces: 1
+        text
       Typename
-        whitespaces: 1: int
+        whitespaces: 1
+        int
   Rule
     Typename
-      whitespaces: 1: $version-scheme
+      whitespaces: 1
+      $version-scheme
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: multipartnumeric
+        whitespaces: 1
+        multipartnumeric
   Rule
     Typename
-      whitespaces: 1: $version-scheme
+      whitespaces: 1
+      $version-scheme
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: multipartnumeric-suffix
+        whitespaces: 1
+        multipartnumeric-suffix
   Rule
     Typename
-      whitespaces: 1: $version-scheme
+      whitespaces: 1
+      $version-scheme
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: alphanumeric
+        whitespaces: 1
+        alphanumeric
   Rule
     Typename
-      whitespaces: 1: $version-scheme
+      whitespaces: 1
+      $version-scheme
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: decimal
+        whitespaces: 1
+        decimal
   Rule
     Typename
-      whitespaces: 1: $version-scheme
+      whitespaces: 1
+      $version-scheme
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: semver
+        whitespaces: 1
+        semver
   Rule
     Typename
-      whitespaces: 1: $version-scheme
+      whitespaces: 1
+      $version-scheme
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: uint
+          whitespaces: 1
+        uint
       Typename
-        whitespaces: 1: text
+        whitespaces: 1
+        text
   Rule
     Typename
-      whitespaces: 2: any-attribute
+      whitespaces: 2
+      any-attribute
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -336,17 +418,22 @@ CDDLTree
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  label
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 2: text
+                    whitespaces: 2
+                  text
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 2: int
+                    whitespaces: 2
+                  int
                 Array
                   Token: LBRACK ([)
                     whitespaces: 1
@@ -363,7 +450,8 @@ CDDLTree
                         Token: ASTERISK (*)
                       Type
                         Typename
-                          whitespaces: 1: text
+                          whitespaces: 1
+                          text
                 Array
                   Token: LBRACK ([)
                     whitespaces: 1
@@ -378,10 +466,12 @@ CDDLTree
                         Token: ASTERISK (*)
                       Type
                         Typename
-                          whitespaces: 1: int
+                          whitespaces: 1
+                          int
   Rule
     Typename
-      whitespaces: 2: global-attributes
+      whitespaces: 2
+      global-attributes
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -398,21 +488,27 @@ CDDLTree
                 Token: QUEST (?)
                   whitespaces: 1
               Memberkey
+                Typename
+                  whitespaces: 1
+                  lang
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
             GroupEntry
               Occurrence
                 Token: ASTERISK (*)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: any-attribute
+                  whitespaces: 1
+                  any-attribute
   Rule
     Typename
-      whitespaces: 2: hash-entry
+      whitespaces: 2
+      hash-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -425,19 +521,28 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 1
+                hash-alg-id
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 1
+                hash-value
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: bytes
+                whitespaces: 1
+                bytes
   Rule
     Typename
-      whitespaces: 2: entity-entry
+      whitespaces: 2
+      entity-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -451,36 +556,49 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: global-attributes
+                whitespaces: 2
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                entity-name
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                reg-id
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: any-uri
+                whitespaces: 1
+                any-uri
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                role
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
                 whitespaces: 1
                 Token: TCHOICE (/)
-                  whitespaces: 1: $role
+                  whitespaces: 1
+                $role
               Array
                 Token: LBRACK ([)
                   whitespaces: 1
@@ -495,80 +613,100 @@ CDDLTree
                       Token: ASTERISK (*)
                     Type
                       Typename
-                        whitespaces: 1: $role
+                        whitespaces: 1
+                        $role
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                thumbprint
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: hash-entry
+                whitespaces: 1
+                hash-entry
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$entity-extension
+                whitespaces: 1
+                $$entity-extension
   Rule
     Typename
-      whitespaces: 2: $role
+      whitespaces: 2
+      $role
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: tag-creator
+        whitespaces: 1
+        tag-creator
   Rule
     Typename
-      whitespaces: 1: $role
+      whitespaces: 1
+      $role
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: software-creator
+        whitespaces: 1
+        software-creator
   Rule
     Typename
-      whitespaces: 1: $role
+      whitespaces: 1
+      $role
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: aggregator
+        whitespaces: 1
+        aggregator
   Rule
     Typename
-      whitespaces: 1: $role
+      whitespaces: 1
+      $role
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: distributor
+        whitespaces: 1
+        distributor
   Rule
     Typename
-      whitespaces: 1: $role
+      whitespaces: 1
+      $role
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: licensor
+        whitespaces: 1
+        licensor
   Rule
     Typename
-      whitespaces: 1: $role
+      whitespaces: 1
+      $role
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: uint
+          whitespaces: 1
+        uint
       Typename
-        whitespaces: 1: text
+        whitespaces: 1
+        text
   Rule
     Typename
-      whitespaces: 2: link-entry
+      whitespaces: 2
+      link-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -582,260 +720,334 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: global-attributes
+                whitespaces: 2
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                artifact
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                href
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: any-uri
+                whitespaces: 1
+                any-uri
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                media
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                ownership
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $ownership
+                whitespaces: 1
+                $ownership
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                rel
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $rel
+                whitespaces: 1
+                $rel
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                media-type
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                use
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $use
+                whitespaces: 1
+                $use
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$link-extension
+                whitespaces: 1
+                $$link-extension
   Rule
     Typename
-      whitespaces: 2: $ownership
+      whitespaces: 2
+      $ownership
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: shared
+        whitespaces: 1
+        shared
   Rule
     Typename
-      whitespaces: 1: $ownership
+      whitespaces: 1
+      $ownership
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: private
+        whitespaces: 1
+        private
   Rule
     Typename
-      whitespaces: 1: $ownership
+      whitespaces: 1
+      $ownership
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: abandon
+        whitespaces: 1
+        abandon
   Rule
     Typename
-      whitespaces: 1: $ownership
+      whitespaces: 1
+      $ownership
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: uint
+          whitespaces: 1
+        uint
       Typename
-        whitespaces: 1: text
+        whitespaces: 1
+        text
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: ancestor
+        whitespaces: 1
+        ancestor
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: component
+        whitespaces: 1
+        component
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: feature
+        whitespaces: 1
+        feature
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: installationmedia
+        whitespaces: 1
+        installationmedia
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: packageinstaller
+        whitespaces: 1
+        packageinstaller
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: parent
+        whitespaces: 1
+        parent
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: patches
+        whitespaces: 1
+        patches
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: requires
+        whitespaces: 1
+        requires
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: see-also
+        whitespaces: 1
+        see-also
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: supersedes
+        whitespaces: 1
+        supersedes
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: supplemental
+        whitespaces: 1
+        supplemental
   Rule
     Typename
-      whitespaces: 1: $rel
+      whitespaces: 1
+      $rel
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: uint
+          whitespaces: 1
+        uint
       Typename
-        whitespaces: 1: text
+        whitespaces: 1
+        text
   Rule
     Typename
-      whitespaces: 1: $use
+      whitespaces: 1
+      $use
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: optional
+        whitespaces: 1
+        optional
   Rule
     Typename
-      whitespaces: 1: $use
+      whitespaces: 1
+      $use
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: required
+        whitespaces: 1
+        required
   Rule
     Typename
-      whitespaces: 1: $use
+      whitespaces: 1
+      $use
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: recommended
+        whitespaces: 1
+        recommended
   Rule
     Typename
-      whitespaces: 1: $use
+      whitespaces: 1
+      $use
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: uint
+          whitespaces: 1
+        uint
       Typename
-        whitespaces: 1: text
+        whitespaces: 1
+        text
   Rule
     Typename
-      whitespaces: 2: software-meta-entry
+      whitespaces: 2
+      software-meta-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -849,182 +1061,245 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: global-attributes
+                whitespaces: 2
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                activation-status
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                channel-type
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                colloquial-version
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                description
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                edition
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                entitlement-data-required
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: bool
+                whitespaces: 1
+                bool
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                entitlement-key
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                generator
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                persistent-id
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                product
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                product-family
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                revision
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                summary
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                unspsc-code
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                unspsc-version
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$meta-extension
+                whitespaces: 1
+                $$meta-extension
   Rule
     Typename
-      whitespaces: 2: resource-collection
+      whitespaces: 2
+      resource-collection
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1041,54 +1316,72 @@ CDDLTree
                 Token: QUEST (?)
                   whitespaces: 2
               Memberkey
+                Typename
+                  whitespaces: 1
+                  directory
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: directory-entry
+                  whitespaces: 1
+                  directory-entry
             GroupEntry
               Token: COMMA (,)
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 2
               Memberkey
+                Typename
+                  whitespaces: 1
+                  file
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: file-entry
+                  whitespaces: 1
+                  file-entry
             GroupEntry
               Token: COMMA (,)
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 2
               Memberkey
+                Typename
+                  whitespaces: 1
+                  process
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: process-entry
+                  whitespaces: 1
+                  process-entry
             GroupEntry
               Token: COMMA (,)
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 2
               Memberkey
+                Typename
+                  whitespaces: 1
+                  resource
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: resource-entry
+                  whitespaces: 1
+                  resource-entry
             GroupEntry
               Occurrence
                 Token: ASTERISK (*)
                   whitespaces: 2
               Type
                 Typename
-                  whitespaces: 1: $$resource-collection-extension
+                  whitespaces: 1
+                  $$resource-collection-extension
   Rule
     Typename
-      whitespaces: 2: file-entry
+      whitespaces: 2
+      file-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1102,50 +1395,65 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: filesystem-item
+                whitespaces: 2
+                filesystem-item
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                size
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: integer
+                whitespaces: 1
+                integer
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                file-version
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                hash
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: hash-entry
+                whitespaces: 1
+                hash-entry
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$file-extension
+                whitespaces: 1
+                $$file-extension
   Rule
     Typename
-      whitespaces: 2: path-elements-entry
+      whitespaces: 2
+      path-elements-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1170,7 +1478,8 @@ CDDLTree
                         whitespaces: 1
                     Type
                       Typename
-                        whitespaces: 1: file-entry
+                        whitespaces: 1
+                        file-entry
           GroupEntry
             Type
               Array
@@ -1185,10 +1494,12 @@ CDDLTree
                         whitespaces: 1
                     Type
                       Typename
-                        whitespaces: 1: directory-entry
+                        whitespaces: 1
+                        directory-entry
   Rule
     Typename
-      whitespaces: 2: directory-entry
+      whitespaces: 2
+      directory-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1202,25 +1513,32 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 1: filesystem-item
+                whitespaces: 1
+                filesystem-item
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 1
+                path-elements
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: path-elements-entry
+                whitespaces: 1
+                path-elements-entry
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $$directory-extension
+                whitespaces: 1
+                $$directory-extension
   Rule
     Typename
-      whitespaces: 2: process-entry
+      whitespaces: 2
+      process-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1234,36 +1552,47 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: global-attributes
+                whitespaces: 2
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                process-name
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                pid
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: integer
+                whitespaces: 1
+                integer
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$process-extension
+                whitespaces: 1
+                $$process-extension
   Rule
     Typename
-      whitespaces: 2: resource-entry
+      whitespaces: 2
+      resource-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1277,25 +1606,32 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 1: global-attributes
+                whitespaces: 1
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 1
+                type
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $$resource-extension
+                whitespaces: 1
+                $$resource-extension
   Rule
     Typename
-      whitespaces: 2: filesystem-item
+      whitespaces: 2
+      filesystem-item
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -1310,50 +1646,68 @@ CDDLTree
               Token: COMMA (,)
               Type
                 Typename
-                  whitespaces: 2: global-attributes
+                  whitespaces: 2
+                  global-attributes
             GroupEntry
               Token: COMMA (,)
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 2
               Memberkey
+                Typename
+                  whitespaces: 1
+                  key
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: bool
+                  whitespaces: 1
+                  bool
             GroupEntry
               Token: COMMA (,)
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 2
               Memberkey
+                Typename
+                  whitespaces: 1
+                  location
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 2
+                  fs-name
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
             GroupEntry
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 2
               Memberkey
+                Typename
+                  whitespaces: 1
+                  root
                 Token: ARROWMAP (=>)
                   whitespaces: 1
               Type
                 Typename
-                  whitespaces: 1: text
+                  whitespaces: 1
+                  text
   Rule
     Typename
-      whitespaces: 2: payload-entry
+      whitespaces: 2
+      payload-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1367,22 +1721,26 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 1: global-attributes
+                whitespaces: 1
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 1: resource-collection
+                whitespaces: 1
+                resource-collection
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: $$payload-extension
+                whitespaces: 1
+                $$payload-extension
   Rule
     Typename
-      whitespaces: 2: evidence-entry
+      whitespaces: 2
+      evidence-entry
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1396,439 +1754,507 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: global-attributes
+                whitespaces: 2
+                global-attributes
           GroupEntry
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: resource-collection
+                whitespaces: 2
+                resource-collection
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                date
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: time
+                whitespaces: 1
+                time
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                device-id
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$evidence-extension
+                whitespaces: 1
+                $$evidence-extension
   Rule
     Typename
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; "global map member" integer indexes
-      whitespaces: 1: tag-id
+      whitespaces: 1
+      tag-id
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 0
   Rule
     Typename
-      whitespaces: 1: software-name
+      whitespaces: 1
+      software-name
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 1
   Rule
     Typename
-      whitespaces: 1: entity
+      whitespaces: 1
+      entity
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 2
   Rule
     Typename
-      whitespaces: 1: evidence
+      whitespaces: 1
+      evidence
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 3
   Rule
     Typename
-      whitespaces: 1: link
+      whitespaces: 1
+      link
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 4
   Rule
     Typename
-      whitespaces: 1: software-meta
+      whitespaces: 1
+      software-meta
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 5
   Rule
     Typename
-      whitespaces: 1: payload
+      whitespaces: 1
+      payload
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 6
   Rule
     Typename
-      whitespaces: 1: hash
+      whitespaces: 1
+      hash
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 7
   Rule
     Typename
-      whitespaces: 1: corpus
+      whitespaces: 1
+      corpus
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 8
   Rule
     Typename
-      whitespaces: 1: patch
+      whitespaces: 1
+      patch
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 9
   Rule
     Typename
-      whitespaces: 1: media
+      whitespaces: 1
+      media
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 10
   Rule
     Typename
-      whitespaces: 1: supplemental
+      whitespaces: 1
+      supplemental
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 11
   Rule
     Typename
-      whitespaces: 1: tag-version
+      whitespaces: 1
+      tag-version
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 12
   Rule
     Typename
-      whitespaces: 1: software-version
+      whitespaces: 1
+      software-version
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 13
   Rule
     Typename
-      whitespaces: 1: version-scheme
+      whitespaces: 1
+      version-scheme
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 14
   Rule
     Typename
-      whitespaces: 1: lang
+      whitespaces: 1
+      lang
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 15
   Rule
     Typename
-      whitespaces: 1: directory
+      whitespaces: 1
+      directory
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 16
   Rule
     Typename
-      whitespaces: 1: file
+      whitespaces: 1
+      file
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 17
   Rule
     Typename
-      whitespaces: 1: process
+      whitespaces: 1
+      process
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 18
   Rule
     Typename
-      whitespaces: 1: resource
+      whitespaces: 1
+      resource
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 19
   Rule
     Typename
-      whitespaces: 1: size
+      whitespaces: 1
+      size
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 20
   Rule
     Typename
-      whitespaces: 1: file-version
+      whitespaces: 1
+      file-version
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 21
   Rule
     Typename
-      whitespaces: 1: key
+      whitespaces: 1
+      key
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 22
   Rule
     Typename
-      whitespaces: 1: location
+      whitespaces: 1
+      location
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 23
   Rule
     Typename
-      whitespaces: 1: fs-name
+      whitespaces: 1
+      fs-name
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 24
   Rule
     Typename
-      whitespaces: 1: root
+      whitespaces: 1
+      root
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 25
   Rule
     Typename
-      whitespaces: 1: path-elements
+      whitespaces: 1
+      path-elements
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 26
   Rule
     Typename
-      whitespaces: 1: process-name
+      whitespaces: 1
+      process-name
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 27
   Rule
     Typename
-      whitespaces: 1: pid
+      whitespaces: 1
+      pid
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 28
   Rule
     Typename
-      whitespaces: 1: type
+      whitespaces: 1
+      type
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 29
   Rule
     Typename
-      whitespaces: 1: entity-name
+      whitespaces: 1
+      entity-name
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 31
   Rule
     Typename
-      whitespaces: 1: reg-id
+      whitespaces: 1
+      reg-id
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 32
   Rule
     Typename
-      whitespaces: 1: role
+      whitespaces: 1
+      role
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 33
   Rule
     Typename
-      whitespaces: 1: thumbprint
+      whitespaces: 1
+      thumbprint
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 34
   Rule
     Typename
-      whitespaces: 1: date
+      whitespaces: 1
+      date
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 35
   Rule
     Typename
-      whitespaces: 1: device-id
+      whitespaces: 1
+      device-id
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 36
   Rule
     Typename
-      whitespaces: 1: artifact
+      whitespaces: 1
+      artifact
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 37
   Rule
     Typename
-      whitespaces: 1: href
+      whitespaces: 1
+      href
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 38
   Rule
     Typename
-      whitespaces: 1: ownership
+      whitespaces: 1
+      ownership
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 39
   Rule
     Typename
-      whitespaces: 1: rel
+      whitespaces: 1
+      rel
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 40
   Rule
     Typename
-      whitespaces: 1: media-type
+      whitespaces: 1
+      media-type
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 41
   Rule
     Typename
-      whitespaces: 1: use
+      whitespaces: 1
+      use
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 42
   Rule
     Typename
-      whitespaces: 1: activation-status
+      whitespaces: 1
+      activation-status
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 43
   Rule
     Typename
-      whitespaces: 1: channel-type
+      whitespaces: 1
+      channel-type
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 44
   Rule
     Typename
-      whitespaces: 1: colloquial-version
+      whitespaces: 1
+      colloquial-version
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 45
   Rule
     Typename
-      whitespaces: 1: description
+      whitespaces: 1
+      description
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 46
   Rule
     Typename
-      whitespaces: 1: edition
+      whitespaces: 1
+      edition
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 47
   Rule
     Typename
-      whitespaces: 1: entitlement-data-required
+      whitespaces: 1
+      entitlement-data-required
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 48
   Rule
     Typename
-      whitespaces: 1: entitlement-key
+      whitespaces: 1
+      entitlement-key
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 49
   Rule
     Typename
-      whitespaces: 1: generator
+      whitespaces: 1
+      generator
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 50
   Rule
     Typename
-      whitespaces: 1: persistent-id
+      whitespaces: 1
+      persistent-id
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 51
   Rule
     Typename
-      whitespaces: 1: product
+      whitespaces: 1
+      product
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 52
   Rule
     Typename
-      whitespaces: 1: product-family
+      whitespaces: 1
+      product-family
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 53
   Rule
     Typename
-      whitespaces: 1: revision
+      whitespaces: 1
+      revision
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 54
   Rule
     Typename
-      whitespaces: 1: summary
+      whitespaces: 1
+      summary
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 55
   Rule
     Typename
-      whitespaces: 1: unspsc-code
+      whitespaces: 1
+      unspsc-code
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 56
   Rule
     Typename
-      whitespaces: 1: unspsc-version
+      whitespaces: 1
+      unspsc-version
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1838,35 +2264,40 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; "version-scheme" integer indexes
-      whitespaces: 1: multipartnumeric
+      whitespaces: 1
+      multipartnumeric
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 1
   Rule
     Typename
-      whitespaces: 1: multipartnumeric-suffix
+      whitespaces: 1
+      multipartnumeric-suffix
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 2
   Rule
     Typename
-      whitespaces: 1: alphanumeric
+      whitespaces: 1
+      alphanumeric
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 3
   Rule
     Typename
-      whitespaces: 1: decimal
+      whitespaces: 1
+      decimal
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 4
   Rule
     Typename
-      whitespaces: 1: semver
+      whitespaces: 1
+      semver
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1876,35 +2307,40 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; "role" integer indexes
-      whitespaces: 1: tag-creator
+      whitespaces: 1
+      tag-creator
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 1
   Rule
     Typename
-      whitespaces: 1: software-creator
+      whitespaces: 1
+      software-creator
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 2
   Rule
     Typename
-      whitespaces: 1: aggregator
+      whitespaces: 1
+      aggregator
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 3
   Rule
     Typename
-      whitespaces: 1: distributor
+      whitespaces: 1
+      distributor
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 4
   Rule
     Typename
-      whitespaces: 1: licensor
+      whitespaces: 1
+      licensor
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1914,21 +2350,24 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; ownership integer indexes
-      whitespaces: 1: shared
+      whitespaces: 1
+      shared
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 1
   Rule
     Typename
-      whitespaces: 1: private
+      whitespaces: 1
+      private
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 2
   Rule
     Typename
-      whitespaces: 1: abandon
+      whitespaces: 1
+      abandon
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -1938,70 +2377,80 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; "rel" integer indexes
-      whitespaces: 1: ancestor
+      whitespaces: 1
+      ancestor
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 1
   Rule
     Typename
-      whitespaces: 1: component
+      whitespaces: 1
+      component
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 2
   Rule
     Typename
-      whitespaces: 1: feature
+      whitespaces: 1
+      feature
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 3
   Rule
     Typename
-      whitespaces: 1: installationmedia
+      whitespaces: 1
+      installationmedia
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 4
   Rule
     Typename
-      whitespaces: 1: packageinstaller
+      whitespaces: 1
+      packageinstaller
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 5
   Rule
     Typename
-      whitespaces: 1: parent
+      whitespaces: 1
+      parent
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 6
   Rule
     Typename
-      whitespaces: 1: patches
+      whitespaces: 1
+      patches
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 7
   Rule
     Typename
-      whitespaces: 1: requires
+      whitespaces: 1
+      requires
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 8
   Rule
     Typename
-      whitespaces: 1: see-also
+      whitespaces: 1
+      see-also
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 9
   Rule
     Typename
-      whitespaces: 1: supersedes
+      whitespaces: 1
+      supersedes
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -2014,21 +2463,24 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; "use" integer indexes
-      whitespaces: 1: optional
+      whitespaces: 1
+      optional
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 1
   Rule
     Typename
-      whitespaces: 1: required
+      whitespaces: 1
+      required
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 2
   Rule
     Typename
-      whitespaces: 1: recommended
+      whitespaces: 1
+      recommended
     Token: ASSIGN (=)
       whitespaces: 1
     Type

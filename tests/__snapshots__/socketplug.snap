@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: PersonalData
+    Typename
+      PersonalData
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -18,35 +19,46 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                displayName
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 2: NameComponents
+                whitespaces: 2
+                NameComponents
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 2
             Memberkey
+              Typename
+                whitespaces: 1
+                age
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 2
             Type
               Typename
-                whitespaces: 1: $$personaldata-extensions
+                whitespaces: 1
+                $$personaldata-extensions
   Rule
     Typename
-      whitespaces: 2: NameComponents
+      whitespaces: 2
+      NameComponents
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -63,19 +75,27 @@ CDDLTree
                 Token: QUEST (?)
                   whitespaces: 1
               Memberkey
+                Typename
+                  whitespaces: 1
+                  firstName
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
             GroupEntry
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 1
               Memberkey
+                Typename
+                  whitespaces: 1
+                  familyName
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
   Rule
     Typename
       Token: COMMENT (COMMENT)
@@ -84,7 +104,8 @@ CDDLTree
       Token: COMMENT (COMMENT)
         whitespaces: 1
         literal: ; But then, we can add later:
-      whitespaces: 2: $$personaldata-extensions
+      whitespaces: 2
+      $$personaldata-extensions
     Token: GCHOICEALT (//=)
       whitespaces: 1
     GroupEntry
@@ -98,16 +119,21 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 1
+                  favorite-salsa
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
   Rule
     Typename
       Token: COMMENT (COMMENT)
         whitespaces: 2
         literal: ; and again, somewhere else:
-      whitespaces: 2: $$personaldata-extensions
+      whitespaces: 2
+      $$personaldata-extensions
     Token: GCHOICEALT (//=)
       whitespaces: 1
     GroupEntry
@@ -121,7 +147,11 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 1
+                  shoesize
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint

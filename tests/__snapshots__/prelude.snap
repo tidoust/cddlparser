@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: any
+    Typename
+      any
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -10,7 +11,8 @@ CDDLTree
         whitespaces: 1 (#)
   Rule
     Typename
-      whitespaces: 2: uint
+      whitespaces: 2
+      uint
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -20,7 +22,8 @@ CDDLTree
           literal: 0
   Rule
     Typename
-      whitespaces: 1: nint
+      whitespaces: 1
+      nint
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -30,19 +33,23 @@ CDDLTree
           literal: 1
   Rule
     Typename
-      whitespaces: 1: int
+      whitespaces: 1
+      int
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: uint
+          whitespaces: 1
+        uint
       Typename
-        whitespaces: 1: nint
+        whitespaces: 1
+        nint
   Rule
     Typename
-      whitespaces: 2: bstr
+      whitespaces: 2
+      bstr
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -52,15 +59,18 @@ CDDLTree
           literal: 2
   Rule
     Typename
-      whitespaces: 1: bytes
+      whitespaces: 1
+      bytes
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: bstr
+        whitespaces: 1
+        bstr
   Rule
     Typename
-      whitespaces: 1: tstr
+      whitespaces: 1
+      tstr
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -70,15 +80,18 @@ CDDLTree
           literal: 3
   Rule
     Typename
-      whitespaces: 1: text
+      whitespaces: 1
+      text
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: tstr
+        whitespaces: 1
+        tstr
   Rule
     Typename
-      whitespaces: 2: tdate
+      whitespaces: 2
+      tdate
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -89,10 +102,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: tstr
+          Typename
+            tstr
   Rule
     Typename
-      whitespaces: 1: time
+      whitespaces: 1
+      time
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -103,22 +118,27 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: number
+          Typename
+            number
   Rule
     Typename
-      whitespaces: 1: number
+      whitespaces: 1
+      number
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: int
+          whitespaces: 1
+        int
       Typename
-        whitespaces: 1: float
+        whitespaces: 1
+        float
   Rule
     Typename
-      whitespaces: 1: biguint
+      whitespaces: 1
+      biguint
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -129,10 +149,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: bstr
+          Typename
+            bstr
   Rule
     Typename
-      whitespaces: 1: bignint
+      whitespaces: 1
+      bignint
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -143,46 +165,57 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: bstr
+          Typename
+            bstr
   Rule
     Typename
-      whitespaces: 1: bigint
+      whitespaces: 1
+      bigint
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: biguint
+          whitespaces: 1
+        biguint
       Typename
-        whitespaces: 1: bignint
+        whitespaces: 1
+        bignint
   Rule
     Typename
-      whitespaces: 1: integer
+      whitespaces: 1
+      integer
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: int
+          whitespaces: 1
+        int
       Typename
-        whitespaces: 1: bigint
+        whitespaces: 1
+        bigint
   Rule
     Typename
-      whitespaces: 1: unsigned
+      whitespaces: 1
+      unsigned
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: uint
+          whitespaces: 1
+        uint
       Typename
-        whitespaces: 1: biguint
+        whitespaces: 1
+        biguint
   Rule
     Typename
-      whitespaces: 1: decfrac
+      whitespaces: 1
+      decfrac
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -200,19 +233,27 @@ CDDLTree
               GroupEntry
                 Token: COMMA (,)
                 Memberkey
+                  Typename
+                    e10
                   Token: COLON (:)
                 Type
                   Typename
-                    whitespaces: 1: int
+                    whitespaces: 1
+                    int
               GroupEntry
                 Memberkey
+                  Typename
+                    whitespaces: 1
+                    m
                   Token: COLON (:)
                 Type
                   Typename
-                    whitespaces: 1: integer
+                    whitespaces: 1
+                    integer
   Rule
     Typename
-      whitespaces: 1: bigfloat
+      whitespaces: 1
+      bigfloat
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -230,19 +271,27 @@ CDDLTree
               GroupEntry
                 Token: COMMA (,)
                 Memberkey
+                  Typename
+                    e2
                   Token: COLON (:)
                 Type
                   Typename
-                    whitespaces: 1: int
+                    whitespaces: 1
+                    int
               GroupEntry
                 Memberkey
+                  Typename
+                    whitespaces: 1
+                    m
                   Token: COLON (:)
                 Type
                   Typename
-                    whitespaces: 1: integer
+                    whitespaces: 1
+                    integer
   Rule
     Typename
-      whitespaces: 1: eb64url
+      whitespaces: 1
+      eb64url
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -253,10 +302,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: any
+          Typename
+            any
   Rule
     Typename
-      whitespaces: 1: eb64legacy
+      whitespaces: 1
+      eb64legacy
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -267,10 +318,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: any
+          Typename
+            any
   Rule
     Typename
-      whitespaces: 1: eb16
+      whitespaces: 1
+      eb16
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -281,10 +334,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: any
+          Typename
+            any
   Rule
     Typename
-      whitespaces: 1: encoded-cbor
+      whitespaces: 1
+      encoded-cbor
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -295,10 +350,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: bstr
+          Typename
+            bstr
   Rule
     Typename
-      whitespaces: 1: uri
+      whitespaces: 1
+      uri
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -309,10 +366,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: tstr
+          Typename
+            tstr
   Rule
     Typename
-      whitespaces: 1: b64url
+      whitespaces: 1
+      b64url
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -323,10 +382,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: tstr
+          Typename
+            tstr
   Rule
     Typename
-      whitespaces: 1: b64legacy
+      whitespaces: 1
+      b64legacy
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -337,10 +398,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: tstr
+          Typename
+            tstr
   Rule
     Typename
-      whitespaces: 1: regexp
+      whitespaces: 1
+      regexp
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -351,10 +414,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: tstr
+          Typename
+            tstr
   Rule
     Typename
-      whitespaces: 1: mime-message
+      whitespaces: 1
+      mime-message
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -365,10 +430,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: tstr
+          Typename
+            tstr
   Rule
     Typename
-      whitespaces: 1: cbor-any
+      whitespaces: 1
+      cbor-any
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -379,10 +446,12 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: any
+          Typename
+            any
   Rule
     Typename
-      whitespaces: 2: float16
+      whitespaces: 2
+      float16
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -392,7 +461,8 @@ CDDLTree
           literal: 7.25
   Rule
     Typename
-      whitespaces: 1: float32
+      whitespaces: 1
+      float32
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -402,7 +472,8 @@ CDDLTree
           literal: 7.26
   Rule
     Typename
-      whitespaces: 1: float64
+      whitespaces: 1
+      float64
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -412,43 +483,53 @@ CDDLTree
           literal: 7.27
   Rule
     Typename
-      whitespaces: 1: float16-32
+      whitespaces: 1
+      float16-32
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: float16
+          whitespaces: 1
+        float16
       Typename
-        whitespaces: 1: float32
+        whitespaces: 1
+        float32
   Rule
     Typename
-      whitespaces: 1: float32-64
+      whitespaces: 1
+      float32-64
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: float32
+          whitespaces: 1
+        float32
       Typename
-        whitespaces: 1: float64
+        whitespaces: 1
+        float64
   Rule
     Typename
-      whitespaces: 1: float
+      whitespaces: 1
+      float
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: float16-32
+          whitespaces: 1
+        float16-32
       Typename
-        whitespaces: 1: float64
+        whitespaces: 1
+        float64
   Rule
     Typename
-      whitespaces: 2: false
+      whitespaces: 2
+      false
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -458,7 +539,8 @@ CDDLTree
           literal: 7.20
   Rule
     Typename
-      whitespaces: 1: true
+      whitespaces: 1
+      true
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -468,19 +550,23 @@ CDDLTree
           literal: 7.21
   Rule
     Typename
-      whitespaces: 1: bool
+      whitespaces: 1
+      bool
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: false
+          whitespaces: 1
+        false
       Typename
-        whitespaces: 1: true
+        whitespaces: 1
+        true
   Rule
     Typename
-      whitespaces: 1: nil
+      whitespaces: 1
+      nil
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -490,15 +576,18 @@ CDDLTree
           literal: 7.22
   Rule
     Typename
-      whitespaces: 1: null
+      whitespaces: 1
+      null
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: nil
+        whitespaces: 1
+        nil
   Rule
     Typename
-      whitespaces: 1: undefined
+      whitespaces: 1
+      undefined
     Token: ASSIGN (=)
       whitespaces: 1
     Type

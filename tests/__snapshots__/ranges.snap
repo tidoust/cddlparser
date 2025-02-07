@@ -2,15 +2,18 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: device-address
+    Typename
+      device-address
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Typename
-        whitespaces: 1: byte
+        whitespaces: 1
+        byte
   Rule
     Typename
-      whitespaces: 1: max-byte
+      whitespaces: 1
+      max-byte
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -18,12 +21,15 @@ CDDLTree
       Typename
         whitespaces: 1
         Token: TCHOICE (/)
-          whitespaces: 1: float
+          whitespaces: 1
+        float
       Typename
-        whitespaces: 1: int
+        whitespaces: 1
+        int
   Rule
     Typename
-      whitespaces: 1: my_uri
+      whitespaces: 1
+      my_uri
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -36,68 +42,82 @@ CDDLTree
         Type
           Token: LPAREN (()
           Token: RPAREN ())
-          Typename: tstr
+          Typename
+            tstr
       Typename
-        whitespaces: 1: tstr
+        whitespaces: 1
+        tstr
   Rule
     Typename
-      whitespaces: 1: byte
+      whitespaces: 1
+      byte
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Range
         Value (number): 0
         Token: INCLRANGE (..)
-        Typename: max-byte
+        Typename
+          max-byte
   Rule
     Typename
-      whitespaces: 1: first-non-byte
+      whitespaces: 1
+      first-non-byte
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 256
   Rule
     Typename
-      whitespaces: 1: byte1
+      whitespaces: 1
+      byte1
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Range
         Value (number): 0
         Token: EXCLRANGE (...)
-        Typename: first-non-byte
+        Typename
+          first-non-byte
   Rule
     Typename
-      whitespaces: 1: min..max
+      whitespaces: 1
+      min..max
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Value (number): 0
   Rule
     Typename
-      whitespaces: 1: byte2
+      whitespaces: 1
+      byte2
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
       Type
         Typename
-          whitespaces: 1: min..max...first-non-byte
+          whitespaces: 1
+          min..max...first-non-byte
   Rule
     Typename
-      whitespaces: 1: byte3
+      whitespaces: 1
+      byte3
     Token: ASSIGN (=)
       whitespaces: 1
     Type
       Range
         Typename
-          whitespaces: 1: min..max
+          whitespaces: 1
+          min..max
         Token: EXCLRANGE (...)
           whitespaces: 1
         Typename
-          whitespaces: 1: first-non-byte
+          whitespaces: 1
+          first-non-byte
   Rule
     Typename
-      whitespaces: 1: js-int
+      whitespaces: 1
+      js-int
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -107,7 +127,8 @@ CDDLTree
         Value (number): 9007199254740991
   Rule
     Typename
-      whitespaces: 1: scale
+      whitespaces: 1
+      scale
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry

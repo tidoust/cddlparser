@@ -4,7 +4,8 @@ CDDLTree
     Token: COMMENT (COMMENT)
       literal: ;
   Rule
-    Typename: unlimited-people
+    Typename
+      unlimited-people
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -18,10 +19,12 @@ CDDLTree
               Token: ASTERISK (*)
             Type
               Typename
-                whitespaces: 1: person
+                whitespaces: 1
+                person
   Rule
     Typename
-      whitespaces: 1: at-least-one-person
+      whitespaces: 1
+      at-least-one-person
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -35,13 +38,15 @@ CDDLTree
               Token: PLUS (+)
             Type
               Typename
-                whitespaces: 1: person
+                whitespaces: 1
+                person
   Rule
     Typename
       Token: COMMENT (COMMENT)
         whitespaces: 4
         literal: ; some
-      whitespaces: 1: zero-or-one-person
+      whitespaces: 1
+      zero-or-one-person
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -55,13 +60,15 @@ CDDLTree
               Token: QUEST (?)
             Type
               Typename
-                whitespaces: 1: person
+                whitespaces: 1
+                person
   Rule
     Typename
       Token: COMMENT (COMMENT)
         whitespaces: 5
         literal: ; comment
-      whitespaces: 1: one-or-two-people
+      whitespaces: 1
+      one-or-two-people
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -79,10 +86,12 @@ CDDLTree
                 literal: 2
             Type
               Typename
-                whitespaces: 1: person
+                whitespaces: 1
+                person
   Rule
     Typename
-      whitespaces: 1: zero-or-two-people
+      whitespaces: 1
+      zero-or-two-people
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -98,10 +107,12 @@ CDDLTree
                 literal: 2
             Type
               Typename
-                whitespaces: 1: person
+                whitespaces: 1
+                person
   Rule
     Typename
-      whitespaces: 1: two-or-infinity-people
+      whitespaces: 1
+      two-or-infinity-people
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -117,10 +128,12 @@ CDDLTree
               Token: ASTERISK (*)
             Type
               Typename
-                whitespaces: 1: person
+                whitespaces: 1
+                person
   Rule
     Typename
-      whitespaces: 1: person
+      whitespaces: 1
+      person
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -134,20 +147,29 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  name
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  age
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
   Rule
     Typename
-      whitespaces: 2: ActionsPerformActionsParameters
+      whitespaces: 2
+      ActionsPerformActionsParameters
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -173,36 +195,51 @@ CDDLTree
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 5
+                        type
                       Token: COLON (:)
                     Type
                       Value (text): key
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 5
+                        id
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: text
+                        whitespaces: 1
+                        text
                   GroupEntry
                     Token: COMMA (,)
                     Memberkey
+                      Typename
+                        whitespaces: 5
+                        actions
                       Token: COLON (:)
                     Type
                       Typename
-                        whitespaces: 1: ActionItems
+                        whitespaces: 1
+                        ActionItems
                   GroupEntry
                     Occurrence
                       Token: ASTERISK (*)
                         whitespaces: 5
                     Memberkey
+                      Typename
+                        text
                       Token: ARROWMAP (=>)
                         whitespaces: 1
                     Type
                       Typename
-                        whitespaces: 1: any
+                        whitespaces: 1
+                        any
   Rule
     Typename
-      whitespaces: 2: script.MappingRemoteValue
+      whitespaces: 2
+      script.MappingRemoteValue
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -230,10 +267,13 @@ CDDLTree
                             Type
                               Typename
                                 Token: TCHOICE (/)
-                                  whitespaces: 1: script.RemoteValue
+                                  whitespaces: 1
+                                script.RemoteValue
                               Typename
-                                whitespaces: 1: text
+                                whitespaces: 1
+                                text
                   GroupEntry
                     Type
                       Typename
-                        whitespaces: 1: script.RemoteValue
+                        whitespaces: 1
+                        script.RemoteValue

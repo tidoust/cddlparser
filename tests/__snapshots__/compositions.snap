@@ -1,7 +1,8 @@
 CDDLTree
   Token: EOF (EOF)
   Rule
-    Typename: person
+    Typename
+      person
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -18,17 +19,26 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 5: identity
+                whitespaces: 5
+                identity
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                Token: COMMENT (COMMENT)
+                  whitespaces: 25
+                  literal: ; an identity
+                whitespaces: 5
+                employer
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
   Rule
     Typename
-      whitespaces: 2: dog
+      whitespaces: 2
+      dog
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -45,17 +55,26 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 5: identity
+                whitespaces: 5
+                identity
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                Token: COMMENT (COMMENT)
+                  whitespaces: 25
+                  literal: ; an identity again
+                whitespaces: 5
+                leash-length
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: float
+                whitespaces: 1
+                float
   Rule
     Typename
-      whitespaces: 2: identity
+      whitespaces: 2
+      identity
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -72,20 +91,32 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  age
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: int
+                  whitespaces: 1
+                  int
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  Token: COMMENT (COMMENT)
+                    whitespaces: 25
+                    literal: ; an age
+                  whitespaces: 5
+                  name
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
   Rule
     Typename
-      whitespaces: 2: Geography
+      whitespaces: 2
+      Geography
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -101,22 +132,34 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                city
               Token: COLON (:)
                 whitespaces: 11
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                Token: COMMENT (COMMENT)
+                  whitespaces: 12
+                  literal: ; a city
+                whitespaces: 5
+                gpsCoordinates
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: GpsCoordinates
+                whitespaces: 1
+                GpsCoordinates
   Rule
     Typename
-      whitespaces: 2: GpsCoordinates
+      whitespaces: 2
+      GpsCoordinates
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -132,22 +175,34 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                longitude
               Token: COLON (:)
                 whitespaces: 6
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                Token: COMMENT (COMMENT)
+                  whitespaces: 12
+                  literal: ; degrees, scaled by 10^7
+                whitespaces: 5
+                latitude
               Token: COLON (:)
                 whitespaces: 7
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
   Rule
     Typename
-      whitespaces: 2: located-samples
+      whitespaces: 2
+      located-samples
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -163,14 +218,17 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Value (text): sample-point
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Value (text): samples
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
@@ -184,10 +242,12 @@ CDDLTree
                       Token: PLUS (+)
                     Type
                       Typename
-                        whitespaces: 1: float
+                        whitespaces: 1
+                        float
   Rule
     Typename
-      whitespaces: 2: extensible-map-example
+      whitespaces: 2
+      extensible-map-example
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -206,13 +266,15 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Value (text): optional-key
               Token: CARET (^)
                 whitespaces: 1
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -222,10 +284,12 @@ CDDLTree
                   whitespaces: 8
                   literal: ; some
             Memberkey
+              Value (text): optional-key2
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Token: COMMA (,)
             Occurrence
@@ -235,10 +299,14 @@ CDDLTree
                   whitespaces: 11
                   literal: ; really
             Memberkey
+              Typename
+                whitespaces: 1
+                optional-key3
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
@@ -247,14 +315,19 @@ CDDLTree
                   whitespaces: 13
                   literal: ; interesting
             Memberkey
+              Typename
+                whitespaces: 1
+                tstr
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: any
+                whitespaces: 1
+                any
   Rule
     Typename
-      whitespaces: 2: personWithoutComment
+      whitespaces: 2
+      personWithoutComment
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -268,17 +341,23 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 5: identity
+                whitespaces: 5
+                identity
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                employer
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
   Rule
     Typename
-      whitespaces: 2: dogWithoutComment
+      whitespaces: 2
+      dogWithoutComment
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -292,17 +371,23 @@ CDDLTree
             Token: COMMA (,)
             Type
               Typename
-                whitespaces: 5: identity
+                whitespaces: 5
+                identity
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                leash-length
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: float
+                whitespaces: 1
+                float
   Rule
     Typename
-      whitespaces: 2: identityWithoutComment
+      whitespaces: 2
+      identityWithoutComment
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -316,20 +401,29 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  age
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: int
+                  whitespaces: 1
+                  int
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  name
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
   Rule
     Typename
-      whitespaces: 2: GeographyWithoutComment
+      whitespaces: 2
+      GeographyWithoutComment
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -342,22 +436,31 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                city
               Token: COLON (:)
                 whitespaces: 11
             Type
               Typename
-                whitespaces: 1: tstr
+                whitespaces: 1
+                tstr
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                gpsCoordinates
               Token: COLON (:)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: GpsCoordinates
+                whitespaces: 1
+                GpsCoordinates
   Rule
     Typename
-      whitespaces: 2: GpsCoordinatesWithoutComment
+      whitespaces: 2
+      GpsCoordinatesWithoutComment
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -370,22 +473,31 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                longitude
               Token: COLON (:)
                 whitespaces: 6
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 5
+                latitude
               Token: COLON (:)
                 whitespaces: 7
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
   Rule
     Typename
-      whitespaces: 2: located-samples-without-comments
+      whitespaces: 2
+      located-samples-without-comments
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -398,14 +510,17 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Value (text): sample-point
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Value (text): samples
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
@@ -419,10 +534,12 @@ CDDLTree
                       Token: PLUS (+)
                     Type
                       Typename
-                        whitespaces: 1: float
+                        whitespaces: 1
+                        float
   Rule
     Typename
-      whitespaces: 2: extensible-map-example-without-comments
+      whitespaces: 2
+      extensible-map-example-without-comments
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -438,40 +555,52 @@ CDDLTree
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Value (text): optional-key
               Token: CARET (^)
                 whitespaces: 1
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Value (text): optional-key2
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Token: COMMA (,)
             Occurrence
               Token: QUEST (?)
                 whitespaces: 5
             Memberkey
+              Typename
+                whitespaces: 1
+                optional-key3
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: int
+                whitespaces: 1
+                int
           GroupEntry
             Occurrence
               Token: ASTERISK (*)
                 whitespaces: 5
             Memberkey
+              Typename
+                whitespaces: 1
+                tstr
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: any
+                whitespaces: 1
+                any

@@ -1,7 +1,8 @@
 CDDLTree
   Token: EOF (EOF)
   Rule
-    Typename: attire
+    Typename
+      attire
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -10,7 +11,8 @@ CDDLTree
       Value (text): Internet attire
   Rule
     Typename
-      whitespaces: 1: attireBlock
+      whitespaces: 1
+      attireBlock
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -28,7 +30,8 @@ CDDLTree
                 Value (text): Internet attire
   Rule
     Typename
-      whitespaces: 1: attireGroup
+      whitespaces: 1
+      attireGroup
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -44,15 +47,18 @@ CDDLTree
             GroupEntry
               Type
                 Typename
-                  whitespaces: 5: attire
+                  whitespaces: 5
+                  attire
           GroupChoice
             GroupEntry
               Type
                 Typename
-                  whitespaces: 5: attireBlock
+                  whitespaces: 5
+                  attireBlock
   Rule
     Typename
-      whitespaces: 1: protocol
+      whitespaces: 1
+      protocol
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -60,7 +66,8 @@ CDDLTree
       Value (number): 17
   Rule
     Typename
-      whitespaces: 2: address
+      whitespaces: 2
+      address
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -73,10 +80,12 @@ CDDLTree
           GroupEntry
             Type
               Typename
-                whitespaces: 1: delivery
+                whitespaces: 1
+                delivery
   Rule
     Typename
-      whitespaces: 2: delivery
+      whitespaces: 2
+      delivery
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -92,68 +101,92 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  street
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
             GroupEntry
               Token: COMMA (,)
               Occurrence
                 Token: QUEST (?)
                   whitespaces: 5
               Memberkey
+                Typename
+                  number
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
             GroupEntry
               Type
                 Typename
-                  whitespaces: 5: city
+                  whitespaces: 5
+                  city
           GroupChoice
             Token: GCHOICE (//)
               whitespaces: 1
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 1
+                  po-box
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
             GroupEntry
               Type
                 Typename
-                  whitespaces: 5: city
+                  whitespaces: 5
+                  city
           GroupChoice
             Token: GCHOICE (//)
               whitespaces: 1
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  foo
                 Token: COLON (:)
               Type
                 Typename
                   whitespaces: 1
                   Token: TCHOICE (/)
-                    whitespaces: 1: tstr
+                    whitespaces: 1
+                  tstr
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
           GroupChoice
             Token: GCHOICE (//)
               whitespaces: 1
             GroupEntry
               Type
                 Typename
-                  whitespaces: 1: foobar
+                  whitespaces: 1
+                  foobar
           GroupChoice
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  per-pickup
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: true
+                  whitespaces: 1
+                  true
   Rule
     Typename
-      whitespaces: 2: city
+      whitespaces: 2
+      city
     Token: ASSIGN (=)
       whitespaces: 1
     GroupEntry
@@ -167,26 +200,36 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  name
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 5
+                  zip-code
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: uint
+                  whitespaces: 1
+                  uint
   Rule
     Typename
-      whitespaces: 2: attire
+      whitespaces: 2
+      attire
     Token: TCHOICEALT (/=)
       whitespaces: 1
     Type
       Value (text): swimwear
   Rule
     Typename
-      whitespaces: 2: delivery
+      whitespaces: 2
+      delivery
     Token: GCHOICEALT (//=)
       whitespaces: 1
     GroupEntry
@@ -200,20 +243,32 @@ CDDLTree
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 5
+                  lat
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: float
+                  whitespaces: 1
+                  float
             GroupEntry
               Token: COMMA (,)
               Memberkey
+                Typename
+                  whitespaces: 1
+                  long
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: float
+                  whitespaces: 1
+                  float
             GroupEntry
               Memberkey
+                Typename
+                  whitespaces: 1
+                  drone-type
                 Token: COLON (:)
               Type
                 Typename
-                  whitespaces: 1: tstr
+                  whitespaces: 1
+                  tstr

@@ -2,7 +2,8 @@ CDDLTree
   Token: EOF (EOF)
     whitespaces: 1
   Rule
-    Typename: reputation-object
+    Typename
+      reputation-object
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -15,12 +16,19 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 1
+                application
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 1
+                reputons
               Token: COLON (:)
             Type
               Array
@@ -35,10 +43,12 @@ CDDLTree
                         whitespaces: 1
                     Type
                       Typename
-                        whitespaces: 1: reputon
+                        whitespaces: 1
+                        reputon
   Rule
     Typename
-      whitespaces: 2: reputon
+      whitespaces: 2
+      reputon
     Token: ASSIGN (=)
       whitespaces: 1
     Type
@@ -51,70 +61,110 @@ CDDLTree
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                rater
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                assertion
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                rated
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: text
+                whitespaces: 1
+                text
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                rating
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: float16
+                whitespaces: 1
+                float16
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                confidence
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: float16
+                whitespaces: 1
+                float16
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                normal-rating
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: float16
+                whitespaces: 1
+                float16
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                sample-size
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                generated
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Token: COMMA (,)
             Memberkey
+              Typename
+                whitespaces: 2
+                expires
               Token: COLON (:)
             Type
               Typename
-                whitespaces: 1: uint
+                whitespaces: 1
+                uint
           GroupEntry
             Memberkey
+              Typename
+                whitespaces: 2
+                text
               Token: ARROWMAP (=>)
                 whitespaces: 1
             Type
               Typename
-                whitespaces: 1: any
+                whitespaces: 1
+                any
