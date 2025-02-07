@@ -145,9 +145,15 @@ class WrappedNode(CDDLNode):
     closeToken: Token | None = None
 
     def serialize(self, marker: Marker | None = None) -> str:
-        output: str = self._serializeToken(self.openToken, marker)
+        output = ""
+        if marker is not None:
+            markup = marker.markupFor(self)
+            output += markup[0] if markup[0] is not None else ""
+        output += self._serializeToken(self.openToken, marker)
         output += self._serialize(marker)
         output += self._serializeToken(self.closeToken, marker)
+        if marker is not None:
+            output += markup[1] if markup[1] is not None else ""
         return output
 
     def _serialize(self, marker: Marker | None = None) -> str:
