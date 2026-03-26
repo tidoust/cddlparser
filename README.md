@@ -84,6 +84,21 @@ This should produce:
 }</div>
 ```
 
+The AST may be serialized as JSON provided you use the `ASTEncoder` class:
+
+```python
+import json
+from cddlparser import parse, ASTEncoder
+ast = parse('''
+  person = {
+      identity,                         ; an identity
+      employer: tstr,                   ; some employer
+  }''')
+
+print('Serialization of the AST as JSON')
+print(json.dumps(ast, indent=2, cls=ASTEncoder))
+```
+
 ## How to run tests
 
 You may run tests from a local copy of the code:

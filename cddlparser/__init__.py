@@ -1,5 +1,6 @@
 from .parser import Parser
 from .ast import Marker
+from .astencoder import ASTEncoder
 from .errors import ParserError
 from .tokens import Token, Tokens
 from . import ast
