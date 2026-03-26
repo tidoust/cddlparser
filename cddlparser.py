@@ -4,6 +4,7 @@ from cddlparser.parser import Parser
 from cddlparser.ast import CDDLTree
 from cddlparser.astencoder import ASTEncoder
 
+
 def parse(string) -> CDDLTree:
     parser = Parser(string)
     return parser.parse()
