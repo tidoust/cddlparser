@@ -2,7 +2,7 @@ from enum import Enum
 from dataclasses import dataclass, field
 
 
-class Tokens(Enum):
+class Tokens(str, Enum):
     ILLEGAL = "ILLEGAL"
     EOF = "EOF"
     NL = "\n"

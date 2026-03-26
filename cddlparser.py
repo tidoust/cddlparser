@@ -1,6 +1,8 @@
+import json
 import sys
 from cddlparser.parser import Parser
 from cddlparser.ast import CDDLTree
+from cddlparser.astencoder import ASTEncoder
 
 
 def parse(string) -> CDDLTree:
@@ -20,6 +22,10 @@ if __name__ == "__main__":
             print("Abstract syntax tree (AST)")
             print("--------------------")
             print(ast)
+
+            print()
+            print("JSON serialization")
+            print(json.dumps(ast, indent=2, cls=ASTEncoder))
 
             print()
             print("AST re-serialization")
