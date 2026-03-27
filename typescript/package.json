@@ -1,0 +1,42 @@
+{
+  "name": "cddlparser",
+  "description": "A CDDL parser in JavaScript",
+  "version": "0.6.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tidoust/cddlparser.git",
+    "directory": "typescript"
+  },
+  "type": "module",
+  "main": "./dist/cddlparser.js",
+  "types": "./dist/cddlparser.d.ts",
+  "exports": {
+    ".": "./dist/cddlparser.js",
+    "./ast.js": "./dist/ast.js"
+  },
+  "files": [
+    "./dist/ast.d.ts",
+    "./dist/ast.js",
+    "./dist/cddlparser.d.ts",
+    "./dist/cddlparser.js",
+    "./dist/errors.d.ts",
+    "./dist/errors.js",
+    "./dist/lexer.d.ts",
+    "./dist/lexer.js",
+    "./dist/parser.d.ts",
+    "./dist/parser.js",
+    "./dist/tokens.d.ts",
+    "./dist/tokens.js",
+    "./dist/utils.d.ts",
+    "./dist/utils.js"
+  ],
+  "scripts": {
+    "prepare": "tsc && cp ../LICENSE ./LICENSE",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  }
+}
