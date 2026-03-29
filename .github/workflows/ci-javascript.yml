@@ -8,6 +8,10 @@ on:
       - '!typescript/MANIFEST.in'
       - '!typescript/README.md'
   pull_request:
+    paths:
+      - 'typescript/**'
+      - '!typescript/LICENSE'
+      - '!typescript/README.md'
   workflow_dispatch: {}
 
 jobs:

@@ -8,6 +8,11 @@ on:
       - '!python/MANIFEST.in'
       - '!python/README.md'
   pull_request:
+    paths:
+      - 'python/**'
+      - '!python/LICENSE'
+      - '!python/MANIFEST.in'
+      - '!python/README.md'
   workflow_dispatch: {}
 
 jobs:
