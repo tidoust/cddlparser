@@ -6,7 +6,9 @@ import re
 sys.path.append("..")
 from cddlparser.parser import Parser
 
-basepath = os.path.dirname(os.path.realpath(__file__))
+basepath = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "..", "..", "tests"
+)
 
 
 class TestParser(unittest.TestCase):
