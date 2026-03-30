@@ -1,0 +1,31 @@
+name: CI for Javascript code
+
+on:
+  push:
+    paths:
+      - 'typescript/**'
+      - '!typescript/LICENSE'
+      - '!typescript/MANIFEST.in'
+      - '!typescript/README.md'
+  pull_request:
+    paths:
+      - 'typescript/**'
+      - '!typescript/LICENSE'
+      - '!typescript/README.md'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24
+    - name: Install dependencies
+      run: npm ci
+      working-directory: typescript
+    - name: Run tests
+      run:  npm test
+      working-directory: typescript

@@ -1,39 +1,22 @@
-# CDDL parsers in Python and JavaScript
+# A CDDL parser in JavaScript
 
-This package contains two implementations of a **Concise data definition language (CDDL) ([RFC 8610](https://datatracker.ietf.org/doc/html/rfc8610)) parser**, one in Python and another one in JavaScript (source code written using TypeScript).
+This package contains a JavaScript implementation of a **Concise data definition language (CDDL) ([RFC 8610](https://datatracker.ietf.org/doc/html/rfc8610)) parser**.
 
 CDDL expresses Concise Binary Object Representation (CBOR) data structures ([RFC 7049](https://datatracker.ietf.org/doc/html/rfc7049)). Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON.
 
-The parsers are intended to be used in **spec authoring tools to add cross-referencing logic within CDDL blocks**. They produce an Abstract Syntax Tree (AST) that closely follows the [CDDL grammar](https://datatracker.ietf.org/doc/html/rfc8610#appendix-B). The AST preserves whitespaces and comments. This AST is great for validation and for producing *marked up serializations of CDDL notations*. It is likely less directly suitable for processing CDDL for other purpose, as it is overly verbose.
+The parser is intended to be used in **spec authoring tools to add cross-referencing logic within CDDL blocks**. It produces an Abstract Syntax Tree (AST) that closely follows the [CDDL grammar](https://datatracker.ietf.org/doc/html/rfc8610#appendix-B). The AST preserves whitespaces and comments. This AST is great for validation and for producing *marked up serializations of CDDL notations*. It is likely less directly suitable for processing CDDL for other purpose, as it is overly verbose.
 
-The parsers validate the CDDL syntax against the CDDL grammar and throw errors when the syntax is invalid. They also validate that there are no obvious type/group inconsistencies. Further validation logic is up to consumers (see also [Known validations](#known-validations)).
+The parser validates the CDDL syntax against the CDDL grammar and throws errors when the syntax is invalid. It also validates that there are no obvious type/group inconsistencies. Further validation logic is up to consumers (see also [Known validations](#known-validations)).
 
 ## Usage
 
-The parsers are available as a Pypi package for the Python version and as an npm package for the JavaScript version.
+The parser is available as an npm package. To install:
 
 ```bash
-pip install cddlparser
 npm install cddlparser
 ```
 
-You should then be able to write code such as, in Python:
-
-```python
-from cddlparser import parse
-ast = parse('''
-  person = {
-      identity,                         ; an identity
-      employer: tstr,                   ; some employer
-  }''')
-
-print('The Abstract syntax tree:')
-print(ast)
-
-print()
-print('Re-serialization:')
-print(ast.serialize())
-```
+You should then be able to write code such as:
 
 ```js
 import { parse } from 'cddlparser';
@@ -52,27 +35,6 @@ console.log(ast.serialize());
 ```
 
 To create markup during serialization, you need to pass an object that subclasses the `Marker` class (see inline notes for a bit of documentation).
-
-```python
-from cddlparser import parse
-from cddlparser.ast import CDDLNode, Marker, Markup, Rule
-
-class StrongNameMarker(Marker):
-    def serializeName(self, name: str, node: CDDLNode) -> str:
-        return '<b>' + name + '</b>'
-
-    def markupFor(self, node: CDDLNode) -> Markup:
-        if isinstance(node, Rule):
-            return ('<div class="rule">', '</div>')
-        return super().markupFor(node)
-
-ast = parse('''person = {
-  identity,
-  employer: tstr,
-}''')
-
-print(ast.serialize(StrongNameMarker()))
-```
 
 ```js
 import { parse } from 'cddlparser';
@@ -99,7 +61,7 @@ const ast = parse(`person = {
 console.log(ast.serialize(new StrongNameMarker()));
 ```
 
-Both excerpts should produce:
+This should produce:
 
 ```html
 <div class="rule"><b>person</b> = {
@@ -108,23 +70,9 @@ Both excerpts should produce:
 }</div>
 ```
 
-The AST may also be directly serialized as JSON. In Python, you need to use the provided `ASTEncoder` class. No specific class needed in JavaScript:
-
-```python
-import json
-from cddlparser import parse, ASTEncoder
-ast = parse('''
-  person = {
-      identity,                         ; an identity
-      employer: tstr,                   ; some employer
-  }''')
-
-print('Serialization of the AST as JSON')
-print(json.dumps(ast, indent=2, cls=ASTEncoder))
-```
+The AST may also be directly serialized as JSON, e.g.:
 
 ```js
-import { parse } from 'cddlparser';
 const ast = parse(`person = {
  identity,
  employer: tstr,
@@ -135,7 +83,46 @@ console.log(JSON.stringify(ast, null, 2));
 
 ## Development notes
 
-Both implementations are aligned, evolve jointly, and share tests. See individual README files for specific instructions for each version.
+The source code of the JavaScript version of the CDDL parser is maintained in a GitHub repository that also contains a version written in Python. Both implementations are aligned, evolve jointly, and share tests. Check [`tidoust/cddlparser`](https://github.com/tidoust/cddlparser) for details.
+
+The source code of the JavaScript version is written using TypeScript. To compile the TypeScript code to JavaScript from a local clone of the repository, install dependencies from the `typescript` folder and run `tsc`:
+
+```bash
+cd typescript
+npm ci
+tsc
+```
+
+This should produce JavaScript code in a `dist` folder (under the `typescript` folder).
+
+**Note:** You'll need to install [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-tooling-in-5-minutes.html) first if not already done!
+
+
+### Command-line interface
+
+Code features a small CLI that takes the path to a CDDL file as parameter:
+
+```bash
+node dist/cddlparser.js ../tests/__fixtures__/example.cddl
+```
+
+This should print a serialization of the [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) produced by the parser, followed by a serialization of the AST as JSON, followed by re-serialization of the AST as CDDL, which should match the original file.
+
+### How to run tests
+
+You may run tests from a local copy of the code:
+
+```bash
+npm test
+```
+
+Parser tests compare the AST produced by the parser with a serialized snapshot of the expected AST. If you make changes to the parser and need to refresh a snapshot, delete the corresponding `tests/__snapshots__/[test].snap` file and run tests again.
+
+Parser tests also compare the result of serializing the AST with the initial input.
+
+The test files are a combination of the test files used in the other CDDL parser projects mentioned:
+- [Test files from cddl-rs](https://github.com/anweiss/cddl/tree/main/tests/fixtures/cddl).
+- [Test files from cddl](https://github.com/christian-bromann/cddl/tree/main/tests/__fixtures__), with a couple of fixes.
 
 ## Known limitations
 
